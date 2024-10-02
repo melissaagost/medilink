@@ -66,6 +66,7 @@
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.8.0.1\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.IO.Pipelines, Version=5.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IO.Pipelines.5.0.2\lib\net461\System.IO.Pipelines.dll</HintPath>
     </Reference>
@@ -120,6 +121,36 @@
     <Compile Include="Views\autenticacion\Menu.Designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\citas\AdminCitasMedico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\citas\AdminCitasMedico.Designer.cs">
+      <DependentUpon>AdminCitasMedico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\citas\AdministrarCitas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\citas\AdministrarCitas.Designer.cs">
+      <DependentUpon>AdministrarCitas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\citas\NuevaCita.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\citas\NuevaCita.Designer.cs">
+      <DependentUpon>NuevaCita.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\citas\NuevoPaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\citas\NuevoPaciente.Designer.cs">
+      <DependentUpon>NuevoPaciente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\usuario\AdminGestor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\usuario\AdminGestor.Designer.cs">
+      <DependentUpon>AdminGestor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\usuario\AdminUsuarios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +162,12 @@
     </Compile>
     <Compile Include="Views\usuario\Backup.Designer.cs">
       <DependentUpon>Backup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\usuario\EditarPerfil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\usuario\EditarPerfil.Designer.cs">
+      <DependentUpon>EditarPerfil.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\usuario\NuevoUsuario.cs">
       <SubType>Form</SubType>
@@ -156,11 +193,29 @@
     <EmbeddedResource Include="Views\autenticacion\Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\citas\AdminCitasMedico.resx">
+      <DependentUpon>AdminCitasMedico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\citas\AdministrarCitas.resx">
+      <DependentUpon>AdministrarCitas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\citas\NuevaCita.resx">
+      <DependentUpon>NuevaCita.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\citas\NuevoPaciente.resx">
+      <DependentUpon>NuevoPaciente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\usuario\AdminGestor.resx">
+      <DependentUpon>AdminGestor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\usuario\AdminUsuarios.resx">
       <DependentUpon>AdminUsuarios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\usuario\Backup.resx">
       <DependentUpon>Backup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\usuario\EditarPerfil.resx">
+      <DependentUpon>EditarPerfil.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\usuario\NuevoUsuario.resx">
       <DependentUpon>NuevoUsuario.cs</DependentUpon>
@@ -184,7 +239,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\" />
-    <Folder Include="Views\citas\" />
     <Folder Include="Views\reportes\" />
   </ItemGroup>
   <ItemGroup>

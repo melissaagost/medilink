@@ -39,9 +39,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.label7 = new System.Windows.Forms.Label();
             this.buttonBackup = new System.Windows.Forms.Button();
+            this.folderBrowserDialogBackup = new System.Windows.Forms.FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -150,10 +150,6 @@
             this.label6.TabIndex = 9;
             this.label6.Text = "Ruta a guardar";
             // 
-            // saveFileDialog1
-            // 
-            this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -219,8 +215,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button buttonBackup;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogBackup;
     }
 }

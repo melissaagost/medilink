@@ -57,9 +57,9 @@
             this.LabelNombre.Font = new System.Drawing.Font("Georgia", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelNombre.Location = new System.Drawing.Point(285, 53);
             this.LabelNombre.Name = "LabelNombre";
-            this.LabelNombre.Size = new System.Drawing.Size(90, 23);
+            this.LabelNombre.Size = new System.Drawing.Size(192, 23);
             this.LabelNombre.TabIndex = 1;
-            this.LabelNombre.Text = "Nombre";
+            this.LabelNombre.Text = "Nombre y apellido";
             // 
             // LabelDireccion
             // 

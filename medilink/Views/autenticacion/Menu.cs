@@ -34,6 +34,7 @@ namespace medilink.Views.autenticacion
             this.BReportesGestor = new System.Windows.Forms.Button();
             this.Bcerrar = new System.Windows.Forms.Button();
             this.BPerfil = new System.Windows.Forms.Button();
+            this.panelVistas = new System.Windows.Forms.Panel();
             this.panelMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,7 +56,7 @@ namespace medilink.Views.autenticacion
             this.panelMenu.Controls.Add(this.BNuevoUsuario);
             this.panelMenu.Location = new System.Drawing.Point(0, 0);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(235, 722);
+            this.panelMenu.Size = new System.Drawing.Size(241, 722);
             this.panelMenu.TabIndex = 0;
             // 
             // BNuevoUsuario
@@ -256,11 +257,19 @@ namespace medilink.Views.autenticacion
             this.BPerfil.TabIndex = 12;
             this.BPerfil.UseVisualStyleBackColor = false;
             // 
+            // panelVistas
+            // 
+            this.panelVistas.Location = new System.Drawing.Point(239, 0);
+            this.panelVistas.Name = "panelVistas";
+            this.panelVistas.Size = new System.Drawing.Size(946, 722);
+            this.panelVistas.TabIndex = 1;
+            // 
             // Menu
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(166)))), ((int)(((byte)(124)))));
             this.ClientSize = new System.Drawing.Size(1184, 721);
             this.ControlBox = false;
+            this.Controls.Add(this.panelVistas);
             this.Controls.Add(this.panelMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Menu";

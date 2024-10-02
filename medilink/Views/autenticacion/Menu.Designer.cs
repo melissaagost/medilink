@@ -34,5 +34,6 @@
         private System.Windows.Forms.Button BReportesGestor;
         private System.Windows.Forms.Button Bcerrar;
         private System.Windows.Forms.Button BPerfil;
+        private System.Windows.Forms.Panel panelVistas;
     }
 }

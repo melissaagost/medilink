@@ -114,11 +114,23 @@
     <Compile Include="Views\assets\RoundedPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Views\autenticacion\FormularioInicioSesion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\autenticacion\FormularioInicioSesion.Designer.cs">
+      <DependentUpon>FormularioInicioSesion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\autenticacion\Menu.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\autenticacion\Menu.Designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\autenticacion\PaginaInicio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\autenticacion\PaginaInicio.Designer.cs">
+      <DependentUpon>PaginaInicio.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\usuario\AdminUsuarios.cs">
       <SubType>Form</SubType>
@@ -155,6 +167,9 @@
     </Compile>
     <EmbeddedResource Include="Views\autenticacion\Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\autenticacion\PaginaInicio.resx">
+      <DependentUpon>PaginaInicio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\usuario\AdminUsuarios.resx">
       <DependentUpon>AdminUsuarios.cs</DependentUpon>
@@ -194,7 +209,9 @@
     <Content Include="Views\assets\imagenes\editar-perfil.png" />
     <Content Include="Views\assets\imagenes\editar.png" />
     <Content Include="Views\assets\imagenes\fondobase.png" />
-    <Content Include="Views\assets\imagenes\formulario_inicio.png" />
+    <Content Include="Views\assets\imagenes\formulario_inicio.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\assets\imagenes\icono-add.png" />
     <Content Include="Views\assets\imagenes\icono-edit.png" />
     <Content Include="Views\assets\imagenes\icono_añadir.png" />
@@ -204,7 +221,9 @@
     <Content Include="Views\assets\imagenes\icono_reportes.png" />
     <Content Include="Views\assets\imagenes\icono_reportes2.png" />
     <Content Include="Views\assets\imagenes\icono_salir.png" />
-    <Content Include="Views\assets\imagenes\inicio.png" />
+    <Content Include="Views\assets\imagenes\inicio.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\assets\imagenes\lista.png" />
     <Content Include="Views\assets\imagenes\medic.png" />
     <Content Include="Views\assets\imagenes\nueva-cita.png" />

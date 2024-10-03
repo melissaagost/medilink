@@ -11,6 +11,7 @@ using medilink.Views.usuario;
 using medilink.Views.citas;
 //using medilink.Views.reportes;
 using medilink.Views.autenticacion;
+using medilink.Models;
 
 
 namespace medilink.Views.autenticacion
@@ -22,7 +23,7 @@ namespace medilink.Views.autenticacion
             InitializeComponent();
         }
 
-        private void InitializeComponent()
+        public void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.panelMenu = new System.Windows.Forms.Panel();
@@ -425,5 +426,51 @@ namespace medilink.Views.autenticacion
             nuevaVistaForm.Show();
         }
 
+        //FILTRAMOS BOTONES SEGUN ROL
+        internal void ConfigurarMenuPorPerfil(int id_perfil)
+        {
+            
+            BNuevoUsuario.Visible = false; //sistemas
+            BBackup.Visible = false;
+            BAdminUsuarios.Visible = false;
+            BAdminGestor.Visible = false; //gestor
+            BReportesGestor.Visible = false;
+            BAdminMedico.Visible = false;  //medico 
+            BReporteMedico.Visible = false;
+            BNuevaCita.Visible = false;  //recep
+            BNuevoPaciente.Visible = false;
+            BReportes.Visible = false;  
+            BAdminRecep.Visible = false;
+
+
+
+            switch (id_perfil)
+            {
+                case 1: 
+                    BNuevoUsuario.Visible = true; 
+                    BBackup.Visible = true;
+                    BAdminUsuarios.Visible = true;
+                    break;
+                case 2: 
+                    BAdminGestor.Visible = true; 
+                    BReportesGestor.Visible = true;
+                    break;
+                case 3: 
+                    BAdminMedico.Visible = true;
+                    BReporteMedico.Visible = true;
+                    break;
+                case 4: 
+                    BNuevaCita.Visible = true;
+                    BNuevoPaciente.Visible = true;
+                    BReportes.Visible = true;
+                    BAdminRecep.Visible = true;
+                    break;
+                default:
+                    MessageBox.Show("Perfil no reconocido");
+                    break;
+            }
+        }
+
+ 
     }
 }

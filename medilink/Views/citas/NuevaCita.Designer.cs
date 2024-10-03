@@ -166,7 +166,6 @@
             this.buttonAgendar.TabIndex = 26;
             this.buttonAgendar.Text = "Agendar";
             this.buttonAgendar.UseVisualStyleBackColor = false;
-            this.buttonAgendar.Click += new System.EventHandler(this.buttonAgendar_Click);
             // 
             // NuevaCita
             // 

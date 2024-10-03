@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace medilink.Models
 {
-    internal class PacienteM
+    public class PacienteM
     {
         public int id_paciente { get; set; }
         public int dni { get; set; }
         public string nombre { get; set; }
         public string apellido { get; set; }
+
+        public string status { get; set; }
         public DateTime fecha_nacimiento { get; set; }
         public string correo { get; set; }
         public string telefono { get; set; }

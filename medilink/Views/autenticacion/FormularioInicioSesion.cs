@@ -172,7 +172,7 @@ namespace medilink.Views.autenticacion
                 // Crear una nueva conexión a la base de datos
                 using (var conexionBD = new ConexionBD()) // Asegúrate de que `conexionBD` es una instancia válida.
                 {
-                    using (MySqlConnection conexion = conexionBD.ObtenerConexion())
+                    using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
                     {
                         if (conexion.State == System.Data.ConnectionState.Open)
                         {

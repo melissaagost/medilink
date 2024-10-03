@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace medilink.Models
 {
-    internal class ProvinciaM
+    public class ProvinciaM
     {
         public int id_provincia { get; set; }
         public string nombre { get; set; }

@@ -19,6 +19,8 @@ namespace medilink.Views.autenticacion
 {
     public partial class FormularioInicioSesion : Form
     {
+
+        public static UsuarioM UsuarioActual { get; set; }
         private ConexionBD conexionBD;
         public FormularioInicioSesion()
         {
@@ -188,24 +190,35 @@ namespace medilink.Views.autenticacion
                                         // Crear una instancia del modelo UsuarioM con los datos de la BD
                                         UsuarioM usuarioEncontrado = new UsuarioM
                                         {
+                                            id_usuario = Convert.ToInt32(reader["id_usuario"]),
+                                            id_perfil = Convert.ToInt32(reader["id_perfil"]),
                                             usuario = reader["usuario"].ToString(),
                                             contraseña = reader["contraseña"].ToString(),
                                             // Otros campos que puedes necesitar
                                         };
 
-                                        // Validar la contraseña
+                                       
                                         if (usuarioEncontrado.contraseña == contraseña)
                                         {
-                                            // Usuario y contraseña correctos, redirigir al menú
+                                            // Almacenar el usuario logueado en la clase Sesion y redirigir al menu correspondiente
+                                            FormularioInicioSesion.UsuarioActual = usuarioEncontrado;
+                                            int perfilUsuario = UsuarioActual.id_perfil; // Almacena el perfil del usuario
+
+
                                             MessageBox.Show("Inicio de sesión exitoso.");
-                                            // Crear una nueva instancia del formulario Menu
+
+                                            
                                             Menu menuForm = new Menu();
+
+                                            // Llamar al método para configurar el menú según el perfil
+                                            menuForm.ConfigurarMenuPorPerfil(UsuarioActual.id_perfil);
 
                                             // Mostrar el formulario Menu
                                             menuForm.Show();
 
                                             // Cerrar el formulario actual (FormularioInicioSesion)
                                             this.Close();
+
                                         }
                                         else
                                         {

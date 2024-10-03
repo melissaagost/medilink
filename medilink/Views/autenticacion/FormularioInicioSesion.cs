@@ -10,16 +10,22 @@ using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.IO; // Necesario para Path.Combine
 using medilink.Views.assets;
+using medilink.BD;
+using MySql.Data.MySqlClient;
+using medilink.Models;
 
 
 namespace medilink.Views.autenticacion
 {
     public partial class FormularioInicioSesion : Form
     {
+        private ConexionBD conexionBD;
         public FormularioInicioSesion()
         {
             InitializeComponent();
             InitializeCustomComponents(); // Inicializa los componentes personalizados
+            conexionBD = new ConexionBD();
+
         }
 
         private void InitializeCustomComponents()
@@ -43,24 +49,24 @@ namespace medilink.Views.autenticacion
             RoundedPanel container = new RoundedPanel
             {
                 BackColor = System.Drawing.Color.FromArgb(255, 253, 240),
-                Width = 320,
+                Width = 330,
                 Height = 338,
                 Location = new System.Drawing.Point((this.ClientSize.Width - 320) / 2, (this.ClientSize.Height - 338) / 2),
-                Padding = new Padding(2)
+                Padding = new Padding(7)
             };
 
             this.Controls.Add(container);
 
-            // Crear el FlowLayoutPanel
+            // Crear el FlowLayoutPanel y centrar su contenido
             FlowLayoutPanel flowLayoutPanel = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
                 AutoSize = true,
                 FlowDirection = FlowDirection.TopDown,
                 WrapContents = false,
-                Padding = new Padding(0),
-                Margin = new Padding(0)
-
+                Padding = new Padding(5),
+                Margin = new Padding(5),
+                Anchor = AnchorStyles.None // Esto centrará el contenido dentro del contenedor
             };
 
             // Título
@@ -70,22 +76,22 @@ namespace medilink.Views.autenticacion
                 Font = new System.Drawing.Font("Georgia", 25, System.Drawing.FontStyle.Bold),
                 ForeColor = System.Drawing.Color.FromArgb(64, 112, 83),
                 AutoSize = true,
-                TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+                TextAlign = System.Drawing.ContentAlignment.MiddleCenter,
+                Anchor = AnchorStyles.None,
+                Margin = new Padding(0, 0, 0, 20)
             };
-            titleLabel.Dock = DockStyle.Top;
-            titleLabel.Margin = new Padding(0, 0, 0, 20);
             flowLayoutPanel.Controls.Add(titleLabel);
 
 
             // TextBox para el Usuario
-            Label userLabel = new Label { Text = "Usuario", ForeColor = System.Drawing.Color.Gray };
-            TextBox usernameTextBox = new TextBox { Width = 250, Margin = new Padding(0, 0, 0, 15) };
+            Label userLabel = new Label { Text = "Usuario", ForeColor = System.Drawing.Color.Gray, Anchor = AnchorStyles.None };
+            TextBox usernameTextBox = new TextBox { Width = 250, Margin = new Padding(0, 0, 0, 15), Anchor = AnchorStyles.None };
             flowLayoutPanel.Controls.Add(userLabel);
             flowLayoutPanel.Controls.Add(usernameTextBox);
 
             // TextBox para la Contraseña
-            Label passwordLabel = new Label { Text = "Contraseña", ForeColor = System.Drawing.Color.Gray };
-            TextBox passwordTextBox = new TextBox { Width = 250, Margin = new Padding(0, 0, 0, 15), UseSystemPasswordChar = true };
+            Label passwordLabel = new Label { Text = "Contraseña", ForeColor = System.Drawing.Color.Gray , Anchor = AnchorStyles.None };
+            TextBox passwordTextBox = new TextBox { Width = 250, Margin = new Padding(0, 0, 0, 15), UseSystemPasswordChar = true , Anchor = AnchorStyles.None };
             flowLayoutPanel.Controls.Add(passwordLabel);
             flowLayoutPanel.Controls.Add(passwordTextBox);
 
@@ -98,7 +104,9 @@ namespace medilink.Views.autenticacion
                 BackColor = System.Drawing.Color.FromArgb(64, 112, 83),
                 ForeColor = System.Drawing.Color.White,
                 Font = new System.Drawing.Font("Verdana", 12, System.Drawing.FontStyle.Bold),
-                Margin = new Padding(0, 10, 0, 5)
+                Margin = new Padding(0, 10, 0, 5),
+                Anchor = AnchorStyles.None
+
             };
             loginButton.Click += (sender, e) => Ingresar(usernameTextBox.Text, passwordTextBox.Text);
             flowLayoutPanel.Controls.Add(loginButton);
@@ -113,7 +121,8 @@ namespace medilink.Views.autenticacion
                 BackColor = System.Drawing.Color.FromArgb(64, 112, 83),
                 ForeColor = System.Drawing.Color.White,
                 Font = new System.Drawing.Font("Verdana", 12, System.Drawing.FontStyle.Bold),
-                Margin = new Padding(0, 10, 0, 0)
+                Margin = new Padding(0, 10, 0, 0),
+                Anchor = AnchorStyles.None
             };
             // Aquí puedes agregar un evento para manejar la recuperación de contraseña
             flowLayoutPanel.Controls.Add(forgotPasswordButton);
@@ -146,11 +155,85 @@ namespace medilink.Views.autenticacion
             closeButton.Click += (sender, e) => this.Close();
             this.Controls.Add(closeButton);
         }
-
-        private void Ingresar(string username, string password)
+        private void Ingresar(string usuario, string contraseña)
         {
-            // Aquí puedes manejar la lógica de inicio de sesión
-            MessageBox.Show($"Iniciando sesión con usuario: {username}");
+            // Validar que no haya espacios en blanco ni campos vacíos
+            if (string.IsNullOrWhiteSpace(usuario) || string.IsNullOrWhiteSpace(contraseña))
+            {
+                MessageBox.Show("Los campos de usuario y contraseña no pueden estar vacíos ni contener espacios.");
+                return;
+            }
+
+            // Conectar a la base de datos y verificar el usuario
+            try
+            {
+                // Crear una nueva conexión a la base de datos
+                using (var conexionBD = new ConexionBD()) // Asegúrate de que `conexionBD` es una instancia válida.
+                {
+                    using (MySqlConnection conexion = conexionBD.ObtenerConexion())
+                    {
+                        if (conexion.State == System.Data.ConnectionState.Open)
+                        {
+                            string query = "SELECT * FROM usuario WHERE usuario = @usuario LIMIT 1";
+                            using (MySqlCommand comando = new MySqlCommand(query, conexion))
+                            {
+                                comando.Parameters.AddWithValue("@usuario", usuario);
+
+                                using (MySqlDataReader reader = comando.ExecuteReader())
+                                {
+                                    if (reader.HasRows)
+                                    {
+                                        reader.Read();
+
+                                        // Crear una instancia del modelo UsuarioM con los datos de la BD
+                                        UsuarioM usuarioEncontrado = new UsuarioM
+                                        {
+                                            usuario = reader["usuario"].ToString(),
+                                            contraseña = reader["contraseña"].ToString(),
+                                            // Otros campos que puedes necesitar
+                                        };
+
+                                        // Validar la contraseña
+                                        if (usuarioEncontrado.contraseña == contraseña)
+                                        {
+                                            // Usuario y contraseña correctos, redirigir al menú
+                                            MessageBox.Show("Inicio de sesión exitoso.");
+                                            // Crear una nueva instancia del formulario Menu
+                                            Menu menuForm = new Menu();
+
+                                            // Mostrar el formulario Menu
+                                            menuForm.Show();
+
+                                            // Cerrar el formulario actual (FormularioInicioSesion)
+                                            this.Close();
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Contraseña incorrecta.");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Usuario incorrecto.");
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error: No se pudo establecer conexión con la base de datos.");
+                        }
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error al intentar iniciar sesión: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Se produjo un error inesperado: " + ex.Message);
+            }
         }
     }
 }

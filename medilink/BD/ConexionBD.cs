@@ -8,14 +8,14 @@ using MySql.Data.MySqlClient;
 
 namespace medilink.BD
 {
-    internal class ConexionBD
+    internal class ConexionBD : IDisposable
     {
         private MySqlConnection conexion;
         private string cadenaConexion;
 
         public ConexionBD()
         {
-            cadenaConexion = "Server=localhost;Database=medilink;Uid=root;Pwd=";
+            cadenaConexion = "Server=localhost;Port=3307;Database=medilink;User=root;Password=;";
             conexion = new MySqlConnection(cadenaConexion);
         }
 
@@ -41,6 +41,16 @@ namespace medilink.BD
             if (conexion.State == System.Data.ConnectionState.Open)
             {
                 conexion.Close();
+            }
+        }
+        // Implementación del método Dispose
+        public void Dispose()
+        {
+            CerrarConexion(); // Cierra la conexión
+            if (conexion != null)
+            {
+                conexion.Dispose(); // Libera recursos de la conexión
+                conexion = null;
             }
         }
     }

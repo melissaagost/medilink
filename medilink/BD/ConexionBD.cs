@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
+
 namespace medilink.BD
 {
     internal class ConexionBD : IDisposable
     {
-        private MySqlConnection conexion;
-        private string cadenaConexion;
+        public static MySqlConnection conexion;
+        public static string cadenaConexion;
 
         public ConexionBD()
         {
@@ -19,7 +20,7 @@ namespace medilink.BD
             conexion = new MySqlConnection(cadenaConexion);
         }
 
-        public MySqlConnection ObtenerConexion()
+        public static MySqlConnection ObtenerConexion()
         {
             try
             {

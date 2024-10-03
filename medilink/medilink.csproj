@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BD\ConexionBD.cs" />
+    <Compile Include="BD\Crud.cs" />
     <Compile Include="Models\CitaM.cs" />
     <Compile Include="Models\CiudadM.cs" />
     <Compile Include="Models\EspecialidadM.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Models\UsuarioM.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CrudVM.cs" />
     <Compile Include="Views\assets\RoundedPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -253,7 +255,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewModels\" />
     <Folder Include="Views\reportes\" />
   </ItemGroup>
   <ItemGroup>

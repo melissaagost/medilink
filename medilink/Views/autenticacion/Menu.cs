@@ -74,6 +74,7 @@ namespace medilink.Views.autenticacion
             this.BPerfil.Size = new System.Drawing.Size(61, 56);
             this.BPerfil.TabIndex = 12;
             this.BPerfil.UseVisualStyleBackColor = false;
+            this.BPerfil.Click += new System.EventHandler(this.BPerfil_Click);
             // 
             // Bcerrar
             // 
@@ -85,6 +86,7 @@ namespace medilink.Views.autenticacion
             this.Bcerrar.Size = new System.Drawing.Size(61, 56);
             this.Bcerrar.TabIndex = 11;
             this.Bcerrar.UseVisualStyleBackColor = false;
+            this.Bcerrar.Click += new System.EventHandler(this.Bcerrar_Click);
             // 
             // BReportesGestor
             // 
@@ -101,6 +103,7 @@ namespace medilink.Views.autenticacion
             this.BReportesGestor.TabIndex = 10;
             this.BReportesGestor.Text = "          Reportes";
             this.BReportesGestor.UseVisualStyleBackColor = false;
+            this.BReportesGestor.Click += new System.EventHandler(this.BReportesGestor_Click);
             // 
             // BAdminGestor
             // 
@@ -117,6 +120,7 @@ namespace medilink.Views.autenticacion
             this.BAdminGestor.TabIndex = 9;
             this.BAdminGestor.Text = "          Administrar";
             this.BAdminGestor.UseVisualStyleBackColor = false;
+            this.BAdminGestor.Click += new System.EventHandler(this.BAdminGestor_Click);
             // 
             // BReporteMedico
             // 
@@ -133,6 +137,7 @@ namespace medilink.Views.autenticacion
             this.BReporteMedico.TabIndex = 8;
             this.BReporteMedico.Text = "          Reportes";
             this.BReporteMedico.UseVisualStyleBackColor = false;
+            this.BReporteMedico.Click += new System.EventHandler(this.BReporteMedico_Click);
             // 
             // BAdminMedico
             // 
@@ -149,6 +154,7 @@ namespace medilink.Views.autenticacion
             this.BAdminMedico.TabIndex = 7;
             this.BAdminMedico.Text = "          Administrar";
             this.BAdminMedico.UseVisualStyleBackColor = false;
+            this.BAdminMedico.Click += new System.EventHandler(this.BAdminMedico_Click);
             // 
             // BAdminRecep
             // 
@@ -165,6 +171,7 @@ namespace medilink.Views.autenticacion
             this.BAdminRecep.TabIndex = 6;
             this.BAdminRecep.Text = "          Administrar";
             this.BAdminRecep.UseVisualStyleBackColor = false;
+            this.BAdminRecep.Click += new System.EventHandler(this.BAdminRecep_Click);
             // 
             // BReportes
             // 
@@ -181,6 +188,7 @@ namespace medilink.Views.autenticacion
             this.BReportes.TabIndex = 5;
             this.BReportes.Text = "          Reportes";
             this.BReportes.UseVisualStyleBackColor = false;
+            this.BReportes.Click += new System.EventHandler(this.BReportes_Click);
             // 
             // BNuevoPaciente
             // 
@@ -197,6 +205,7 @@ namespace medilink.Views.autenticacion
             this.BNuevoPaciente.TabIndex = 4;
             this.BNuevoPaciente.Text = "          Nuevo Paciente";
             this.BNuevoPaciente.UseVisualStyleBackColor = false;
+            this.BNuevoPaciente.Click += new System.EventHandler(this.BNuevoPaciente_Click);
             // 
             // BNuevaCita
             // 
@@ -213,6 +222,7 @@ namespace medilink.Views.autenticacion
             this.BNuevaCita.TabIndex = 3;
             this.BNuevaCita.Text = "          Nueva Cita";
             this.BNuevaCita.UseVisualStyleBackColor = false;
+            this.BNuevaCita.Click += new System.EventHandler(this.BNuevaCita_Click);
             // 
             // BBackup
             // 
@@ -229,6 +239,7 @@ namespace medilink.Views.autenticacion
             this.BBackup.TabIndex = 2;
             this.BBackup.Text = "        Backup";
             this.BBackup.UseVisualStyleBackColor = false;
+            this.BBackup.Click += new System.EventHandler(this.BBackup_Click);
             // 
             // BAdminUsuarios
             // 
@@ -245,6 +256,7 @@ namespace medilink.Views.autenticacion
             this.BAdminUsuarios.TabIndex = 1;
             this.BAdminUsuarios.Text = "          Administrar";
             this.BAdminUsuarios.UseVisualStyleBackColor = false;
+            this.BAdminUsuarios.Click += new System.EventHandler(this.BAdminUsuarios_Click);
             // 
             // BNuevoUsuario
             // 
@@ -284,7 +296,7 @@ namespace medilink.Views.autenticacion
 
         }
 
-        //vistas conectadas
+        //BOTONES SISTEMAS
         private void BNuevoUsuario_Click(object sender, EventArgs e)
         {
             panelVistas.Controls.Clear();
@@ -295,5 +307,123 @@ namespace medilink.Views.autenticacion
             panelVistas.Controls.Add(nuevaVistaForm);
             nuevaVistaForm.Show();
         }
+
+        private void BAdminUsuarios_Click(object sender, EventArgs e)
+        {
+            panelVistas.Controls.Clear();
+            Form nuevaVistaForm = new AdminUsuarios();
+            nuevaVistaForm.TopLevel = false; 
+            nuevaVistaForm.FormBorderStyle = FormBorderStyle.None;
+            nuevaVistaForm.Dock = DockStyle.Fill; 
+            panelVistas.Controls.Add(nuevaVistaForm);
+            nuevaVistaForm.Show();
+        }
+
+        private void BBackup_Click(object sender, EventArgs e)
+        {
+            panelVistas.Controls.Clear();
+            Form nuevaVistaForm = new Backup();
+            nuevaVistaForm.TopLevel = false; 
+            nuevaVistaForm.FormBorderStyle = FormBorderStyle.None;
+            nuevaVistaForm.Dock = DockStyle.Fill; 
+            panelVistas.Controls.Add(nuevaVistaForm);
+            nuevaVistaForm.Show();
+        }
+
+        //BOTONES RECEPCIONISTA
+        private void BNuevaCita_Click(object sender, EventArgs e)
+        {
+            panelVistas.Controls.Clear();
+            Form nuevaVistaForm = new NuevaCita();
+            nuevaVistaForm.TopLevel = false; 
+            nuevaVistaForm.FormBorderStyle = FormBorderStyle.None; 
+            nuevaVistaForm.Dock = DockStyle.Fill; 
+            panelVistas.Controls.Add(nuevaVistaForm);
+            nuevaVistaForm.Show();
+        }
+
+        private void BNuevoPaciente_Click(object sender, EventArgs e)
+        {
+            panelVistas.Controls.Clear();
+            Form nuevaVistaForm = new NuevoPaciente();
+            nuevaVistaForm.TopLevel = false;
+            nuevaVistaForm.FormBorderStyle = FormBorderStyle.None; 
+            nuevaVistaForm.Dock = DockStyle.Fill; 
+            panelVistas.Controls.Add(nuevaVistaForm);
+            nuevaVistaForm.Show();
+        }
+
+        private void BAdminRecep_Click(object sender, EventArgs e)
+        {
+            panelVistas.Controls.Clear();
+            Form nuevaVistaForm = new AdministrarCitas();
+            nuevaVistaForm.TopLevel = false; 
+            nuevaVistaForm.FormBorderStyle = FormBorderStyle.None; 
+            nuevaVistaForm.Dock = DockStyle.Fill; 
+            panelVistas.Controls.Add(nuevaVistaForm);
+            nuevaVistaForm.Show();
+        }
+
+        private void BReportes_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //BOTONES MÉDICO
+        private void BAdminMedico_Click(object sender, EventArgs e)
+        {
+            panelVistas.Controls.Clear();
+            Form nuevaVistaForm = new AdminCitasMedico();
+            nuevaVistaForm.TopLevel = false; 
+            nuevaVistaForm.FormBorderStyle = FormBorderStyle.None; 
+            nuevaVistaForm.Dock = DockStyle.Fill; 
+            panelVistas.Controls.Add(nuevaVistaForm);
+            nuevaVistaForm.Show();
+        }
+
+        private void BReporteMedico_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //BOTONES GESTOR
+        private void BAdminGestor_Click(object sender, EventArgs e)
+        {
+            panelVistas.Controls.Clear();
+            Form nuevaVistaForm = new AdminGestor();
+            nuevaVistaForm.TopLevel = false; 
+            nuevaVistaForm.FormBorderStyle = FormBorderStyle.None; 
+            nuevaVistaForm.Dock = DockStyle.Fill; 
+            panelVistas.Controls.Add(nuevaVistaForm);
+            nuevaVistaForm.Show();
+        }
+
+        private void BReportesGestor_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //BOTONES CERRAR Y VER PERFIL
+        private void Bcerrar_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("¿Está seguro que desea cerrar sesión?", "Cerrar sesión", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                Application.Exit(); 
+            }
+        }
+
+        private void BPerfil_Click(object sender, EventArgs e)
+        {
+            panelVistas.Controls.Clear();
+            Form nuevaVistaForm = new Perfil(panelVistas);
+            nuevaVistaForm.TopLevel = false; 
+            nuevaVistaForm.FormBorderStyle = FormBorderStyle.None; 
+            nuevaVistaForm.Dock = DockStyle.Fill; 
+            panelVistas.Controls.Add(nuevaVistaForm);
+            nuevaVistaForm.Show();
+        }
+
     }
 }

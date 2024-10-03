@@ -36,5 +36,10 @@ namespace medilink.Views.usuario
         {
 
         }
+
+        private void NuevoUsuario_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -355,6 +355,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "NuevoUsuario";
             this.Text = "NuevoUsuario";
+            this.Load += new System.EventHandler(this.NuevoUsuario_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -68,9 +68,9 @@ namespace medilink.Views.autenticacion
             // BPerfil
             // 
             this.BPerfil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
-            this.BPerfil.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
+            this.BPerfil.FlatAppearance.BorderSize = 0;
             this.BPerfil.Image = ((System.Drawing.Image)(resources.GetObject("BPerfil.Image")));
-            this.BPerfil.Location = new System.Drawing.Point(79, 663);
+            this.BPerfil.Location = new System.Drawing.Point(70, 663);
             this.BPerfil.Name = "BPerfil";
             this.BPerfil.Size = new System.Drawing.Size(61, 56);
             this.BPerfil.TabIndex = 12;
@@ -81,8 +81,9 @@ namespace medilink.Views.autenticacion
             // 
             this.Bcerrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
             this.Bcerrar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
+            this.Bcerrar.FlatAppearance.BorderSize = 0;
             this.Bcerrar.Image = ((System.Drawing.Image)(resources.GetObject("Bcerrar.Image")));
-            this.Bcerrar.Location = new System.Drawing.Point(12, 663);
+            this.Bcerrar.Location = new System.Drawing.Point(3, 663);
             this.Bcerrar.Name = "Bcerrar";
             this.Bcerrar.Size = new System.Drawing.Size(61, 56);
             this.Bcerrar.TabIndex = 11;
@@ -278,9 +279,9 @@ namespace medilink.Views.autenticacion
             // 
             // panelVistas
             // 
-            this.panelVistas.Location = new System.Drawing.Point(239, 0);
+            this.panelVistas.Location = new System.Drawing.Point(256, 12);
             this.panelVistas.Name = "panelVistas";
-            this.panelVistas.Size = new System.Drawing.Size(946, 722);
+            this.panelVistas.Size = new System.Drawing.Size(916, 697);
             this.panelVistas.TabIndex = 1;
             // 
             // Menu
@@ -292,6 +293,7 @@ namespace medilink.Views.autenticacion
             this.Controls.Add(this.panelMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Menu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.panelMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 

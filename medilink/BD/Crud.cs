@@ -13,7 +13,7 @@ namespace medilink.BD
     {
 
         //regsitro de un user (contexto: usado por sistemas y gestor)
-        public bool Registrar(UsuarioM usuario)
+        public static bool Registrar(UsuarioM usuario)
         {
             bool resultado = false;
             try
@@ -201,7 +201,7 @@ namespace medilink.BD
 
             //cancelar cita (contexto: usado por recep y medico)
             public bool Cancelar(int id_cita)
-        {
+            {
             bool resultado = false;
             try
             {
@@ -262,7 +262,7 @@ namespace medilink.BD
 
 
         //registrar un paciente (Contexto: a cargo de la recep)
-        public bool RegistrarPaciente(PacienteM paciente)
+        public static bool RegistrarPaciente(PacienteM paciente)
         {
             bool resultado = false;
             try

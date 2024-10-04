@@ -138,7 +138,7 @@ namespace medilink.BD
         }
 
 
-        //editar perfil (todos los perfiles/roles)
+        //editar perfil (todos los perfiles/roles pueden usar)
         public bool EditarPerfil(UsuarioM usuario)
         {
             bool resultado = false;
@@ -295,7 +295,7 @@ namespace medilink.BD
 
         }
 
-        //listar pacientes (contexto: a cargo de gestor)
+        //listar pacientes (contexto: a cargo de gestor y recep)
         public List<PacienteM> ListarPacientes()
         {
             List<PacienteM> listaPacientes = new List<PacienteM>();

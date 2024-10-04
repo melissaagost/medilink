@@ -490,12 +490,15 @@ namespace medilink.Views.autenticacion
 
         private void BCambiarPerfil_Click(object sender, EventArgs e)
         {
-            FormularioInicioSesion.UsuarioActual = null;
+            DialogResult result = MessageBox.Show("¿Desea cambiar de perfil?", "Cambiar de perfil", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            FormularioInicioSesion formLogin = new FormularioInicioSesion();
-            formLogin.Show();
-
-            this.Close();
+            if (result == DialogResult.Yes)
+            {
+                FormularioInicioSesion.UsuarioActual = null;
+                FormularioInicioSesion formLogin = new FormularioInicioSesion();
+                formLogin.Show();
+                this.Close();
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ using medilink.Views.citas;
 //using medilink.Views.reportes;
 using medilink.Views.autenticacion;
 using medilink.Models;
+using MySqlX.XDevAPI;
 
 
 namespace medilink.Views.autenticacion
@@ -41,12 +42,14 @@ namespace medilink.Views.autenticacion
             this.BAdminUsuarios = new System.Windows.Forms.Button();
             this.BNuevoUsuario = new System.Windows.Forms.Button();
             this.panelVistas = new System.Windows.Forms.Panel();
+            this.BCambiarPerfil = new System.Windows.Forms.Button();
             this.panelMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
+            this.panelMenu.Controls.Add(this.BCambiarPerfil);
             this.panelMenu.Controls.Add(this.BPerfil);
             this.panelMenu.Controls.Add(this.Bcerrar);
             this.panelMenu.Controls.Add(this.BReportesGestor);
@@ -284,6 +287,18 @@ namespace medilink.Views.autenticacion
             this.panelVistas.Size = new System.Drawing.Size(916, 697);
             this.panelVistas.TabIndex = 1;
             // 
+            // BCambiarPerfil
+            // 
+            this.BCambiarPerfil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
+            this.BCambiarPerfil.FlatAppearance.BorderSize = 0;
+            this.BCambiarPerfil.Image = ((System.Drawing.Image)(resources.GetObject("BCambiarPerfil.Image")));
+            this.BCambiarPerfil.Location = new System.Drawing.Point(137, 663);
+            this.BCambiarPerfil.Name = "BCambiarPerfil";
+            this.BCambiarPerfil.Size = new System.Drawing.Size(61, 56);
+            this.BCambiarPerfil.TabIndex = 13;
+            this.BCambiarPerfil.UseVisualStyleBackColor = false;
+            this.BCambiarPerfil.Click += new System.EventHandler(this.BCambiarPerfil_Click);
+            // 
             // Menu
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(166)))), ((int)(((byte)(124)))));
@@ -473,6 +488,14 @@ namespace medilink.Views.autenticacion
             }
         }
 
- 
+        private void BCambiarPerfil_Click(object sender, EventArgs e)
+        {
+            FormularioInicioSesion.UsuarioActual = null;
+
+            FormularioInicioSesion formLogin = new FormularioInicioSesion();
+            formLogin.Show();
+
+            this.Close();
+        }
     }
 }

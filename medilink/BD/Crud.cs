@@ -171,7 +171,7 @@ namespace medilink.BD
 
 
         //agendar cita (contexto: usado por recep)
-        public bool Programar(CitaM cita)
+        public static bool Programar(CitaM cita)
         {            bool resultado = false;
             try
             {
@@ -200,7 +200,7 @@ namespace medilink.BD
         }
 
             //cancelar cita (contexto: usado por recep y medico)
-            public bool Cancelar(int id_cita)
+            public static bool Cancelar(int id_cita)
             {
             bool resultado = false;
             try
@@ -225,9 +225,8 @@ namespace medilink.BD
             return resultado;
         }
 
-        //listar citas (contexto: usado por recep y medico)
-        //en el vm hay que agregar un filtro para que cada medico pueda listar solamente las citas  asociadas a su id
-        public List<CitaM> ListarCitas()
+        //listar citas (contexto: usado por recep)
+        public static List<CitaM> ListarCitas()
         {
             List<CitaM> listaCitas = new List<CitaM>();
             try
@@ -256,6 +255,36 @@ namespace medilink.BD
             catch (Exception ex)
             {
                 Console.WriteLine("Error al listar citas." + ex.Message);
+            }
+            return listaCitas;
+        }
+
+        //listar citas asociadas a un medico
+        internal static List<CitaM> ListarCitasPorMedico(int idMedico)
+        {
+            List<CitaM> listaCitas = new List<CitaM>();
+
+            using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+            {
+                oconexion.Open();
+                using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Cita WHERE id_medico = @idMedico", oconexion))
+                {
+                    comando.Parameters.AddWithValue("@idMedico", idMedico);
+
+                    using (MySqlDataReader reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            listaCitas.Add(new CitaM
+                            {
+                                id_paciente = Convert.ToInt32(reader["id_paciente"]),
+                                fecha = Convert.ToDateTime(reader["fecha"]),
+                                motivo = (string)reader["motivo"],
+                                status = (string)reader["status"],
+                            });
+                        }
+                    }
+                }
             }
             return listaCitas;
         }
@@ -294,6 +323,8 @@ namespace medilink.BD
             return resultado;
 
         }
+
+
 
         //listar pacientes (contexto: a cargo de gestor y recep)
         public List<PacienteM> ListarPacientes()
@@ -445,6 +476,6 @@ namespace medilink.BD
             return listaPerfiles;
         }
 
-
+        
     }
 }

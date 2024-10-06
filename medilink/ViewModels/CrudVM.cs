@@ -73,6 +73,48 @@ namespace medilink.ViewModels
                 throw new UnauthorizedAccessException("No tienes permisos para dar de alta usuarios.");
             }
         }
+        //filtros recep y medico
+        public bool ProgramarCitaC(CitaM cita)
+        {
+            if (id_perfil == 4)
+            {
+                return Crud.Programar(cita);
+            }
+            else
+            {
+                throw new UnauthorizedAccessException("No tienes permisos para programar una cita.");
+            }
+        }
+
+        public bool CancelarCita(int cita)
+        {
+            if (id_perfil == 4 || id_perfil == 3)
+            {
+                return Crud.Cancelar(cita);
+            }
+            else
+            {
+                throw new UnauthorizedAccessException("No tienes permisos para cancelar una cita.");
+            }
+        }
+
+        public List<CitaM> ListarCitas(int idUsuarioLogueado)
+        {
+            
+            if (id_perfil == 3)
+            {
+                return Crud.ListarCitasPorMedico(idUsuarioLogueado);
+            }
+            else if (id_perfil == 4)
+            {
+                
+                return Crud.ListarCitas();
+            }
+            else
+            {
+                throw new UnauthorizedAccessException("No tienes permisos para ver citas.");
+            }
+        }
 
         //filtros recep y gestor
         public bool RegistrarPaciente(PacienteM paciente)
@@ -114,7 +156,7 @@ namespace medilink.ViewModels
         //todos los users
         public bool EditarPerfil(UsuarioM usuarioAEditar, int idUsuarioLogueado) //tengo que controlar esta funcion pq no se si esta bien 
         {
-            if (usuarioAEditar.id_usuario == idUsuarioLogueado)  // Solo permite editar si es su propio perfil
+            if (usuarioAEditar.id_usuario == idUsuarioLogueado)  
             {
                 return usuarioLogueado.EditarPerfil(usuarioAEditar);
             }
@@ -124,6 +166,26 @@ namespace medilink.ViewModels
             }
         }
 
+        public List<ProvinciaM> ListarProvincias()
+        {
+            
+                return usuarioLogueado.ListarProvincias();
+
+        }
+
+        public List<CiudadM> ListarCiudades()
+        {
+
+            return usuarioLogueado.ListarCiudades();
+
+        }
+
+        public List<PerfilM> ListarPerfiles()
+        {
+
+            return usuarioLogueado.ListarPerfiles();
+
+        }
 
     }
 }

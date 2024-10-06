@@ -126,10 +126,10 @@ namespace medilink.Views.usuario
 
                 dataGridViewInactivos.DataSource = usuariosInactivos;
 
-                // Limpiar columnas antes de agregar nuevas
+                
                 dataGridViewInactivos.Columns.Clear();
 
-                // Agregar columnas
+                
                 dataGridViewInactivos.Columns.Add("dni", "DNI");
                 dataGridViewInactivos.Columns["dni"].DataPropertyName = "dni";
 
@@ -145,7 +145,7 @@ namespace medilink.Views.usuario
                 dataGridViewInactivos.Columns.Add("id_perfil", "Perfil");
                 dataGridViewInactivos.Columns["id_perfil"].DataPropertyName = "id_perfil";
 
-                // Columna de botón para dar de alta
+                
                 DataGridViewButtonColumn btnAlta = new DataGridViewButtonColumn();
                 btnAlta.HeaderText = "Acción";
                 btnAlta.Text = "Dar de Alta";
@@ -157,7 +157,7 @@ namespace medilink.Views.usuario
                 dataGridViewInactivos.Columns.Add(new DataGridViewTextBoxColumn()
                 {
                     Name = "id_usuarioI",
-                    HeaderText = "ID Usuario",
+                    HeaderText = "ID UsuarioI",
                     DataPropertyName = "id_usuario",
                     Visible = false
                 });

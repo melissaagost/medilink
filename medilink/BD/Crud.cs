@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,11 @@ namespace medilink.BD
             {
                 using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
                 {
-                    oconexion.Open();
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+                    
                     using (MySqlCommand comando = new MySqlCommand("INSERT INTO Usuario (dni, nombre, apellido, usuario, contraseña, fecha_nacimiento, telefono, correo, direccion, status, id_provincia, id_ciudad, id_perfil) VALUES (@dni, @nombre, @apellido, @usuario, @contraseña, @fecha_nacimiento, @telefono, @correo, @direccion, @status, @id_provincia, @id_ciudad, @id_perfil)", oconexion))
                     {
                         comando.Parameters.AddWithValue("@dni", usuario.dni);
@@ -58,7 +63,11 @@ namespace medilink.BD
             {
                 using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
                 {
-                    oconexion.Open();
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
                     using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Usuario", oconexion))
                     {
                         using (MySqlDataReader reader = comando.ExecuteReader())
@@ -93,7 +102,11 @@ namespace medilink.BD
             {
                 using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
                 {
-                    oconexion.Open();
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
                     using (MySqlCommand comando = new MySqlCommand("UPDATE Usuario SET status = @status WHERE id_usuario = @id_usuario", oconexion))
                     {
                         comando.Parameters.AddWithValue("@status", "no");
@@ -119,7 +132,11 @@ namespace medilink.BD
             {
                 using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
                 {
-                    oconexion.Open();
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
                     using (MySqlCommand comando = new MySqlCommand("UPDATE Usuario SET status = @status WHERE id_usuario = @id_usuario", oconexion))
                     {
                         comando.Parameters.AddWithValue("@status", "si");
@@ -146,7 +163,11 @@ namespace medilink.BD
             {
                 using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
                 {
-                    oconexion.Open();
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
                     using (MySqlCommand comando = new MySqlCommand("UPDATE Usuario SET  usuario = @usuario, direccion = @direccion, correo = @correo, telefono = @telefono, contraseña = @contraseña WHERE id_usuario = @id_usuario", oconexion))
                     {
                         //comando.Parameters.AddWithValue("@foto_perfil", usuario.foto_perfil);
@@ -177,11 +198,15 @@ namespace medilink.BD
             {
                 using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
                 {
-                    oconexion.Open();
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
                     using (MySqlCommand comando = new MySqlCommand("INSERT INTO Cita (fecha, motivo, status, id_paciente, id_medico) VALUES (@fecha, @motivo, @status, @id_paciente, @id_medico)", oconexion))
                     {
                         comando.Parameters.AddWithValue("@fecha", cita.fecha);
-                        comando.Parameters.AddWithValue("@dni", cita.motivo);
+                        comando.Parameters.AddWithValue("@motivo", cita.motivo);
                         comando.Parameters.AddWithValue("@status", "activa");
                         comando.Parameters.AddWithValue("id_paciente", cita.id_paciente);
                         comando.Parameters.AddWithValue("@id_medico", cita.id_medico);
@@ -207,7 +232,11 @@ namespace medilink.BD
             {
                 using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
                 {
-                    oconexion.Open();
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
                     using (MySqlCommand comando = new MySqlCommand("UPDATE Cita SET status = @status WHERE id_cita = @id_cita", oconexion))
                     {
                         comando.Parameters.AddWithValue("@status", "cancelada");
@@ -233,7 +262,11 @@ namespace medilink.BD
             {
                 using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
                 {
-                    oconexion.Open();
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
                     using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Cita", oconexion))
                     {
                         using (MySqlDataReader reader = comando.ExecuteReader())
@@ -266,7 +299,11 @@ namespace medilink.BD
 
             using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
             {
-                oconexion.Open();
+                if (oconexion.State == ConnectionState.Closed)
+                {
+                    oconexion.Open();
+                }
+
                 using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Cita WHERE id_medico = @idMedico", oconexion))
                 {
                     comando.Parameters.AddWithValue("@idMedico", idMedico);
@@ -298,7 +335,11 @@ namespace medilink.BD
             {
                 using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
                 {
-                    oconexion.Open();
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
                     using (MySqlCommand comando = new MySqlCommand("INSERT INTO Paciente (dni, nombre, apellido, fecha_nacimiento, correo, telefono, direccion, edad, id_obra_social, id_ciudad) VALUES (@dni, @nombre, @apellido, @fecha_nacimiento, @correo, @telefono, @direccion, @edad, @id_obra_social, @id_ciudad)", oconexion))
                     {
                         comando.Parameters.AddWithValue("@dni", paciente.dni);
@@ -334,7 +375,11 @@ namespace medilink.BD
             {
                 using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
                 {
-                    oconexion.Open();
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
                     using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Paciente", oconexion))
                     {
                         using (MySqlDataReader reader = comando.ExecuteReader())
@@ -367,7 +412,11 @@ namespace medilink.BD
             {
                 using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
                 {
-                    oconexion.Open();
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
                     using (MySqlCommand comando = new MySqlCommand("UPDATE Paciente SET status = @status WHERE id_paciente = @id_paciente", oconexion))
                     {
                         comando.Parameters.AddWithValue("@status", "no");

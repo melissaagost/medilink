@@ -93,9 +93,9 @@ namespace medilink.Views.usuario
                 contraseña = textBoxContraseña.Text,
                 correo = textBoxCorreo.Text,
                 direccion = textBoxDomicilio.Text,
-                id_provincia = int.Parse(comboBoxProvincia.SelectedItem.ToString()),
-                id_ciudad = int.Parse(comboBoxCiudad.SelectedItem.ToString()),
-                id_perfil = int.Parse(comboBoxPerfil.SelectedItem.ToString()),
+                id_provincia = (int)comboBoxProvincia.SelectedValue,
+                id_ciudad = (int)comboBoxCiudad.SelectedValue,
+                id_perfil = (int)comboBoxPerfil.SelectedValue,
                 fecha_nacimiento = dateTimePicker1.Value
             };
 

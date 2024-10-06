@@ -155,7 +155,7 @@ namespace medilink.BD
                         comando.Parameters.AddWithValue("@correo", usuario.correo);
                         comando.Parameters.AddWithValue("@telefono", usuario.telefono);
                         comando.Parameters.AddWithValue("@contraseña", usuario.contraseña);
-                        comando.Parameters.AddWithValue("@id_usuario", usuario.id_usuario); 
+                        comando.Parameters.AddWithValue("@id_usuario", usuario.id_usuario);
 
                         int filasAfectadas = comando.ExecuteNonQuery();
                         resultado = filasAfectadas > 0;
@@ -172,7 +172,7 @@ namespace medilink.BD
 
         //agendar cita (contexto: usado por recep)
         public static bool Programar(CitaM cita)
-        {            bool resultado = false;
+        { bool resultado = false;
             try
             {
                 using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
@@ -199,9 +199,9 @@ namespace medilink.BD
             return resultado;
         }
 
-            //cancelar cita (contexto: usado por recep y medico)
-            public static bool Cancelar(int id_cita)
-            {
+        //cancelar cita (contexto: usado por recep y medico)
+        public static bool Cancelar(int id_cita)
+        {
             bool resultado = false;
             try
             {
@@ -243,7 +243,7 @@ namespace medilink.BD
                                 listaCitas.Add(new CitaM()
                                 {
                                     fecha = (DateTime)reader["fecha"],
-                                    status = reader["status"].ToString(),   
+                                    status = reader["status"].ToString(),
                                     id_paciente = (int)reader["id_paciente"],
                                     id_medico = (int)reader["id_medico"],
                                 });
@@ -385,97 +385,107 @@ namespace medilink.BD
             return resultado;
         }
 
-        //listar provincias, ciudades, perfiles
-        public List<ProvinciaM> ListarProvincias()
+        public List<ProvinciaM> ObtenerProvincias()
         {
-            List<ProvinciaM> listaProvincias = new List<ProvinciaM>();
-            try
+            List<ProvinciaM> provincias = new List<ProvinciaM>();
+
+            using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())  // Se abre una nueva conexión
             {
-                using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+                try
                 {
-                    oconexion.Open();
-                    using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Provincia", oconexion))
+                    using (MySqlCommand comando = new MySqlCommand("SELECT id_provincia, nombre FROM Provincia", oconexion))
                     {
                         using (MySqlDataReader reader = comando.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                listaProvincias.Add(new ProvinciaM()
+                                provincias.Add(new ProvinciaM
                                 {
-                                    nombre = reader["nombre"].ToString(),
+                                    id_provincia = Convert.ToInt32(reader["id_provincia"]),
+                                    nombre = reader["nombre"].ToString()
                                 });
                             }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error al listar provincias." + ex.Message);
-            }
-            return listaProvincias;
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener provincias: " + ex.Message);
+                    throw;
+                }
+            }  // Aquí la conexión se cierra automáticamente
+
+            return provincias;
         }
 
-        public List<CiudadM> ListarCiudades()
+
+        public List<CiudadM> ObtenerCiudades()
         {
-            List<CiudadM> listaCiudades = new List<CiudadM>();
-            try
+            List<CiudadM> ciudades = new List<CiudadM>();
+
+            using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
             {
-                using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+                try
                 {
-                    oconexion.Open();
-                    using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Ciudad", oconexion))
+                    using (MySqlCommand comando = new MySqlCommand("SELECT id_ciudad, nombre FROM Ciudad", oconexion))
                     {
                         using (MySqlDataReader reader = comando.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                listaCiudades.Add(new CiudadM()
+                                ciudades.Add(new CiudadM
                                 {
-                                    nombre = reader["nombre"].ToString(),
+                                    id_ciudad = Convert.ToInt32(reader["id_ciudad"]),
+                                    nombre = reader["nombre"].ToString()
                                 });
                             }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error al listar ciudades." + ex.Message);
-            }
-            return listaCiudades;
-        }
-
-        public List<PerfilM> ListarPerfiles()
-        {
-            List<PerfilM> listaPerfiles = new List<PerfilM>();
-            try
-            {
-                using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+                catch (Exception ex)
                 {
-                    oconexion.Open();
-                    using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Perfil", oconexion))
+                    Console.WriteLine("Error al obtener ciudades: " + ex.Message);
+                    throw;
+                }
+            }  // Aquí la conexión se cierra correctamente
+
+            return ciudades;
+        }
+        public List<PerfilM> ObtenerPerfiles()
+        {
+            List<PerfilM> perfiles = new List<PerfilM>();
+
+            using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+            {
+                try
+                {
+                    using (MySqlCommand comando = new MySqlCommand("SELECT id_perfil, nombre FROM Perfil", oconexion))
                     {
                         using (MySqlDataReader reader = comando.ExecuteReader())
                         {
                             while (reader.Read())
                             {
-                                listaPerfiles.Add(new PerfilM()
+                                perfiles.Add(new PerfilM
                                 {
-                                    nombre = reader["nombre"].ToString(),
+                                    id_perfil = Convert.ToInt32(reader["id_perfil"]),
+                                    nombre = reader["nombre"].ToString()
                                 });
                             }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error al listar perfiles." + ex.Message);
-            }
-            return listaPerfiles;
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener perfiles: " + ex.Message);
+                    throw;
+                }
+            }  // Aquí la conexión se cierra correctamente
+
+            return perfiles;
         }
 
-        
+
+
     }
-}
+} 
+

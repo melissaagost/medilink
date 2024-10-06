@@ -208,7 +208,7 @@ namespace medilink.Views.autenticacion
                                             MessageBox.Show("Inicio de sesión exitoso.");
 
                                             
-                                            Menu menuForm = new Menu();
+                                            Menu menuForm = new Menu(usuarioEncontrado);
 
                                             // Llamar al método para configurar el menú según el perfil
                                             menuForm.ConfigurarMenuPorPerfil(UsuarioActual.id_perfil);

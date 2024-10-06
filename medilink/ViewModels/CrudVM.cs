@@ -166,26 +166,23 @@ namespace medilink.ViewModels
             }
         }
 
-        public List<ProvinciaM> ListarProvincias()
-        {
-            
-                return usuarioLogueado.ListarProvincias();
+     
+            public List<ProvinciaM> ListarProvincias()
+            {
+                return usuarioLogueado.ObtenerProvincias();  // Maneja su propia conexión
+            }
 
-        }
+            public List<CiudadM> ListarCiudades()
+            {
+                return usuarioLogueado.ObtenerCiudades();  // Maneja su propia conexión
+            }
 
-        public List<CiudadM> ListarCiudades()
-        {
+            public List<PerfilM> ListarPerfiles()
+            {
+                return usuarioLogueado.ObtenerPerfiles();  // Maneja su propia conexión
+            }
+       
 
-            return usuarioLogueado.ListarCiudades();
-
-        }
-
-        public List<PerfilM> ListarPerfiles()
-        {
-
-            return usuarioLogueado.ListarPerfiles();
-
-        }
 
     }
 }

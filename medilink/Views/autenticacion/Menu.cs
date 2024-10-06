@@ -19,9 +19,12 @@ namespace medilink.Views.autenticacion
 {
     public partial class Menu : Form
     {
-        public Menu()
+
+        private UsuarioM usuarioLogueado;
+        public Menu(UsuarioM usuarioLogueado)
         {
             InitializeComponent();
+            this.usuarioLogueado = usuarioLogueado;
         }
 
         public void InitializeComponent()
@@ -318,7 +321,7 @@ namespace medilink.Views.autenticacion
         private void BNuevoUsuario_Click(object sender, EventArgs e)
         {
             panelVistas.Controls.Clear();
-            Form nuevaVistaForm = new NuevoUsuario();
+            Form nuevaVistaForm = new NuevoUsuario(usuarioLogueado);
             nuevaVistaForm.TopLevel = false; // Evita que sea una ventana separada
             nuevaVistaForm.FormBorderStyle = FormBorderStyle.None; // Sin bordes ni títulos
             nuevaVistaForm.Dock = DockStyle.Fill; // Hace que llene el panel
@@ -329,7 +332,7 @@ namespace medilink.Views.autenticacion
         private void BAdminUsuarios_Click(object sender, EventArgs e)
         {
             panelVistas.Controls.Clear();
-            Form nuevaVistaForm = new AdminUsuarios();
+            Form nuevaVistaForm = new AdminUsuarios(usuarioLogueado);
             nuevaVistaForm.TopLevel = false; 
             nuevaVistaForm.FormBorderStyle = FormBorderStyle.None;
             nuevaVistaForm.Dock = DockStyle.Fill; 
@@ -352,7 +355,7 @@ namespace medilink.Views.autenticacion
         private void BNuevaCita_Click(object sender, EventArgs e)
         {
             panelVistas.Controls.Clear();
-            Form nuevaVistaForm = new NuevaCita();
+            Form nuevaVistaForm = new NuevaCita(usuarioLogueado);
             nuevaVistaForm.TopLevel = false; 
             nuevaVistaForm.FormBorderStyle = FormBorderStyle.None; 
             nuevaVistaForm.Dock = DockStyle.Fill; 
@@ -363,7 +366,7 @@ namespace medilink.Views.autenticacion
         private void BNuevoPaciente_Click(object sender, EventArgs e)
         {
             panelVistas.Controls.Clear();
-            Form nuevaVistaForm = new NuevoPaciente();
+            Form nuevaVistaForm = new NuevoPaciente(usuarioLogueado);
             nuevaVistaForm.TopLevel = false;
             nuevaVistaForm.FormBorderStyle = FormBorderStyle.None; 
             nuevaVistaForm.Dock = DockStyle.Fill; 
@@ -374,7 +377,7 @@ namespace medilink.Views.autenticacion
         private void BAdminRecep_Click(object sender, EventArgs e)
         {
             panelVistas.Controls.Clear();
-            Form nuevaVistaForm = new AdministrarCitas();
+            Form nuevaVistaForm = new AdministrarCitas(usuarioLogueado);
             nuevaVistaForm.TopLevel = false; 
             nuevaVistaForm.FormBorderStyle = FormBorderStyle.None; 
             nuevaVistaForm.Dock = DockStyle.Fill; 
@@ -391,7 +394,7 @@ namespace medilink.Views.autenticacion
         private void BAdminMedico_Click(object sender, EventArgs e)
         {
             panelVistas.Controls.Clear();
-            Form nuevaVistaForm = new AdminCitasMedico();
+            Form nuevaVistaForm = new AdminCitasMedico(usuarioLogueado);
             nuevaVistaForm.TopLevel = false; 
             nuevaVistaForm.FormBorderStyle = FormBorderStyle.None; 
             nuevaVistaForm.Dock = DockStyle.Fill; 
@@ -408,7 +411,7 @@ namespace medilink.Views.autenticacion
         private void BAdminGestor_Click(object sender, EventArgs e)
         {
             panelVistas.Controls.Clear();
-            Form nuevaVistaForm = new AdminGestor();
+            Form nuevaVistaForm = new AdminGestor(usuarioLogueado);
             nuevaVistaForm.TopLevel = false; 
             nuevaVistaForm.FormBorderStyle = FormBorderStyle.None; 
             nuevaVistaForm.Dock = DockStyle.Fill; 

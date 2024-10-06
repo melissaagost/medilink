@@ -81,6 +81,8 @@ namespace medilink.BD
                                     apellido = reader["apellido"].ToString(),
                                     usuario = reader["usuario"].ToString(),
                                     id_perfil = (int)reader["id_perfil"],
+                                    id_usuario = (int)reader["id_usuario"],
+                                    status = reader["status"].ToString(),
                                 });
                             }
                         }

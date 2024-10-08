@@ -24,8 +24,6 @@ namespace medilink.Views.usuario
             this.usuarioLogueado = usuarioLogueado;
             usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
 
-            //dataGridViewActivos.CellClick += dataGridViewActivos_CellContentClick;
-            //dataGridViewInactivos.CellClick += dataGridViewInactivos_CellContentClick;
         }
 
         private void CargarUsuariosActivos()

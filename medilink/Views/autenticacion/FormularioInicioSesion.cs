@@ -28,6 +28,7 @@ namespace medilink.Views.autenticacion
             InitializeCustomComponents(); // Inicializa los componentes personalizados
             conexionBD = new ConexionBD();
 
+
         }
 
         private void InitializeCustomComponents()
@@ -96,6 +97,18 @@ namespace medilink.Views.autenticacion
             TextBox passwordTextBox = new TextBox { Width = 250, Margin = new Padding(0, 0, 0, 15), UseSystemPasswordChar = true , Anchor = AnchorStyles.None };
             flowLayoutPanel.Controls.Add(passwordLabel);
             flowLayoutPanel.Controls.Add(passwordTextBox);
+            passwordTextBox.KeyDown += new KeyEventHandler(passwordTextBox_KeyDown);
+
+
+             void passwordTextBox_KeyDown(object sender, KeyEventArgs e)
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    Ingresar(usernameTextBox.Text, passwordTextBox.Text);  
+                    e.SuppressKeyPress = true; 
+                }
+            }
+
 
             // Botón de Ingresar
             Button loginButton = new Button
@@ -203,9 +216,6 @@ namespace medilink.Views.autenticacion
                                             // Almacenar el usuario logueado en la clase Sesion y redirigir al menu correspondiente
                                             FormularioInicioSesion.UsuarioActual = usuarioEncontrado;
                                             int perfilUsuario = UsuarioActual.id_perfil; // Almacena el perfil del usuario
-
-
-                                            MessageBox.Show("Inicio de sesión exitoso.");
 
                                             
                                             Menu menuForm = new Menu(usuarioEncontrado);

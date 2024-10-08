@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace medilink.Models
 {
-    internal class TurnoM
+    public class TurnoM
     {
         public int id_turno { get; set; }
         public string nombre { get; set; }

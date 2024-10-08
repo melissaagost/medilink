@@ -52,7 +52,7 @@ namespace medilink.Views.usuario
 
         private void NuevoUsuario_Load(object sender, EventArgs e)
         {
-            //por accidente
+            //ignorar
 
         }
 
@@ -73,6 +73,15 @@ namespace medilink.Views.usuario
                 comboBoxPerfil.DataSource = usuarioVM.ListarPerfiles();
                 comboBoxPerfil.DisplayMember = "nombre";
                 comboBoxPerfil.ValueMember = "id_perfil";
+
+
+                comboBoxEspecialidad.DataSource = usuarioVM.ObtenerEspecialidades();
+                comboBoxEspecialidad.DisplayMember = "nombre";
+                comboBoxEspecialidad.ValueMember = "id_especialidad";
+
+                comboBoxTurno.DataSource = usuarioVM.ObtenerTurnos();
+                comboBoxTurno.DisplayMember = "nombre";
+                comboBoxTurno.ValueMember = "id_turno";
 
             } 
             catch (Exception ex){
@@ -102,11 +111,23 @@ namespace medilink.Views.usuario
            
             try
             {
-                bool resultado = usuarioVM.CrearUsuario(nuevoUsuario);  // Llamar al ViewModel
+                int? idEspecialidad = null;
+                int? idTurno = null;
+
+                if (nuevoUsuario.id_perfil == 3)
+                {
+                    idEspecialidad = (int?)comboBoxEspecialidad.SelectedValue;
+                    idTurno = (int?)comboBoxTurno.SelectedValue;
+                }
+
+                // Si no es médico, pasar valores nulos
+                bool resultado = usuarioVM.CrearUsuario(nuevoUsuario, idEspecialidad ?? -1, idTurno ?? -1);
+
                 if (resultado)
                 {
                     MessageBox.Show("Usuario creado exitosamente.");
                 }
+
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -114,9 +135,45 @@ namespace medilink.Views.usuario
             }
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
+        private void buttonCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void comboBoxEspecialidad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //viejo, ignorar
+        }
+
+        private void comboBoxTurno_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            //viejo, ignorar
+        }
+
+        private void comboBoxPerfil_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int idPerfilSeleccionado = (int)(comboBoxPerfil.SelectedValue ?? 0);
+
+            if (idPerfilSeleccionado == 3)
+            {
+                // Habilitar los comboboxes de especialidad y turno si es médico
+                comboBoxEspecialidad.Enabled = true;
+                comboBoxTurno.Enabled = true;
+            }
+            else
+            {
+                // Deshabilitar los comboboxes si no es médico
+                comboBoxEspecialidad.Enabled = false;
+                comboBoxTurno.Enabled = false;
+            }
+
+        }
+
+
+        private void comboBoxPerfil_SelectedValueChanged(object sender, EventArgs e)
+        {
+           //ignorar
         }
     }
 }

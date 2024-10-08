@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using medilink.BD;
+using medilink.Views.citas;
 
 namespace medilink.ViewModels
 {
@@ -26,11 +27,11 @@ namespace medilink.ViewModels
         }
 
         //filtros de sistemas y gestor
-        public bool CrearUsuario(UsuarioM usuario)
+        public bool CrearUsuario(UsuarioM usuario, int especialidad, int turno)
         {
             if (id_perfil == 1 || id_perfil == 2)
             {
-                return Crud.Registrar(usuario);
+                return Crud.Registrar(usuario, especialidad, turno);
             }
             else
             {
@@ -74,7 +75,7 @@ namespace medilink.ViewModels
             }
         }
         //filtros recep y medico
-        public bool ProgramarCitaC(CitaM cita)
+        public bool ProgramarCita(CitaM cita)
         {
             if (id_perfil == 4)
             {
@@ -166,6 +167,8 @@ namespace medilink.ViewModels
             }
         }
 
+
+        //comboboxes
      
             public List<ProvinciaM> ListarProvincias()
             {
@@ -181,7 +184,28 @@ namespace medilink.ViewModels
             {
                 return usuarioLogueado.ObtenerPerfiles();  // Maneja su propia conexión
             }
-       
+
+            public List<PacienteM> ObtenerPacientes()
+            {
+                return usuarioLogueado.ObtenerPacientes(); 
+            }
+
+            public List<MedicoM> ObtenerMedicos()
+            {
+                return usuarioLogueado.ObtenerMedicos();  
+            }
+
+
+        public List<EspecialidadM> ObtenerEspecialidades()
+        {
+            return usuarioLogueado.ObtenerEspecialidades();
+        }
+        public List<TurnoM> ObtenerTurnos()
+        {
+            return usuarioLogueado.ObtenerTurnos();
+        }
+
+
 
 
     }

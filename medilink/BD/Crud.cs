@@ -13,47 +13,77 @@ namespace medilink.BD
     public class Crud
     {
 
-        //regsitro de un user (contexto: usado por sistemas y gestor)
-        public static bool Registrar(UsuarioM usuario)
+        //regsitro de un user y si es medico lo almacena en la tabla medico (contexto: usado por sistemas)
+        public static bool Registrar(UsuarioM usuario, int idEspecialidad, int idTurno)
         {
             bool resultado = false;
-            try
-            {
-                using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
-                {
-                    if (oconexion.State == ConnectionState.Closed)
-                    {
-                        oconexion.Open();
-                    }
-                    
-                    using (MySqlCommand comando = new MySqlCommand("INSERT INTO Usuario (dni, nombre, apellido, usuario, contraseña, fecha_nacimiento, telefono, correo, direccion, status, id_provincia, id_ciudad, id_perfil) VALUES (@dni, @nombre, @apellido, @usuario, @contraseña, @fecha_nacimiento, @telefono, @correo, @direccion, @status, @id_provincia, @id_ciudad, @id_perfil)", oconexion))
-                    {
-                        comando.Parameters.AddWithValue("@dni", usuario.dni);
-                        comando.Parameters.AddWithValue("@nombre", usuario.nombre);
-                        comando.Parameters.AddWithValue("@apellido", usuario.apellido);
-                        comando.Parameters.AddWithValue("@usuario", usuario.usuario);
-                        comando.Parameters.AddWithValue("@contraseña", usuario.contraseña);
-                        comando.Parameters.AddWithValue("@fecha_nacimiento", usuario.fecha_nacimiento);
-                        comando.Parameters.AddWithValue("@telefono", usuario.telefono);
-                        comando.Parameters.AddWithValue("@correo", usuario.correo);
-                        comando.Parameters.AddWithValue("@direccion", usuario.direccion);
-                        comando.Parameters.AddWithValue("@status", "si");
-                        comando.Parameters.AddWithValue("@id_provincia", usuario.id_provincia);
-                        comando.Parameters.AddWithValue("@id_ciudad", usuario.id_ciudad);
-                        comando.Parameters.AddWithValue("@id_perfil", usuario.id_perfil);
 
-                        int filasAfectadas = comando.ExecuteNonQuery();
-                        resultado = filasAfectadas > 0;
+            using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+            {
+                if (oconexion.State == ConnectionState.Closed)
+                {
+                    oconexion.Open();
+                }
+
+                using (MySqlTransaction transaccion = oconexion.BeginTransaction())
+                {
+                    try
+                    {
+                        
+                        string queryUsuario = @"INSERT INTO Usuario (dni, nombre, apellido, usuario, contraseña, 
+                                    fecha_nacimiento, telefono, correo, direccion, status, id_provincia, 
+                                    id_ciudad, id_perfil) 
+                                    VALUES (@dni, @nombre, @apellido, @usuario, @contraseña, 
+                                    @fecha_nacimiento, @telefono, @correo, @direccion, 'si', 
+                                    @id_provincia, @id_ciudad, @id_perfil)";
+
+                        MySqlCommand comandoUsuario = new MySqlCommand(queryUsuario, oconexion, transaccion);
+                        comandoUsuario.Parameters.AddWithValue("@dni", usuario.dni);
+                        comandoUsuario.Parameters.AddWithValue("@nombre", usuario.nombre);
+                        comandoUsuario.Parameters.AddWithValue("@apellido", usuario.apellido);
+                        comandoUsuario.Parameters.AddWithValue("@usuario", usuario.usuario);
+                        comandoUsuario.Parameters.AddWithValue("@contraseña", usuario.contraseña);
+                        comandoUsuario.Parameters.AddWithValue("@fecha_nacimiento", usuario.fecha_nacimiento);
+                        comandoUsuario.Parameters.AddWithValue("@telefono", usuario.telefono);
+                        comandoUsuario.Parameters.AddWithValue("@correo", usuario.correo);
+                        comandoUsuario.Parameters.AddWithValue("@direccion", usuario.direccion);
+                        comandoUsuario.Parameters.AddWithValue("@id_provincia", usuario.id_provincia);
+                        comandoUsuario.Parameters.AddWithValue("@id_ciudad", usuario.id_ciudad);
+                        comandoUsuario.Parameters.AddWithValue("@id_perfil", usuario.id_perfil);
+
+                        comandoUsuario.ExecuteNonQuery();
+
+                        long idUsuarioInsertado = comandoUsuario.LastInsertedId;
+
+                        // Verificar si el perfil del usuario es médico (id_perfil == 3)
+                        if (usuario.id_perfil == 3)
+                        {
+                            
+                            string queryMedico = "INSERT INTO Medico (id_usuario, id_especialidad, id_turno) VALUES (@id_usuario, @id_especialidad, @id_turno)";
+
+                            MySqlCommand comandoMedico = new MySqlCommand(queryMedico, oconexion, transaccion);
+                            comandoMedico.Parameters.AddWithValue("@id_usuario", idUsuarioInsertado);
+                            comandoMedico.Parameters.AddWithValue("@id_especialidad", idEspecialidad);
+                            comandoMedico.Parameters.AddWithValue("@id_turno", idTurno);
+
+                            comandoMedico.ExecuteNonQuery();
+                        }
+
+                        transaccion.Commit();
+                        resultado = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        transaccion.Rollback();
+                        Console.WriteLine("Error al registrar usuario y/o médico: " + ex.Message);
+                        throw;
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error al registrar usuario" + ex.Message);
-            }
-            return resultado;
 
+            return resultado;
         }
+
 
         // listar usuarios (contexto: usado por sistemas y gestor) 
         public List<UsuarioM> Listar()
@@ -535,6 +565,138 @@ namespace medilink.BD
             return perfiles;
         }
 
+        //funciones para los comboboxes de "nueva cita" que tienen que listar pacientes y medicos
+        public List<PacienteM> ObtenerPacientes()
+        {
+            List<PacienteM> pacientes = new List<PacienteM>();
+
+            using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+            {
+                try
+                {
+                    using (MySqlCommand comando = new MySqlCommand("SELECT id_paciente, dni FROM Paciente", oconexion))
+                    {
+                        using (MySqlDataReader reader = comando.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                pacientes.Add(new PacienteM
+                                {
+                                    id_paciente = Convert.ToInt32(reader["id_paciente"]),
+                                    dni = Convert.ToInt32(reader["dni"])
+                                });
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener pacientes para el combobox: " + ex.Message);
+                    throw;
+                }
+            }  
+
+            return pacientes;
+        }
+
+        public List<MedicoM> ObtenerMedicos()
+        {
+            List<MedicoM> medicos = new List<MedicoM>();
+
+            using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+            {
+                try
+                {
+                    using (MySqlCommand comando = new MySqlCommand("SELECT id_medico, id_especialidad FROM Medico", oconexion))
+                    {
+                        using (MySqlDataReader reader = comando.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                medicos.Add(new MedicoM
+                                {
+                                    id_medico = Convert.ToInt32(reader["id_medico"]),
+                                    id_especialidad = Convert.ToInt32(reader["id_especialidad"]),
+                                });
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener medicos: " + ex.Message);
+                    throw;
+                }
+            }
+
+            return medicos;
+        }
+
+        public List<EspecialidadM> ObtenerEspecialidades()
+        {
+            List<EspecialidadM> especialidades = new List<EspecialidadM>();
+
+            using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+            {
+                try
+                {
+                    using (MySqlCommand comando = new MySqlCommand("SELECT id_especialidad, nombre FROM Especialidad", oconexion))
+                    {
+                        using (MySqlDataReader reader = comando.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                especialidades.Add(new EspecialidadM
+                                {
+                                    id_especialidad = Convert.ToInt32(reader["id_especialidad"]),
+                                    nombre = reader["nombre"].ToString()
+                                });
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener especialidades: " + ex.Message);
+                    throw;
+                }
+            }
+
+            return especialidades;
+        }
+
+        public List<TurnoM> ObtenerTurnos()
+        {
+            List<TurnoM> turnos = new List<TurnoM>();
+
+            using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+            {
+                try
+                {
+                    using (MySqlCommand comando = new MySqlCommand("SELECT id_turno, nombre FROM Turno", oconexion))
+                    {
+                        using (MySqlDataReader reader = comando.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                turnos.Add(new TurnoM
+                                {
+                                    id_turno = Convert.ToInt32(reader["id_turno"]),
+                                    nombre = reader["nombre"].ToString()
+                                });
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener turnos: " + ex.Message);
+                    throw;
+                }
+            }
+
+            return turnos;
+        }
 
 
     }

@@ -57,5 +57,37 @@ namespace medilink.Views.citas
         {
             this.Close();
         }
+
+        private void buttonAñadirPaciente_Click(object sender, EventArgs e)
+        {
+            PacienteM nuevoPaciente = new PacienteM() {
+
+                dni = int.Parse(textBoxDNIPaciente.Text),
+                nombre = textBoxNombrePaciente.Text,
+                apellido = textBoxApellidoPaciente.Text,
+                fecha_nacimiento = dateTimePickerPaciente.Value,
+                correo = textBoxCorreoPaciente.Text,
+                telefono = textBoxTelefonoPaciente.Text,
+                direccion = textBoxDireccionPaciente.Text,
+                edad = int.Parse(textBoxEdadPaciente.Text),
+                id_obra_social = (int)comboBoxObraSocial.SelectedValue,
+                id_ciudad = (int)comboBoxCiudadPaciente.SelectedValue,
+                id_provincia = (int)comboBoxProvinciaPaciente.SelectedValue
+            };
+
+            try
+            {
+                bool resultado = usuarioVM.RegistrarPaciente(nuevoPaciente);
+
+                if (resultado)
+                {
+                    MessageBox.Show("Paciente agendado exitosamente.");
+                }
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

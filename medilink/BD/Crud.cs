@@ -372,7 +372,7 @@ namespace medilink.BD
                         oconexion.Open();
                     }
 
-                    using (MySqlCommand comando = new MySqlCommand("INSERT INTO Paciente (dni, nombre, apellido, fecha_nacimiento, correo, telefono, direccion, edad, id_obra_social, id_ciudad) VALUES (@dni, @nombre, @apellido, @fecha_nacimiento, @correo, @telefono, @direccion, @edad, @id_obra_social, @id_ciudad)", oconexion))
+                    using (MySqlCommand comando = new MySqlCommand("INSERT INTO Paciente (dni, nombre, apellido, fecha_nacimiento, correo, telefono, direccion, edad, status, id_obra_social, id_ciudad, id_provincia) VALUES (@dni, @nombre, @apellido, @fecha_nacimiento, @correo, @telefono, @direccion, @edad, 'si', @id_obra_social, @id_ciudad, @id_provincia)", oconexion))
                     {
                         comando.Parameters.AddWithValue("@dni", paciente.dni);
                         comando.Parameters.AddWithValue("@nombre", paciente.nombre);
@@ -384,6 +384,7 @@ namespace medilink.BD
                         comando.Parameters.AddWithValue("@edad", paciente.edad);
                         comando.Parameters.AddWithValue("@id_obra_social", paciente.id_obra_social);
                         comando.Parameters.AddWithValue("@id_ciudad", paciente.id_ciudad);
+                        comando.Parameters.AddWithValue("@id_provincia", paciente.id_provincia);
                         int filasAfectadas = comando.ExecuteNonQuery();
                         resultado = filasAfectadas > 0;
                     }

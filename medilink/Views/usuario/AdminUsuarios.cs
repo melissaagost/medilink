@@ -24,11 +24,11 @@ namespace medilink.Views.usuario
             this.usuarioLogueado = usuarioLogueado;
             usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
 
-            dataGridViewActivos.CellClick += dataGridViewActivos_CellContentClick;
-            dataGridViewActivos.CellClick += dataGridViewInactivos_CellContentClick;
+            //dataGridViewActivos.CellClick += dataGridViewActivos_CellContentClick;
+            //dataGridViewInactivos.CellClick += dataGridViewInactivos_CellContentClick;
         }
 
-        private void CargarUsuariosEnGrid()
+        private void CargarUsuariosActivos()
         {
             try
             {
@@ -86,8 +86,8 @@ namespace medilink.Views.usuario
 
         private void AdminUsuarios_Load(object sender, EventArgs e)
         {
-            CargarUsuariosEnGrid();
-            CargarUsuariosEnGrid2();
+            CargarUsuariosActivos();
+            CargarUsuariosInactivos();
         }
 
         private void dataGridViewActivos_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -103,7 +103,8 @@ namespace medilink.Views.usuario
                 if (resultado)
                 {
                     MessageBox.Show("Usuario dado de baja exitosamente.");
-                    CargarUsuariosEnGrid(); // Refresca la grilla después de dar de baja
+                    CargarUsuariosActivos(); // Refresca la grilla después de dar de baja
+                    CargarUsuariosInactivos();
                 }
                 else
                 {
@@ -113,7 +114,7 @@ namespace medilink.Views.usuario
         }
 
         //lo mismo pero para el grid de inactivos
-        private void CargarUsuariosEnGrid2()
+        private void CargarUsuariosInactivos()
         {
             try
             {
@@ -181,7 +182,8 @@ namespace medilink.Views.usuario
                 if (resultado)
                 {
                     MessageBox.Show("Usuario dado de alta exitosamente.");
-                    CargarUsuariosEnGrid2(); // Refresca la grilla después de dar de baja
+                    CargarUsuariosActivos();
+                    CargarUsuariosInactivos(); // Refresca la grilla después de dar de baja
                 }
                 else
                 {

@@ -153,9 +153,9 @@ namespace medilink.Views.usuario
 
         private void comboBoxPerfil_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int idPerfilSeleccionado = (int)(comboBoxPerfil.SelectedValue ?? 0);
+            PerfilM idPerfilSeleccionado = comboBoxPerfil.SelectedItem as PerfilM;
 
-            if (idPerfilSeleccionado == 3)
+            if (idPerfilSeleccionado.id_perfil == 3)
             {
                 // Habilitar los comboboxes de especialidad y turno si es médico
                 comboBoxEspecialidad.Enabled = true;

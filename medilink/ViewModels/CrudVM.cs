@@ -169,31 +169,30 @@ namespace medilink.ViewModels
 
 
         //comboboxes
-     
-            public List<ProvinciaM> ListarProvincias()
-            {
-                return usuarioLogueado.ObtenerProvincias();  // Maneja su propia conexión
-            }
+        public List<ProvinciaM> ListarProvincias()
+        {
+            return usuarioLogueado.ObtenerProvincias();  
+        }
 
-            public List<CiudadM> ListarCiudades()
-            {
-                return usuarioLogueado.ObtenerCiudades();  // Maneja su propia conexión
-            }
+        public List<CiudadM> ListarCiudades()
+        {
+            return usuarioLogueado.ObtenerCiudades(); 
+        }
 
-            public List<PerfilM> ListarPerfiles()
-            {
-                return usuarioLogueado.ObtenerPerfiles();  // Maneja su propia conexión
-            }
+        public List<PerfilM> ListarPerfiles()
+        {
+            return usuarioLogueado.ObtenerPerfiles();  
+        }
 
-            public List<PacienteM> ObtenerPacientes()
-            {
-                return usuarioLogueado.ObtenerPacientes(); 
-            }
+        public List<PacienteM> ObtenerPacientes()
+        {
+            return usuarioLogueado.ObtenerPacientes(); 
+        }
 
-            public List<MedicoM> ObtenerMedicos()
-            {
-                return usuarioLogueado.ObtenerMedicos();  
-            }
+        public List<MedicoM> ObtenerMedicos()
+        {
+            return usuarioLogueado.ObtenerMedicos();  
+        }
 
 
         public List<EspecialidadM> ObtenerEspecialidades()

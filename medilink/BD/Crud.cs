@@ -466,6 +466,45 @@ namespace medilink.BD
             return resultado;
         }
 
+        //listar medicos (es ditinto de obtner los medicos que está mas abajo)
+        public List<MedicoM> ListarMedicos()
+        {
+            List<MedicoM> listaMedicos = new List<MedicoM>();
+            try
+            {
+                using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+                {
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
+                    using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Medico", oconexion))
+                    {
+                        using (MySqlDataReader reader = comando.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                listaMedicos.Add(new MedicoM()
+                                {
+                                    id_medico = (int)reader["id_medico"],
+                                    id_especialidad = (int)reader["id_especialidad"],
+                                    id_turno = (int)reader["id_turno"],
+                                    id_usuario = (int)reader["id_usuario"],
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al listar médicos." + ex.Message);
+            }
+            return listaMedicos;
+        }
+
+        //comboboxes
         public List<ProvinciaM> ObtenerProvincias()
         {
             List<ProvinciaM> provincias = new List<ProvinciaM>();

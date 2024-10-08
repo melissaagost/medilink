@@ -22,5 +22,19 @@ namespace medilink.Views.usuario
             this.usuarioLogueado = usuarioLogueado;
             usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
         }
+
+        private void AdminGestor_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CargarMedicos()
+        {
+            try {
+            //usar tabla medico
+            }
+            
+            catch (Exception ex) { }
+        }
     }
 }

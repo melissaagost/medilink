@@ -32,6 +32,12 @@
             this.tabControlGestor = new System.Windows.Forms.TabControl();
             this.tabPageMedicos = new System.Windows.Forms.TabPage();
             this.dataGridViewMedicos = new System.Windows.Forms.DataGridView();
+            this.CDNIMedico = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CNombreMedico = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CApellidoMedico = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CUsuarioMedico = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CStatusMedico = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CAccionesMedicos = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabPageRecepcionistas = new System.Windows.Forms.TabPage();
             this.dataGridViewRecepcionistas = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,12 +46,6 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StatusRecep = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CAccion = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.CDNIMedico = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CNombreMedico = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CApellidoMedico = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CUsuarioMedico = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CStatusMedico = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CAccionesMedicos = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabControlGestor.SuspendLayout();
             this.tabPageMedicos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMedicos)).BeginInit();
@@ -101,6 +101,50 @@
             this.dataGridViewMedicos.Name = "dataGridViewMedicos";
             this.dataGridViewMedicos.Size = new System.Drawing.Size(876, 473);
             this.dataGridViewMedicos.TabIndex = 0;
+            // 
+            // CDNIMedico
+            // 
+            this.CDNIMedico.HeaderText = "DNI";
+            this.CDNIMedico.Name = "CDNIMedico";
+            this.CDNIMedico.ReadOnly = true;
+            this.CDNIMedico.Width = 145;
+            // 
+            // CNombreMedico
+            // 
+            this.CNombreMedico.HeaderText = "Nombre";
+            this.CNombreMedico.Name = "CNombreMedico";
+            this.CNombreMedico.ReadOnly = true;
+            this.CNombreMedico.Width = 145;
+            // 
+            // CApellidoMedico
+            // 
+            this.CApellidoMedico.HeaderText = "Apellido";
+            this.CApellidoMedico.Name = "CApellidoMedico";
+            this.CApellidoMedico.ReadOnly = true;
+            this.CApellidoMedico.Width = 145;
+            // 
+            // CUsuarioMedico
+            // 
+            this.CUsuarioMedico.HeaderText = "Usuario";
+            this.CUsuarioMedico.Name = "CUsuarioMedico";
+            this.CUsuarioMedico.ReadOnly = true;
+            this.CUsuarioMedico.Width = 145;
+            // 
+            // CStatusMedico
+            // 
+            this.CStatusMedico.HeaderText = "Dado de Baja";
+            this.CStatusMedico.Name = "CStatusMedico";
+            this.CStatusMedico.ReadOnly = true;
+            this.CStatusMedico.Width = 126;
+            // 
+            // CAccionesMedicos
+            // 
+            this.CAccionesMedicos.HeaderText = "Acción";
+            this.CAccionesMedicos.Name = "CAccionesMedicos";
+            this.CAccionesMedicos.Text = "Dar de Baja";
+            this.CAccionesMedicos.ToolTipText = "Desactive un usuario";
+            this.CAccionesMedicos.UseColumnTextForButtonValue = true;
+            this.CAccionesMedicos.Width = 126;
             // 
             // tabPageRecepcionistas
             // 
@@ -172,50 +216,6 @@
             this.CAccion.UseColumnTextForButtonValue = true;
             this.CAccion.Width = 126;
             // 
-            // CDNIMedico
-            // 
-            this.CDNIMedico.HeaderText = "DNI";
-            this.CDNIMedico.Name = "CDNIMedico";
-            this.CDNIMedico.ReadOnly = true;
-            this.CDNIMedico.Width = 145;
-            // 
-            // CNombreMedico
-            // 
-            this.CNombreMedico.HeaderText = "Nombre";
-            this.CNombreMedico.Name = "CNombreMedico";
-            this.CNombreMedico.ReadOnly = true;
-            this.CNombreMedico.Width = 145;
-            // 
-            // CApellidoMedico
-            // 
-            this.CApellidoMedico.HeaderText = "Apellido";
-            this.CApellidoMedico.Name = "CApellidoMedico";
-            this.CApellidoMedico.ReadOnly = true;
-            this.CApellidoMedico.Width = 145;
-            // 
-            // CUsuarioMedico
-            // 
-            this.CUsuarioMedico.HeaderText = "Usuario";
-            this.CUsuarioMedico.Name = "CUsuarioMedico";
-            this.CUsuarioMedico.ReadOnly = true;
-            this.CUsuarioMedico.Width = 145;
-            // 
-            // CStatusMedico
-            // 
-            this.CStatusMedico.HeaderText = "Dado de Baja";
-            this.CStatusMedico.Name = "CStatusMedico";
-            this.CStatusMedico.ReadOnly = true;
-            this.CStatusMedico.Width = 126;
-            // 
-            // CAccionesMedicos
-            // 
-            this.CAccionesMedicos.HeaderText = "Acción";
-            this.CAccionesMedicos.Name = "CAccionesMedicos";
-            this.CAccionesMedicos.Text = "Dar de Baja";
-            this.CAccionesMedicos.ToolTipText = "Desactive un usuario";
-            this.CAccionesMedicos.UseColumnTextForButtonValue = true;
-            this.CAccionesMedicos.Width = 126;
-            // 
             // AdminGestor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -228,6 +228,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AdminGestor";
             this.Text = "AdminGestor";
+            this.Load += new System.EventHandler(this.AdminGestor_Load);
             this.tabControlGestor.ResumeLayout(false);
             this.tabPageMedicos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMedicos)).EndInit();

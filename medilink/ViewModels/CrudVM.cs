@@ -132,13 +132,26 @@ namespace medilink.ViewModels
 
         public List<PacienteM> ListarPacientes()
         {
-            if (id_perfil == 4 || id_perfil == 2)
+            if (id_perfil == 4 || id_perfil == 2) //quizas que solo dejamos medico
             {
                 return usuarioLogueado.ListarPacientes();
             }
             else
             {
                 throw new UnauthorizedAccessException("No tienes permisos para listar pacientes.");
+            }
+        }
+
+
+        public List<MedicoM> ListarMedicos()
+        {
+            if (id_perfil == 2)
+            {
+                return usuarioLogueado.ListarMedicos();
+            }
+            else
+            {
+                throw new UnauthorizedAccessException("No tienes permisos para listar médicos.");
             }
         }
 

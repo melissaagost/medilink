@@ -26,13 +26,22 @@ namespace medilink.Views.citas
 
         private void NuevoPaciente_Load(object sender, EventArgs e)
         {
-
+            //por accidente
         }
 
         private void CargarComboboxes()
         {
             try
             {
+                comboBoxProvinciaPaciente.DataSource = usuarioVM.ListarProvincias();
+                comboBoxProvinciaPaciente.DisplayMember = "nombre";
+                comboBoxProvinciaPaciente.ValueMember = "id_provincia";
+
+
+                comboBoxCiudadPaciente.DataSource = usuarioVM.ListarCiudades();
+                comboBoxCiudadPaciente.DisplayMember = "nombre";
+                comboBoxCiudadPaciente.ValueMember = "id_ciudad";
+
                 comboBoxObraSocial.DataSource = usuarioVM.ObtenerObrasSociales();
                 comboBoxObraSocial.DisplayMember = "nombre";
                 comboBoxObraSocial.ValueMember = "id_obra_social";

@@ -40,6 +40,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.buttonBackup = new System.Windows.Forms.Button();
             this.BExaminarBackup = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -164,6 +166,24 @@
             this.BExaminarBackup.UseVisualStyleBackColor = true;
             this.BExaminarBackup.Click += new System.EventHandler(this.BExaminarBackup_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Georgia", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(55)))), ((int)(((byte)(61)))));
+            this.label7.Location = new System.Drawing.Point(51, 415);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(85, 23);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Progreso";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(142, 415);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(700, 23);
+            this.progressBar1.TabIndex = 14;
+            // 
             // Backup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -171,6 +191,8 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
             this.ClientSize = new System.Drawing.Size(930, 683);
             this.ControlBox = false;
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.BExaminarBackup);
             this.Controls.Add(this.buttonBackup);
             this.Controls.Add(this.label6);
@@ -206,5 +228,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button buttonBackup;
         private System.Windows.Forms.Button BExaminarBackup;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

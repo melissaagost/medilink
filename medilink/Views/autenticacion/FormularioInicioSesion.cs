@@ -172,7 +172,7 @@ namespace medilink.Views.autenticacion
                 // Crear una nueva conexión a la base de datos
                 using (var conexionBD = new ConexionBD()) // Asegúrate de que `conexionBD` es una instancia válida.
                 {
-                    using (MySqlConnection conexion = conexionBD.ObtenerConexion())
+                    using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
                     {
                         if (conexion.State == System.Data.ConnectionState.Open)
                         {
@@ -208,7 +208,7 @@ namespace medilink.Views.autenticacion
                                             MessageBox.Show("Inicio de sesión exitoso.");
 
                                             
-                                            Menu menuForm = new Menu();
+                                            Menu menuForm = new Menu(usuarioEncontrado);
 
                                             // Llamar al método para configurar el menú según el perfil
                                             menuForm.ConfigurarMenuPorPerfil(UsuarioActual.id_perfil);

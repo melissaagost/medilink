@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace medilink.Models
 {
-    internal class PerfilM
+    public class PerfilM
     {
         public int id_perfil { get; set; } // Propiedad para el identificador del perfil
         public string nombre { get; set; } // Propiedad para el nombre del perfil

@@ -30,27 +30,27 @@
         {
             this.tabControlUsuarios = new System.Windows.Forms.TabControl();
             this.tabPageActivos = new System.Windows.Forms.TabPage();
-            this.tabPageInactivos = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dataGridViewInactivos = new System.Windows.Forms.DataGridView();
             this.dataGridViewActivos = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CAccion = new System.Windows.Forms.DataGridViewButtonColumn();
             this.CDNI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CNombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CApellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CUsuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CPerfil = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CAcciones = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.tabPageInactivos = new System.Windows.Forms.TabPage();
+            this.dataGridViewInactivos = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CAccion = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabControlUsuarios.SuspendLayout();
             this.tabPageActivos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActivos)).BeginInit();
             this.tabPageInactivos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInactivos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActivos)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlUsuarios
@@ -75,44 +75,6 @@
             this.tabPageActivos.Text = "Activos";
             this.tabPageActivos.UseVisualStyleBackColor = true;
             // 
-            // tabPageInactivos
-            // 
-            this.tabPageInactivos.Controls.Add(this.dataGridViewInactivos);
-            this.tabPageInactivos.Location = new System.Drawing.Point(4, 22);
-            this.tabPageInactivos.Name = "tabPageInactivos";
-            this.tabPageInactivos.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageInactivos.Size = new System.Drawing.Size(882, 479);
-            this.tabPageInactivos.TabIndex = 1;
-            this.tabPageInactivos.Text = "Inactivos";
-            this.tabPageInactivos.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Georgia", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(166)))), ((int)(((byte)(124)))));
-            this.label1.Location = new System.Drawing.Point(306, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(279, 29);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Gestione los Usuarios";
-            // 
-            // dataGridViewInactivos
-            // 
-            this.dataGridViewInactivos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
-            this.dataGridViewInactivos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewInactivos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
-            this.CAccion});
-            this.dataGridViewInactivos.Location = new System.Drawing.Point(3, 3);
-            this.dataGridViewInactivos.Name = "dataGridViewInactivos";
-            this.dataGridViewInactivos.Size = new System.Drawing.Size(876, 473);
-            this.dataGridViewInactivos.TabIndex = 0;
-            // 
             // dataGridViewActivos
             // 
             this.dataGridViewActivos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
@@ -128,49 +90,7 @@
             this.dataGridViewActivos.Name = "dataGridViewActivos";
             this.dataGridViewActivos.Size = new System.Drawing.Size(876, 473);
             this.dataGridViewActivos.TabIndex = 0;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "DNI";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 145;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Nombre";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 145;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Apellido";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 145;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "Usuario";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 145;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "Perfil";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 126;
-            // 
-            // CAccion
-            // 
-            this.CAccion.HeaderText = "Acción";
-            this.CAccion.Name = "CAccion";
-            this.CAccion.Text = "Dar de Alta";
-            this.CAccion.UseColumnTextForButtonValue = true;
-            this.CAccion.Width = 126;
+            this.dataGridViewActivos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewActivos_CellContentClick);
             // 
             // CDNI
             // 
@@ -216,6 +136,88 @@
             this.CAcciones.UseColumnTextForButtonValue = true;
             this.CAcciones.Width = 126;
             // 
+            // tabPageInactivos
+            // 
+            this.tabPageInactivos.Controls.Add(this.dataGridViewInactivos);
+            this.tabPageInactivos.Location = new System.Drawing.Point(4, 22);
+            this.tabPageInactivos.Name = "tabPageInactivos";
+            this.tabPageInactivos.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageInactivos.Size = new System.Drawing.Size(882, 479);
+            this.tabPageInactivos.TabIndex = 1;
+            this.tabPageInactivos.Text = "Inactivos";
+            this.tabPageInactivos.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewInactivos
+            // 
+            this.dataGridViewInactivos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
+            this.dataGridViewInactivos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewInactivos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5,
+            this.CAccion});
+            this.dataGridViewInactivos.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewInactivos.Name = "dataGridViewInactivos";
+            this.dataGridViewInactivos.Size = new System.Drawing.Size(876, 473);
+            this.dataGridViewInactivos.TabIndex = 0;
+            this.dataGridViewInactivos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewInactivos_CellContentClick);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "DNI";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 145;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Nombre";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 145;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "Apellido";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 145;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Usuario";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 145;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "Perfil";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 126;
+            // 
+            // CAccion
+            // 
+            this.CAccion.HeaderText = "Acción";
+            this.CAccion.Name = "CAccion";
+            this.CAccion.Text = "Dar de Alta";
+            this.CAccion.UseColumnTextForButtonValue = true;
+            this.CAccion.Width = 126;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Georgia", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(166)))), ((int)(((byte)(124)))));
+            this.label1.Location = new System.Drawing.Point(306, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(279, 29);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Gestione los Usuarios";
+            // 
             // AdminUsuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -228,11 +230,12 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AdminUsuarios";
             this.Text = "AdminUsuarios";
+            this.Load += new System.EventHandler(this.AdminUsuarios_Load);
             this.tabControlUsuarios.ResumeLayout(false);
             this.tabPageActivos.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActivos)).EndInit();
             this.tabPageInactivos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInactivos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActivos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

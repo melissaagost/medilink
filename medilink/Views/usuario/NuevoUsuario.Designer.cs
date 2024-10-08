@@ -294,6 +294,7 @@
             this.buttonCrear.TabIndex = 24;
             this.buttonCrear.Text = "Crear";
             this.buttonCrear.UseVisualStyleBackColor = false;
+            this.buttonCrear.Click += new System.EventHandler(this.buttonCrear_Click);
             // 
             // buttonCancelar
             // 

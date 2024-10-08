@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
+
 namespace medilink.BD
 {
     internal class ConexionBD : IDisposable
     {
-        private MySqlConnection conexion;
-        private string cadenaConexion;
+        public static MySqlConnection conexion;
+        public static string cadenaConexion;
 
         public ConexionBD()
         {
@@ -19,20 +20,22 @@ namespace medilink.BD
             conexion = new MySqlConnection(cadenaConexion);
         }
 
-        public MySqlConnection ObtenerConexion()
+        public static MySqlConnection ObtenerConexion()
         {
+            MySqlConnection conexion = new MySqlConnection(cadenaConexion);  // Nueva conexión en cada llamada
             try
             {
                 if (conexion.State == System.Data.ConnectionState.Closed)
                 {
                     conexion.Open();
-                    Console.WriteLine("Conexión a la base de datos establecida exitosamente.");
                 }
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine("Error: No se pudo establecer conexión a la base de datos." + ex.Message);
+                Console.WriteLine("Error al abrir la conexión: " + ex.Message);
+                throw;
             }
+
             return conexion;
         }
 
@@ -43,7 +46,7 @@ namespace medilink.BD
                 conexion.Close();
             }
         }
-        // Implementación del método Dispose
+       
         public void Dispose()
         {
             CerrarConexion(); // Cierra la conexión

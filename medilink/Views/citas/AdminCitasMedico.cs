@@ -1,4 +1,6 @@
-﻿using System;
+﻿using medilink.Models;
+using medilink.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +14,14 @@ namespace medilink.Views.citas
 {
     public partial class AdminCitasMedico : Form
     {
-        public AdminCitasMedico()
+
+        private UsuarioM usuarioLogueado;
+        private CrudVM usuarioVM;
+        public AdminCitasMedico(UsuarioM usuarioLogueado)
         {
             InitializeComponent();
+            this.usuarioLogueado = usuarioLogueado;
+            usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
         }
     }
 }

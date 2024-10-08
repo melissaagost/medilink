@@ -13,7 +13,7 @@ using System.Windows.Forms;
 namespace medilink.Views.citas
 {
     public partial class NuevoPaciente : Form
-    {
+    { 
         private UsuarioM usuarioLogueado;
         private CrudVM usuarioVM;
         public NuevoPaciente(UsuarioM usuarioLogueado)
@@ -21,11 +21,32 @@ namespace medilink.Views.citas
             InitializeComponent();
             this.usuarioLogueado = usuarioLogueado;
             usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
+            CargarComboboxes();
         }
 
         private void NuevoPaciente_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void CargarComboboxes()
+        {
+            try
+            {
+                comboBoxObraSocial.DataSource = usuarioVM.ObtenerObrasSociales();
+                comboBoxObraSocial.DisplayMember = "nombre";
+                comboBoxObraSocial.ValueMember = "id_obra_social";
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los ComboBoxes: " + ex.Message);
+            }
+        }
+
+        private void buttonCancelarPaciente_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

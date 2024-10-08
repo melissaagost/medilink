@@ -77,6 +77,7 @@
             this.buttonCancelarPaciente.TabIndex = 52;
             this.buttonCancelarPaciente.Text = "Cancelar";
             this.buttonCancelarPaciente.UseVisualStyleBackColor = false;
+            this.buttonCancelarPaciente.Click += new System.EventHandler(this.buttonCancelarPaciente_Click);
             // 
             // buttonAñadirPaciente
             // 

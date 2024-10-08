@@ -205,7 +205,11 @@ namespace medilink.ViewModels
             return usuarioLogueado.ObtenerTurnos();
         }
 
-
+        public List<ObraSocialM> ObtenerObrasSociales()
+        {
+            return usuarioLogueado.ObtenerObrasSociales();
+        }
+    
 
 
     }

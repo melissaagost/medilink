@@ -698,6 +698,38 @@ namespace medilink.BD
             return turnos;
         }
 
+        public List<ObraSocialM> ObtenerObrasSociales()
+        {
+            List<ObraSocialM> obras = new List<ObraSocialM>();
+
+            using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+            {
+                try
+                {
+                    using (MySqlCommand comando = new MySqlCommand("SELECT id_obra_social, nombre FROM obra_social", oconexion))
+                    {
+                        using (MySqlDataReader reader = comando.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                obras.Add(new ObraSocialM
+                                {
+                                    id_obra_social = Convert.ToInt32(reader["id_obra_social"]),
+                                    nombre = reader["nombre"].ToString()
+                                });
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener obras: " + ex.Message);
+                    throw;
+                }
+            }
+
+            return obras;
+        }
 
     }
 } 

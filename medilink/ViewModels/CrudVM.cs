@@ -159,11 +159,23 @@ namespace medilink.ViewModels
         {
             if (id_perfil == 4 || id_perfil == 2)
             {
-                return usuarioLogueado.Baja(id_paciente);
+                return usuarioLogueado.BajaPacientes(id_paciente);
             }
             else
             {
                 throw new UnauthorizedAccessException("No tienes permisos para dar de baja pacientes.");
+            }
+        }
+
+        public bool DarDeAltaPaciente(int id_paciente)
+        {
+            if (id_perfil == 4 || id_perfil == 2)
+            {
+                return usuarioLogueado.AltaPacientes(id_paciente);
+            }
+            else
+            {
+                throw new UnauthorizedAccessException("No tienes permisos para dar de alta pacientes.");
             }
         }
 

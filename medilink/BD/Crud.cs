@@ -422,10 +422,11 @@ namespace medilink.BD
                             {
                                 listaPacientes.Add(new PacienteM()
                                 {
+                                    id_paciente = (int)reader["id_paciente"],
                                     dni = (int)reader["dni"],
                                     nombre = reader["nombre"].ToString(),
                                     apellido = reader["apellido"].ToString(),
-                                    status = reader["status"].ToString(),
+                                    telefono = reader["telefono"].ToString(),
                                 });
                             }
                         }
@@ -438,7 +439,7 @@ namespace medilink.BD
             }
             return listaPacientes;
         }
-        //dar de baja pacientes (contexto: a cargo de gestor)
+        //dar de baja y alta pacientes (contexto: a cargo de gestor)
         public bool BajaPacientes(int id_paciente)
         {
             bool resultado = false;
@@ -453,17 +454,50 @@ namespace medilink.BD
 
                     using (MySqlCommand comando = new MySqlCommand("UPDATE Paciente SET status = @status WHERE id_paciente = @id_paciente", oconexion))
                     {
-                        comando.Parameters.AddWithValue("@status", "no");
+                        comando.Parameters.AddWithValue("@status", "no"); 
                         comando.Parameters.AddWithValue("@id_paciente", id_paciente);
+
 
                         int filasAfectadas = comando.ExecuteNonQuery();
                         resultado = filasAfectadas > 0;
+                        Console.WriteLine(filasAfectadas);
                     }
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error al dar de baja el paciente." + ex.Message);
+            }
+            return resultado;
+        }
+
+        public bool AltaPacientes(int id_paciente)
+        {
+            bool resultado = false;
+            try
+            {
+                using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+                {
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
+                    using (MySqlCommand comando = new MySqlCommand("UPDATE Paciente SET status = @status WHERE id_paciente = @id_paciente", oconexion))
+                    {
+                        comando.Parameters.AddWithValue("@status", "si"); 
+                        comando.Parameters.AddWithValue("@id_paciente", id_paciente);
+
+
+                        int filasAfectadas = comando.ExecuteNonQuery();
+                        resultado = filasAfectadas > 0;
+                        Console.WriteLine(filasAfectadas);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al dar de alta el paciente." + ex.Message);
             }
             return resultado;
         }
@@ -483,13 +517,13 @@ namespace medilink.BD
                     }
 
                     using (MySqlCommand comando = new MySqlCommand(
-    "SELECT m.id_medico, m.id_especialidad, e.nombre AS especialidad_nombre, " +
-    "m.id_turno, t.nombre AS turno_nombre, " +
-    "m.id_usuario, u.nombre AS nombre, u.apellido, u.telefono, u.status " +
-    "FROM Medico m " +
-    "INNER JOIN Usuario u ON m.id_usuario = u.id_usuario " +
-    "INNER JOIN Turno t ON m.id_turno = t.id_turno " +
-    "INNER JOIN Especialidad e ON m.id_especialidad = e.id_especialidad", oconexion))
+                            "SELECT m.id_medico, m.id_especialidad, e.nombre AS especialidad_nombre, " +
+                            "m.id_turno, t.nombre AS turno_nombre, " +
+                            "m.id_usuario, u.nombre AS nombre, u.apellido, u.telefono, u.status " +
+                            "FROM Medico m " +
+                            "INNER JOIN Usuario u ON m.id_usuario = u.id_usuario " +
+                            "INNER JOIN Turno t ON m.id_turno = t.id_turno " +
+                            "INNER JOIN Especialidad e ON m.id_especialidad = e.id_especialidad", oconexion))
                     {
                         using (MySqlDataReader reader = comando.ExecuteReader())
                         {

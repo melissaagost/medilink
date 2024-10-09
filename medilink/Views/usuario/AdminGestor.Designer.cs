@@ -184,6 +184,7 @@
             this.dataGridViewRecepcionistas.Name = "dataGridViewRecepcionistas";
             this.dataGridViewRecepcionistas.Size = new System.Drawing.Size(876, 473);
             this.dataGridViewRecepcionistas.TabIndex = 0;
+            this.dataGridViewRecepcionistas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRecepcionistas_CellContentClick);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -253,6 +254,7 @@
             this.dataGridViewPacientes.Name = "dataGridViewPacientes";
             this.dataGridViewPacientes.Size = new System.Drawing.Size(876, 473);
             this.dataGridViewPacientes.TabIndex = 1;
+            this.dataGridViewPacientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPacientes_CellContentClick);
             // 
             // dataGridViewTextBoxColumn5
             // 

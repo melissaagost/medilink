@@ -17,7 +17,7 @@ namespace medilink.Views.usuario
 
         private UsuarioM usuarioLogueado;
         private CrudVM usuarioVM;
-        public AdminUsuarios( UsuarioM usuarioLogueado)
+        public AdminUsuarios( UsuarioM usuarioLogueado) 
         {
             InitializeComponent();
             this.Load += new EventHandler(AdminUsuarios_Load);

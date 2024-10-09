@@ -308,6 +308,8 @@ namespace medilink.BD
                             {
                                 listaCitas.Add(new CitaM()
                                 {
+                                    id_cita = Convert.ToInt32(reader["id_cita"]),
+
                                     fecha = (DateTime)reader["fecha"],
                                     status = reader["status"].ToString(),
                                     id_paciente = (int)reader["id_paciente"],
@@ -326,7 +328,7 @@ namespace medilink.BD
         }
 
         //listar citas asociadas a un medico
-        internal static List<CitaM> ListarCitasPorMedico(int idMedico)
+        internal static List<CitaM> ListarCitasPorMedico(int idUsuarioLogueado)
         {
             List<CitaM> listaCitas = new List<CitaM>();
 
@@ -337,9 +339,15 @@ namespace medilink.BD
                     oconexion.Open();
                 }
 
-                using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Cita WHERE id_medico = @idMedico", oconexion))
+                using (MySqlCommand comando = new MySqlCommand(
+                    "SELECT c.id_cita, c.fecha, c.motivo, c.status, p.nombre AS paciente_nombre " +
+                    "FROM Cita c " +
+                    "INNER JOIN Medico m ON c.id_medico = m.id_medico " +
+                    "INNER JOIN Paciente p ON c.id_paciente = p.id_paciente " +
+                    "INNER JOIN Usuario u ON m.id_usuario = u.id_usuario " +
+                    "WHERE u.id_usuario = @idUsuarioLogueado", oconexion))
                 {
-                    comando.Parameters.AddWithValue("@idMedico", idMedico);
+                    comando.Parameters.AddWithValue("@idUsuarioLogueado", idUsuarioLogueado);
 
                     using (MySqlDataReader reader = comando.ExecuteReader())
                     {
@@ -347,17 +355,20 @@ namespace medilink.BD
                         {
                             listaCitas.Add(new CitaM
                             {
-                                id_paciente = Convert.ToInt32(reader["id_paciente"]),
+                                id_cita = Convert.ToInt32(reader["id_cita"]),
                                 fecha = Convert.ToDateTime(reader["fecha"]),
-                                motivo = (string)reader["motivo"],
-                                status = (string)reader["status"],
+                                motivo = reader["motivo"].ToString(),
+                                status = reader["status"].ToString(),
+                                paciente_nombre = reader["paciente_nombre"].ToString()
                             });
                         }
                     }
                 }
             }
+
             return listaCitas;
         }
+
 
 
         //registrar un paciente (Contexto: a cargo de la recep)

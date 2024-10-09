@@ -14,6 +14,7 @@ namespace medilink.Models
         public string motivo { get; set; }
         public string status { get; set; }
         public int id_paciente { get; set; }
+        public string paciente_nombre { get; set; }
         public int id_medico { get; set; }
     }
 }

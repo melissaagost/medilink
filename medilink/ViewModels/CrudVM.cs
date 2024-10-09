@@ -87,6 +87,12 @@ namespace medilink.ViewModels
             }
         }
 
+        public bool ReprogramarCita(int id_cita, DateTime nuevaFecha)
+        {
+            return usuarioLogueado.ReprogramarCita(id_cita, nuevaFecha);
+        }
+
+
         public bool CancelarCita(int cita)
         {
             if (id_perfil == 4 || id_perfil == 3)

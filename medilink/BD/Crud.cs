@@ -257,6 +257,38 @@ namespace medilink.BD
             return resultado;
         }
 
+        public bool ReprogramarCita(int id_cita, DateTime nuevaFecha)
+        {
+            bool resultado = false;
+            try
+            {
+                using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+                {
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
+                    using (MySqlCommand comando = new MySqlCommand(
+                        "UPDATE Cita SET fecha = @fecha, status = 'activa' WHERE id_cita = @id_cita", oconexion))
+                    {
+                        comando.Parameters.AddWithValue("@fecha", nuevaFecha);
+                        comando.Parameters.AddWithValue("@id_cita", id_cita);
+
+                        int filasAfectadas = comando.ExecuteNonQuery();
+                        resultado = filasAfectadas > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al reprogramar la cita: " + ex.Message);
+            }
+
+            return resultado;
+        }
+
+
         //cancelar cita (contexto: usado por recep y medico)
         public static bool Cancelar(int id_cita)
         {
@@ -270,10 +302,10 @@ namespace medilink.BD
                         oconexion.Open();
                     }
 
-                    using (MySqlCommand comando = new MySqlCommand("UPDATE Cita SET status = @status WHERE id_cita = @id_cita", oconexion))
+                    using (MySqlCommand comando = new MySqlCommand("UPDATE Cita SET status = 'cancelada' WHERE id_cita = @id_cita", oconexion))
                     {
                         comando.Parameters.AddWithValue("@status", "cancelada");
-                        comando.Parameters.AddWithValue("@id_usuario", id_cita);
+                        comando.Parameters.AddWithValue("@id_cita", id_cita);
 
                         int filasAfectadas = comando.ExecuteNonQuery();
                         resultado = filasAfectadas > 0;
@@ -309,7 +341,6 @@ namespace medilink.BD
                                 listaCitas.Add(new CitaM()
                                 {
                                     id_cita = Convert.ToInt32(reader["id_cita"]),
-
                                     fecha = (DateTime)reader["fecha"],
                                     status = reader["status"].ToString(),
                                     id_paciente = (int)reader["id_paciente"],
@@ -340,7 +371,7 @@ namespace medilink.BD
                 }
 
                 using (MySqlCommand comando = new MySqlCommand(
-                    "SELECT c.id_cita, c.fecha, c.motivo, c.status, p.nombre AS paciente_nombre " +
+                    "SELECT c.id_cita, c.fecha, c.motivo, c.status, p.id_paciente, p.nombre AS paciente_nombre, m.id_medico " +
                     "FROM Cita c " +
                     "INNER JOIN Medico m ON c.id_medico = m.id_medico " +
                     "INNER JOIN Paciente p ON c.id_paciente = p.id_paciente " +
@@ -355,6 +386,8 @@ namespace medilink.BD
                         {
                             listaCitas.Add(new CitaM
                             {
+                                id_medico = Convert.ToInt32(reader["id_medico"]),
+                                id_paciente = Convert.ToInt32(reader["id_paciente"]),
                                 id_cita = Convert.ToInt32(reader["id_cita"]),
                                 fecha = Convert.ToDateTime(reader["fecha"]),
                                 motivo = reader["motivo"].ToString(),

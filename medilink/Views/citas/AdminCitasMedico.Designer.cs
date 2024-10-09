@@ -162,6 +162,7 @@
             this.dataGridViewCanceladas.Name = "dataGridViewCanceladas";
             this.dataGridViewCanceladas.Size = new System.Drawing.Size(876, 473);
             this.dataGridViewCanceladas.TabIndex = 0;
+            this.dataGridViewCanceladas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCanceladas_CellContentClick);
             // 
             // dataGridViewTextBoxColumn1
             // 

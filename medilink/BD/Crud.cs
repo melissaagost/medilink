@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace medilink.BD
 {
@@ -471,16 +472,24 @@ namespace medilink.BD
         public List<MedicoM> ListarMedicos()
         {
             List<MedicoM> listaMedicos = new List<MedicoM>();
-            try
+
+            using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
             {
-                using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+                try
                 {
                     if (oconexion.State == ConnectionState.Closed)
                     {
                         oconexion.Open();
                     }
 
-                    using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Medico", oconexion))
+                    using (MySqlCommand comando = new MySqlCommand(
+    "SELECT m.id_medico, m.id_especialidad, e.nombre AS especialidad_nombre, " +
+    "m.id_turno, t.nombre AS turno_nombre, " +
+    "m.id_usuario, u.nombre AS nombre, u.apellido, u.telefono, u.status " +
+    "FROM Medico m " +
+    "INNER JOIN Usuario u ON m.id_usuario = u.id_usuario " +
+    "INNER JOIN Turno t ON m.id_turno = t.id_turno " +
+    "INNER JOIN Especialidad e ON m.id_especialidad = e.id_especialidad", oconexion))
                     {
                         using (MySqlDataReader reader = comando.ExecuteReader())
                         {
@@ -490,18 +499,25 @@ namespace medilink.BD
                                 {
                                     id_medico = (int)reader["id_medico"],
                                     id_especialidad = (int)reader["id_especialidad"],
+                                    especialidad_nombre = reader["especialidad_nombre"].ToString(),
                                     id_turno = (int)reader["id_turno"],
+                                    turno_nombre = reader["turno_nombre"].ToString(),
                                     id_usuario = (int)reader["id_usuario"],
+                                    nombre = reader["nombre"].ToString(),
+                                    apellido = reader["apellido"].ToString(),
+                                    telefono = reader["telefono"].ToString(),
+                                    status = reader["status"].ToString(),
                                 });
                             }
                         }
                     }
                 }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al listar médicos: " + ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error al listar médicos." + ex.Message);
-            }
+
             return listaMedicos;
         }
 

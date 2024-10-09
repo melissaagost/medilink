@@ -46,11 +46,21 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StatusRecep = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CAccion = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.tabPagePacientes = new System.Windows.Forms.TabPage();
+            this.dataGridViewPacientes = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabControlGestor.SuspendLayout();
             this.tabPageMedicos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMedicos)).BeginInit();
             this.tabPageRecepcionistas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRecepcionistas)).BeginInit();
+            this.tabPagePacientes.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPacientes)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -68,6 +78,7 @@
             // 
             this.tabControlGestor.Controls.Add(this.tabPageMedicos);
             this.tabControlGestor.Controls.Add(this.tabPageRecepcionistas);
+            this.tabControlGestor.Controls.Add(this.tabPagePacientes);
             this.tabControlGestor.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlGestor.Location = new System.Drawing.Point(12, 50);
             this.tabControlGestor.Name = "tabControlGestor";
@@ -101,6 +112,7 @@
             this.dataGridViewMedicos.Name = "dataGridViewMedicos";
             this.dataGridViewMedicos.Size = new System.Drawing.Size(876, 473);
             this.dataGridViewMedicos.TabIndex = 0;
+            this.dataGridViewMedicos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMedicos_CellContentClick);
             // 
             // CDNIMedico
             // 
@@ -216,6 +228,75 @@
             this.CAccion.UseColumnTextForButtonValue = true;
             this.CAccion.Width = 126;
             // 
+            // tabPagePacientes
+            // 
+            this.tabPagePacientes.Controls.Add(this.dataGridViewPacientes);
+            this.tabPagePacientes.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePacientes.Name = "tabPagePacientes";
+            this.tabPagePacientes.Size = new System.Drawing.Size(882, 479);
+            this.tabPagePacientes.TabIndex = 2;
+            this.tabPagePacientes.Text = "Pacientes";
+            this.tabPagePacientes.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewPacientes
+            // 
+            this.dataGridViewPacientes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
+            this.dataGridViewPacientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPacientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn6,
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewTextBoxColumn8,
+            this.dataGridViewTextBoxColumn9,
+            this.dataGridViewButtonColumn1});
+            this.dataGridViewPacientes.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewPacientes.Name = "dataGridViewPacientes";
+            this.dataGridViewPacientes.Size = new System.Drawing.Size(876, 473);
+            this.dataGridViewPacientes.TabIndex = 1;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "DNI";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 145;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.HeaderText = "Nombre";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.Width = 145;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.HeaderText = "Apellido";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.Width = 145;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.HeaderText = "Usuario";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            this.dataGridViewTextBoxColumn8.Width = 145;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.HeaderText = "Dado de baja";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            this.dataGridViewTextBoxColumn9.Width = 126;
+            // 
+            // dataGridViewButtonColumn1
+            // 
+            this.dataGridViewButtonColumn1.HeaderText = "Acción";
+            this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
+            this.dataGridViewButtonColumn1.Text = "Dar de Alta";
+            this.dataGridViewButtonColumn1.UseColumnTextForButtonValue = true;
+            this.dataGridViewButtonColumn1.Width = 126;
+            // 
             // AdminGestor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -234,6 +315,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMedicos)).EndInit();
             this.tabPageRecepcionistas.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRecepcionistas)).EndInit();
+            this.tabPagePacientes.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPacientes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -259,5 +342,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CUsuarioMedico;
         private System.Windows.Forms.DataGridViewTextBoxColumn CStatusMedico;
         private System.Windows.Forms.DataGridViewButtonColumn CAccionesMedicos;
+        private System.Windows.Forms.TabPage tabPagePacientes;
+        private System.Windows.Forms.DataGridView dataGridViewPacientes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn1;
     }
 }

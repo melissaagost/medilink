@@ -332,7 +332,12 @@ namespace medilink.BD
                         oconexion.Open();
                     }
 
-                    using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Cita", oconexion))
+                    using (MySqlCommand comando = new MySqlCommand(
+                     "SELECT c.id_cita, c.fecha, c.motivo, c.status, p.id_paciente, p.nombre AS paciente_nombre, u.nombre AS medico_nombre, m.id_medico " +
+                     "FROM Cita c " +
+                     "INNER JOIN Medico m ON c.id_medico = m.id_medico " +
+                     "INNER JOIN Paciente p ON c.id_paciente = p.id_paciente " +
+                     "INNER JOIN Usuario u ON m.id_usuario = u.id_usuario ", oconexion))
                     {
                         using (MySqlDataReader reader = comando.ExecuteReader())
                         {
@@ -340,11 +345,15 @@ namespace medilink.BD
                             {
                                 listaCitas.Add(new CitaM()
                                 {
+                                    id_medico = Convert.ToInt32(reader["id_medico"]),
+                                    id_paciente = Convert.ToInt32(reader["id_paciente"]),
                                     id_cita = Convert.ToInt32(reader["id_cita"]),
-                                    fecha = (DateTime)reader["fecha"],
+                                    fecha = Convert.ToDateTime(reader["fecha"]),
+                                    motivo = reader["motivo"].ToString(),
                                     status = reader["status"].ToString(),
-                                    id_paciente = (int)reader["id_paciente"],
-                                    id_medico = (int)reader["id_medico"],
+                                    paciente_nombre = reader["paciente_nombre"].ToString(),
+                                    medico_nombre = reader["medico_nombre"].ToString()
+
                                 });
                             }
                         }
@@ -741,8 +750,10 @@ namespace medilink.BD
             {
                 try
                 {
-                    using (MySqlCommand comando = new MySqlCommand("SELECT id_medico, id_especialidad FROM Medico", oconexion))
-                    {
+                    using (MySqlCommand comando = new MySqlCommand(
+                             "SELECT m.id_medico, u.nombre, m.id_especialidad " +
+                             "FROM Medico m " +
+                             "INNER JOIN Usuario u ON m.id_usuario = u.id_usuario", oconexion)){
                         using (MySqlDataReader reader = comando.ExecuteReader())
                         {
                             while (reader.Read())
@@ -750,7 +761,8 @@ namespace medilink.BD
                                 medicos.Add(new MedicoM
                                 {
                                     id_medico = Convert.ToInt32(reader["id_medico"]),
-                                    id_especialidad = Convert.ToInt32(reader["id_especialidad"]),
+                                    nombre = reader["nombre"].ToString(),
+                                    id_especialidad = Convert.ToInt32(reader["id_especialidad"])
                                 });
                             }
                         }

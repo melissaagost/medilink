@@ -98,6 +98,7 @@
             this.dataGridViewProgramadas.Name = "dataGridViewProgramadas";
             this.dataGridViewProgramadas.Size = new System.Drawing.Size(876, 473);
             this.dataGridViewProgramadas.TabIndex = 0;
+            this.dataGridViewProgramadas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProgramadas_CellContentClick);
             // 
             // CDNIPaciente
             // 
@@ -161,6 +162,7 @@
             this.dataGridViewInactivos.Name = "dataGridViewInactivos";
             this.dataGridViewInactivos.Size = new System.Drawing.Size(876, 473);
             this.dataGridViewInactivos.TabIndex = 0;
+            this.dataGridViewInactivos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewInactivos_CellContentClick);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -210,6 +212,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AdministrarCitas";
             this.Text = "AdministrarCitas";
+            this.Load += new System.EventHandler(this.AdministrarCitas_Load);
             this.tabControlCitasRecep.ResumeLayout(false);
             this.tabPageActivas.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProgramadas)).EndInit();

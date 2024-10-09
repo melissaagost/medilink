@@ -67,6 +67,29 @@ namespace medilink.Views.citas
                 MessageBox.Show("Error al reprogramar la cita.");
             }
         }
+
+        private void buttonAgendar_Click_1(object sender, EventArgs e)
+        {
+            DateTime nuevaFecha = dateTimePickerCita.Value;
+
+            bool resultado = usuarioVM.ReprogramarCita(id_cita, nuevaFecha);
+            if (resultado)
+            {
+                MessageBox.Show("Cita reprogramada con éxito.");
+                CargarCitasActivas();
+
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Error al reprogramar la cita.");
+            }
+        }
+
+        private void buttonCancelarAgenda_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
     }
 

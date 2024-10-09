@@ -145,7 +145,7 @@ namespace medilink.Views.citas
                 {
                     Name = "motivo",
                     HeaderText = "Motivo",
-                    DataPropertyName = "motivo"
+                    DataPropertyName = "motivo" 
                 });
 
                 dataGridViewCanceladas.Columns.Add(new DataGridViewTextBoxColumn

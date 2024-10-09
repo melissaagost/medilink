@@ -20,7 +20,7 @@ namespace medilink.Views.citas
 
         public NuevaCita(UsuarioM usuarioLogueado)
         {
-            InitializeComponent();
+            InitializeComponent(); 
             this.usuarioLogueado = usuarioLogueado;
             usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
             CargarComboboxes();
@@ -43,7 +43,7 @@ namespace medilink.Views.citas
 
                 comboBoxSelecMedico.DataSource = usuarioVM.ObtenerMedicos();
                 comboBoxSelecMedico.DisplayMember = "nombre";
-                comboBoxSelecMedico.ValueMember = "id_usuario";
+                comboBoxSelecMedico.ValueMember = "id_medico";
 
             }
             catch (Exception ex)

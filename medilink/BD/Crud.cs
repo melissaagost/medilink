@@ -399,7 +399,7 @@ namespace medilink.BD
 
 
 
-        //listar pacientes (contexto: a cargo de gestor y recep)
+        //listar pacientes (contexto: a cargo de gestor)
         public List<PacienteM> ListarPacientes()
         {
             List<PacienteM> listaPacientes = new List<PacienteM>();

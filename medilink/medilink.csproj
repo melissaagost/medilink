@@ -159,6 +159,24 @@
     <Compile Include="Views\citas\ReprogramarCita.Designer.cs">
       <DependentUpon>ReprogramarCita.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\reportes\ReporteGestor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\reportes\ReporteGestor.Designer.cs">
+      <DependentUpon>ReporteGestor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\reportes\ReporteMedico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\reportes\ReporteMedico.Designer.cs">
+      <DependentUpon>ReporteMedico.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\reportes\ReporteRecep.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\reportes\ReporteRecep.Designer.cs">
+      <DependentUpon>ReporteRecep.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\usuario\AdminGestor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -263,9 +281,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\reportes\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Views\assets\imagenes\admin.png" />
     <Content Include="Views\assets\imagenes\administrar.png" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using medilink.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,21 +15,32 @@ namespace medilink.Views.usuario
     {
         private Panel panelVistas; // Define una variable para almacenar la referencia al panel
 
-        public Perfil(Panel panelVistasDelMenu)
+        private UsuarioM usuarioLogueado;
+        public Perfil(Panel panelVistasDelMenu, UsuarioM usuario)
         {
             InitializeComponent();
             this.panelVistas = panelVistasDelMenu;
+            this.usuarioLogueado = usuario;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            panelVistas.Controls.Clear();
-            Form nuevaVistaForm = new EditarPerfil();
-            nuevaVistaForm.TopLevel = false;
-            nuevaVistaForm.FormBorderStyle = FormBorderStyle.None;
-            nuevaVistaForm.Dock = DockStyle.Fill;
-            panelVistas.Controls.Add(nuevaVistaForm);
-            nuevaVistaForm.Show();
+            if (usuarioLogueado != null)
+            {
+                Form nuevaVistaForm = new EditarPerfil(usuarioLogueado);
+                nuevaVistaForm.TopLevel = false;
+                nuevaVistaForm.FormBorderStyle = FormBorderStyle.None;
+                nuevaVistaForm.Dock = DockStyle.Fill;
+                panelVistas.Controls.Add(nuevaVistaForm);
+                nuevaVistaForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("El usuario no está inicializado correctamente.");
+            }
+
+
+          
         }
     }
 }

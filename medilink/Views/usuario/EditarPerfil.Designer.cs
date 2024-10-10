@@ -40,6 +40,8 @@
             this.textBoxEditDomicilio = new System.Windows.Forms.TextBox();
             this.textBoxEditContraseña = new System.Windows.Forms.TextBox();
             this.textBoxEditTelefono = new System.Windows.Forms.TextBox();
+            this.buttonGuardarCambios = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEditPFP)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,6 +77,7 @@
             this.BEditarPFP.TabIndex = 3;
             this.BEditarPFP.Text = "Editar";
             this.BEditarPFP.UseVisualStyleBackColor = false;
+            this.BEditarPFP.Click += new System.EventHandler(this.BEditarPFP_Click);
             // 
             // buttonEliminarPFP
             // 
@@ -87,6 +90,7 @@
             this.buttonEliminarPFP.TabIndex = 4;
             this.buttonEliminarPFP.Text = "Eliminar";
             this.buttonEliminarPFP.UseVisualStyleBackColor = false;
+            this.buttonEliminarPFP.Click += new System.EventHandler(this.buttonEliminarPFP_Click);
             // 
             // label2
             // 
@@ -160,6 +164,31 @@
             this.textBoxEditTelefono.Size = new System.Drawing.Size(157, 20);
             this.textBoxEditTelefono.TabIndex = 17;
             // 
+            // buttonGuardarCambios
+            // 
+            this.buttonGuardarCambios.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(166)))), ((int)(((byte)(124)))));
+            this.buttonGuardarCambios.Font = new System.Drawing.Font("Georgia", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonGuardarCambios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
+            this.buttonGuardarCambios.Location = new System.Drawing.Point(304, 468);
+            this.buttonGuardarCambios.Name = "buttonGuardarCambios";
+            this.buttonGuardarCambios.Size = new System.Drawing.Size(144, 51);
+            this.buttonGuardarCambios.TabIndex = 18;
+            this.buttonGuardarCambios.Text = "Guardar ";
+            this.buttonGuardarCambios.UseVisualStyleBackColor = false;
+            this.buttonGuardarCambios.Click += new System.EventHandler(this.buttonGuardarCambios_Click);
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
+            this.button2.Font = new System.Drawing.Font("Georgia", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
+            this.button2.Location = new System.Drawing.Point(454, 468);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(144, 51);
+            this.button2.TabIndex = 19;
+            this.button2.Text = "Cancelar";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
             // EditarPerfil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -167,6 +196,8 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
             this.ClientSize = new System.Drawing.Size(914, 572);
             this.ControlBox = false;
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.buttonGuardarCambios);
             this.Controls.Add(this.textBoxEditTelefono);
             this.Controls.Add(this.textBoxEditContraseña);
             this.Controls.Add(this.textBoxEditDomicilio);
@@ -202,5 +233,7 @@
         private System.Windows.Forms.TextBox textBoxEditDomicilio;
         private System.Windows.Forms.TextBox textBoxEditContraseña;
         private System.Windows.Forms.TextBox textBoxEditTelefono;
+        private System.Windows.Forms.Button buttonGuardarCambios;
+        private System.Windows.Forms.Button button2;
     }
 }

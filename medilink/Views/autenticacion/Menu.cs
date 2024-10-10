@@ -438,7 +438,7 @@ namespace medilink.Views.autenticacion
         private void BPerfil_Click(object sender, EventArgs e)
         {
             panelVistas.Controls.Clear();
-            Form nuevaVistaForm = new Perfil(panelVistas);
+            Form nuevaVistaForm = new Perfil(panelVistas, usuarioLogueado);
             nuevaVistaForm.TopLevel = false; 
             nuevaVistaForm.FormBorderStyle = FormBorderStyle.None; 
             nuevaVistaForm.Dock = DockStyle.Fill; 

@@ -201,9 +201,9 @@ namespace medilink.BD
                         oconexion.Open();
                     }
 
-                    using (MySqlCommand comando = new MySqlCommand("UPDATE Usuario SET  usuario = @usuario, direccion = @direccion, correo = @correo, telefono = @telefono, contraseña = @contraseña WHERE id_usuario = @id_usuario", oconexion))
+                    using (MySqlCommand comando = new MySqlCommand("UPDATE Usuario SET  usuario = @usuario, @foto = foto, direccion = @direccion, correo = @correo, telefono = @telefono, contraseña = @contraseña WHERE id_usuario = @id_usuario", oconexion))
                     {
-                        //comando.Parameters.AddWithValue("@foto_perfil", usuario.foto_perfil);
+                        comando.Parameters.AddWithValue("@foto", usuario.foto ?? (object)DBNull.Value);
                         comando.Parameters.AddWithValue("@usuario", usuario.usuario);
                         comando.Parameters.AddWithValue("@direccion", usuario.direccion);
                         comando.Parameters.AddWithValue("@correo", usuario.correo);

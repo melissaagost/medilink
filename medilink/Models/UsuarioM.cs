@@ -13,6 +13,8 @@ namespace medilink.Models
         public string nombre { get; set; }
         public string apellido { get; set; }
         public string usuario { get; set; }
+
+        public byte[] foto { get; set; }
         public string contraseña { get; set; }
         public DateTime fecha_nacimiento { get; set; }
         public string telefono { get; set; }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using medilink.Views.usuario;
 using medilink.Views.citas;
-//using medilink.Views.reportes;
+using medilink.Views.reportes;
 using medilink.Views.autenticacion;
 using medilink.Models;
 using MySqlX.XDevAPI;
@@ -27,7 +27,7 @@ namespace medilink.Views.autenticacion
             this.usuarioLogueado = usuarioLogueado;
         }
 
-        public void InitializeComponent()
+        public void InitializeComponent() 
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.panelMenu = new System.Windows.Forms.Panel();
@@ -387,7 +387,13 @@ namespace medilink.Views.autenticacion
 
         private void BReportes_Click(object sender, EventArgs e)
         {
-
+            panelVistas.Controls.Clear();
+            Form nuevaVistaForm = new ReporteRecep(usuarioLogueado);
+            nuevaVistaForm.TopLevel = false;
+            nuevaVistaForm.FormBorderStyle = FormBorderStyle.None;
+            nuevaVistaForm.Dock = DockStyle.Fill;
+            panelVistas.Controls.Add(nuevaVistaForm);
+            nuevaVistaForm.Show();
         }
 
         //BOTONES MÉDICO
@@ -404,7 +410,13 @@ namespace medilink.Views.autenticacion
 
         private void BReporteMedico_Click(object sender, EventArgs e)
         {
-
+            panelVistas.Controls.Clear();
+            Form nuevaVistaForm = new ReporteMedico(usuarioLogueado);
+            nuevaVistaForm.TopLevel = false;
+            nuevaVistaForm.FormBorderStyle = FormBorderStyle.None;
+            nuevaVistaForm.Dock = DockStyle.Fill;
+            panelVistas.Controls.Add(nuevaVistaForm);
+            nuevaVistaForm.Show();
         }
 
         //BOTONES GESTOR
@@ -421,7 +433,13 @@ namespace medilink.Views.autenticacion
 
         private void BReportesGestor_Click(object sender, EventArgs e)
         {
-
+            panelVistas.Controls.Clear();
+            Form nuevaVistaForm = new ReporteGestor(usuarioLogueado);
+            nuevaVistaForm.TopLevel = false;
+            nuevaVistaForm.FormBorderStyle = FormBorderStyle.None;
+            nuevaVistaForm.Dock = DockStyle.Fill;
+            panelVistas.Controls.Add(nuevaVistaForm);
+            nuevaVistaForm.Show();
         }
 
         //BOTONES CERRAR Y VER PERFIL

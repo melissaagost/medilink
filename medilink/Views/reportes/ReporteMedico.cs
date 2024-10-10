@@ -1,4 +1,6 @@
-﻿using System;
+﻿using medilink.Models;
+using medilink.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +14,16 @@ namespace medilink.Views.reportes
 {
     public partial class ReporteMedico : Form
     {
-        public ReporteMedico()
+
+        private UsuarioM usuarioLogueado;
+        private CrudVM usuarioVM;
+
+        public ReporteMedico(UsuarioM usuarioLogueado)
         {
             InitializeComponent();
+            this.usuarioLogueado = usuarioLogueado;
+            usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
         }
     }
 }
+ 

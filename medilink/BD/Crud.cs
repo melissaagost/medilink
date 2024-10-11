@@ -877,6 +877,50 @@ namespace medilink.BD
             return obras;
         }
 
+        //reportes
+        public class ReporteCitas
+        {
+            public string Tipo { get; set; } // "Cancelada" o "activa"
+            public int Cantidad { get; set; }
+        }
+
+        public static List<ReporteCitas> ObtenerCitasCanceladasYReprogramadas(int id_medico)
+        {
+            List<ReporteCitas> reporte = new List<ReporteCitas>();
+            using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                try
+                {
+                    if (conexion.State == ConnectionState.Closed)
+                    {
+                        conexion.Open();
+                    }
+
+                    using (MySqlCommand comando = new MySqlCommand("SELECT status, COUNT(*) AS cantidad FROM Cita WHERE id_medico = @id_medico AND (status = 'cancelada' OR status = 'activa') GROUP BY status", conexion))
+                    {
+                        comando.Parameters.AddWithValue("@id_medico", id_medico);
+                        using (MySqlDataReader reader = comando.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                reporte.Add(new ReporteCitas
+                                {
+                                    Tipo = reader["status"].ToString(),
+                                    Cantidad = Convert.ToInt32(reader["cantidad"])
+                                });
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error al obtener reporte de citas: " + ex.Message);
+                }
+            }
+            return reporte;
+        }
+
+
     }
 } 
 

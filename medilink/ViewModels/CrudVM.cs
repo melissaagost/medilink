@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using medilink.BD;
 using medilink.Views.citas;
+using static medilink.BD.Crud;
 
 namespace medilink.ViewModels
 {
@@ -239,7 +240,13 @@ namespace medilink.ViewModels
         {
             return usuarioLogueado.ObtenerObrasSociales();
         }
-    
+
+        //reportes
+        public List<ReporteCitas> ListarCitasCanceladasYReprogramadas(int id_medico)
+        {
+            // Llama a la función del Crud para obtener los datos de la base de datos
+            return Crud.ObtenerCitasCanceladasYReprogramadas(id_medico);
+        }
 
 
     }

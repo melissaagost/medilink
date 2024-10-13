@@ -62,7 +62,8 @@ namespace medilink.Views.usuario
         }
 
 
-
+        public delegate void PerfilActualizadoEventHandler(object sender, EventArgs e);
+        public event PerfilActualizadoEventHandler PerfilActualizado;
         private void buttonGuardarCambios_Click(object sender, EventArgs e)
         {
             
@@ -84,6 +85,7 @@ namespace medilink.Views.usuario
                 foto = foto, 
                 direccion = textBoxEditDomicilio.Text,
                 telefono = textBoxEditTelefono.Text,
+                correo = textBoxCorreo.Text,
                 contraseña = textBoxEditContraseña.Text
             };
 
@@ -92,7 +94,9 @@ namespace medilink.Views.usuario
 
             if (resultado)
             {
+                PerfilActualizado?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show("Perfil actualizado exitosamente.");
+                this.Close();
             }
             else
             {

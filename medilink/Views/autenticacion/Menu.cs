@@ -19,12 +19,16 @@ namespace medilink.Views.autenticacion
 {
     public partial class Menu : Form
     {
+        private ToolTip toolTip = new ToolTip();
 
         private UsuarioM usuarioLogueado;
         public Menu(UsuarioM usuarioLogueado)
         {
             InitializeComponent();
-            this.usuarioLogueado = usuarioLogueado; 
+            this.usuarioLogueado = usuarioLogueado;
+            toolTip.SetToolTip(Bcerrar, "Cerrar Sesión");
+            toolTip.SetToolTip(BPerfil, "Ver Perfil");
+            toolTip.SetToolTip(BCambiarPerfil, "Cambiar de perfil");
         }
 
         public void InitializeComponent() 
@@ -316,6 +320,7 @@ namespace medilink.Views.autenticacion
             this.ResumeLayout(false);
 
         }
+
 
         //BOTONES SISTEMAS
         private void BNuevoUsuario_Click(object sender, EventArgs e)

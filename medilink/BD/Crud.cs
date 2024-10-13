@@ -232,6 +232,50 @@ namespace medilink.BD
         }
 
 
+        //obteiene el user logueado y lo actualiza luego de editar perfil
+        public UsuarioM ObtenerUsuarioPorId(int idUsuario)
+        {
+            UsuarioM usuario = null;
+            try
+            {
+                using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
+                {
+                    if (conexion.State == ConnectionState.Closed)
+                    {
+                        conexion.Open();
+                    }
+
+                    string query = "SELECT id_usuario, usuario, correo, direccion, telefono, contraseña, foto FROM Usuario WHERE id_usuario = @id_usuario";
+                    using (MySqlCommand comando = new MySqlCommand(query, conexion))
+                    {
+                        comando.Parameters.AddWithValue("@id_usuario", idUsuario);
+
+                        using (MySqlDataReader reader = comando.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                usuario = new UsuarioM
+                                {
+                                    id_usuario = reader.GetInt32("id_usuario"),
+                                    usuario = reader.GetString("usuario"),
+                                    correo = reader.GetString("correo"),
+                                    direccion = reader.GetString("direccion"),
+                                    telefono = reader.GetString("telefono"),
+                                    contraseña = reader.GetString("contraseña"),
+                                    foto = reader.IsDBNull(reader.GetOrdinal("foto")) ? null : (byte[])reader["foto"]
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener el usuario por ID: " + ex.Message);
+            }
+
+            return usuario;
+        }
         //agendar cita (contexto: usado por recep)
         public static bool Programar(CitaM cita)
         { bool resultado = false;

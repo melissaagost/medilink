@@ -199,6 +199,11 @@ namespace medilink.ViewModels
             }
         }
 
+        public UsuarioM ObtenerUsuarioPorId(int idUsuario)
+        {
+            Crud crud = new Crud();
+            return crud.ObtenerUsuarioPorId(idUsuario);
+        }
 
         //comboboxes
         public List<ProvinciaM> ListarProvincias()

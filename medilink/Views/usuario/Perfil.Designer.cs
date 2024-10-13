@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxPFP = new System.Windows.Forms.PictureBox();
             this.LabelNombre = new System.Windows.Forms.Label();
             this.LabelDireccion = new System.Windows.Forms.Label();
             this.LabelTelefono = new System.Windows.Forms.Label();
@@ -40,16 +40,16 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.LabelPerfil = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPFP)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // pictureBoxPFP
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(58, 52);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(195, 163);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.pictureBoxPFP.Location = new System.Drawing.Point(58, 52);
+            this.pictureBoxPFP.Name = "pictureBoxPFP";
+            this.pictureBoxPFP.Size = new System.Drawing.Size(195, 163);
+            this.pictureBoxPFP.TabIndex = 0;
+            this.pictureBoxPFP.TabStop = false;
             // 
             // LabelNombre
             // 
@@ -183,11 +183,11 @@
             this.Controls.Add(this.LabelTelefono);
             this.Controls.Add(this.LabelDireccion);
             this.Controls.Add(this.LabelNombre);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBoxPFP);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Perfil";
             this.Text = "Perfil";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPFP)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -195,7 +195,7 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBoxPFP;
         private System.Windows.Forms.Label LabelNombre;
         private System.Windows.Forms.Label LabelDireccion;
         private System.Windows.Forms.Label LabelTelefono;

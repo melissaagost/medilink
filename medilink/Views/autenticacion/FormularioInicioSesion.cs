@@ -200,17 +200,10 @@ namespace medilink.Views.autenticacion
                                     {
                                         reader.Read();
 
-                                        // Crear una instancia del modelo UsuarioM con los datos de la BD
-                                        UsuarioM usuarioEncontrado = new UsuarioM
-                                        {
-                                            id_usuario = Convert.ToInt32(reader["id_usuario"]),
-                                            id_perfil = Convert.ToInt32(reader["id_perfil"]),
-                                            usuario = reader["usuario"].ToString(),
-                                            contraseña = reader["contraseña"].ToString(),
-                                            // Otros campos que puedes necesitar
-                                        };
+                                    
+                                        var usuarioEncontrado = UsuarioM.UserFromTableRow(reader);
 
-                                       
+
                                         if (usuarioEncontrado.contraseña == contraseña)
                                         {
                                             // Almacenar el usuario logueado en la clase Sesion y redirigir al menu correspondiente

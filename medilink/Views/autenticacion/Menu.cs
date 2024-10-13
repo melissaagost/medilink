@@ -24,13 +24,14 @@ namespace medilink.Views.autenticacion
         public Menu(UsuarioM usuarioLogueado)
         {
             InitializeComponent();
-            this.usuarioLogueado = usuarioLogueado;
+            this.usuarioLogueado = usuarioLogueado; 
         }
 
         public void InitializeComponent() 
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.BCambiarPerfil = new System.Windows.Forms.Button();
             this.BPerfil = new System.Windows.Forms.Button();
             this.Bcerrar = new System.Windows.Forms.Button();
             this.BReportesGestor = new System.Windows.Forms.Button();
@@ -45,7 +46,6 @@ namespace medilink.Views.autenticacion
             this.BAdminUsuarios = new System.Windows.Forms.Button();
             this.BNuevoUsuario = new System.Windows.Forms.Button();
             this.panelVistas = new System.Windows.Forms.Panel();
-            this.BCambiarPerfil = new System.Windows.Forms.Button();
             this.panelMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,12 +71,24 @@ namespace medilink.Views.autenticacion
             this.panelMenu.Size = new System.Drawing.Size(241, 722);
             this.panelMenu.TabIndex = 0;
             // 
+            // BCambiarPerfil
+            // 
+            this.BCambiarPerfil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
+            this.BCambiarPerfil.FlatAppearance.BorderSize = 0;
+            this.BCambiarPerfil.Image = ((System.Drawing.Image)(resources.GetObject("BCambiarPerfil.Image")));
+            this.BCambiarPerfil.Location = new System.Drawing.Point(155, 653);
+            this.BCambiarPerfil.Name = "BCambiarPerfil";
+            this.BCambiarPerfil.Size = new System.Drawing.Size(61, 56);
+            this.BCambiarPerfil.TabIndex = 13;
+            this.BCambiarPerfil.UseVisualStyleBackColor = false;
+            this.BCambiarPerfil.Click += new System.EventHandler(this.BCambiarPerfil_Click);
+            // 
             // BPerfil
             // 
             this.BPerfil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
             this.BPerfil.FlatAppearance.BorderSize = 0;
             this.BPerfil.Image = ((System.Drawing.Image)(resources.GetObject("BPerfil.Image")));
-            this.BPerfil.Location = new System.Drawing.Point(70, 663);
+            this.BPerfil.Location = new System.Drawing.Point(88, 653);
             this.BPerfil.Name = "BPerfil";
             this.BPerfil.Size = new System.Drawing.Size(61, 56);
             this.BPerfil.TabIndex = 12;
@@ -89,7 +101,7 @@ namespace medilink.Views.autenticacion
             this.Bcerrar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
             this.Bcerrar.FlatAppearance.BorderSize = 0;
             this.Bcerrar.Image = ((System.Drawing.Image)(resources.GetObject("Bcerrar.Image")));
-            this.Bcerrar.Location = new System.Drawing.Point(3, 663);
+            this.Bcerrar.Location = new System.Drawing.Point(21, 653);
             this.Bcerrar.Name = "Bcerrar";
             this.Bcerrar.Size = new System.Drawing.Size(61, 56);
             this.Bcerrar.TabIndex = 11;
@@ -105,7 +117,7 @@ namespace medilink.Views.autenticacion
             this.BReportesGestor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.BReportesGestor.Image = ((System.Drawing.Image)(resources.GetObject("BReportesGestor.Image")));
             this.BReportesGestor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BReportesGestor.Location = new System.Drawing.Point(12, 612);
+            this.BReportesGestor.Location = new System.Drawing.Point(12, 72);
             this.BReportesGestor.Name = "BReportesGestor";
             this.BReportesGestor.Size = new System.Drawing.Size(211, 54);
             this.BReportesGestor.TabIndex = 10;
@@ -122,7 +134,7 @@ namespace medilink.Views.autenticacion
             this.BAdminGestor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.BAdminGestor.Image = ((System.Drawing.Image)(resources.GetObject("BAdminGestor.Image")));
             this.BAdminGestor.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BAdminGestor.Location = new System.Drawing.Point(12, 552);
+            this.BAdminGestor.Location = new System.Drawing.Point(12, 12);
             this.BAdminGestor.Name = "BAdminGestor";
             this.BAdminGestor.Size = new System.Drawing.Size(211, 54);
             this.BAdminGestor.TabIndex = 9;
@@ -139,7 +151,7 @@ namespace medilink.Views.autenticacion
             this.BReporteMedico.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.BReporteMedico.Image = ((System.Drawing.Image)(resources.GetObject("BReporteMedico.Image")));
             this.BReporteMedico.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BReporteMedico.Location = new System.Drawing.Point(12, 492);
+            this.BReporteMedico.Location = new System.Drawing.Point(12, 72);
             this.BReporteMedico.Name = "BReporteMedico";
             this.BReporteMedico.Size = new System.Drawing.Size(211, 54);
             this.BReporteMedico.TabIndex = 8;
@@ -156,7 +168,7 @@ namespace medilink.Views.autenticacion
             this.BAdminMedico.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.BAdminMedico.Image = ((System.Drawing.Image)(resources.GetObject("BAdminMedico.Image")));
             this.BAdminMedico.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BAdminMedico.Location = new System.Drawing.Point(12, 432);
+            this.BAdminMedico.Location = new System.Drawing.Point(12, 12);
             this.BAdminMedico.Name = "BAdminMedico";
             this.BAdminMedico.Size = new System.Drawing.Size(211, 54);
             this.BAdminMedico.TabIndex = 7;
@@ -173,7 +185,7 @@ namespace medilink.Views.autenticacion
             this.BAdminRecep.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.BAdminRecep.Image = ((System.Drawing.Image)(resources.GetObject("BAdminRecep.Image")));
             this.BAdminRecep.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BAdminRecep.Location = new System.Drawing.Point(12, 372);
+            this.BAdminRecep.Location = new System.Drawing.Point(12, 192);
             this.BAdminRecep.Name = "BAdminRecep";
             this.BAdminRecep.Size = new System.Drawing.Size(211, 54);
             this.BAdminRecep.TabIndex = 6;
@@ -190,7 +202,7 @@ namespace medilink.Views.autenticacion
             this.BReportes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.BReportes.Image = ((System.Drawing.Image)(resources.GetObject("BReportes.Image")));
             this.BReportes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BReportes.Location = new System.Drawing.Point(12, 312);
+            this.BReportes.Location = new System.Drawing.Point(12, 132);
             this.BReportes.Name = "BReportes";
             this.BReportes.Size = new System.Drawing.Size(211, 54);
             this.BReportes.TabIndex = 5;
@@ -207,7 +219,7 @@ namespace medilink.Views.autenticacion
             this.BNuevoPaciente.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.BNuevoPaciente.Image = ((System.Drawing.Image)(resources.GetObject("BNuevoPaciente.Image")));
             this.BNuevoPaciente.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BNuevoPaciente.Location = new System.Drawing.Point(12, 252);
+            this.BNuevoPaciente.Location = new System.Drawing.Point(12, 72);
             this.BNuevoPaciente.Name = "BNuevoPaciente";
             this.BNuevoPaciente.Size = new System.Drawing.Size(211, 54);
             this.BNuevoPaciente.TabIndex = 4;
@@ -224,7 +236,7 @@ namespace medilink.Views.autenticacion
             this.BNuevaCita.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
             this.BNuevaCita.Image = ((System.Drawing.Image)(resources.GetObject("BNuevaCita.Image")));
             this.BNuevaCita.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BNuevaCita.Location = new System.Drawing.Point(12, 192);
+            this.BNuevaCita.Location = new System.Drawing.Point(12, 12);
             this.BNuevaCita.Name = "BNuevaCita";
             this.BNuevaCita.Size = new System.Drawing.Size(211, 54);
             this.BNuevaCita.TabIndex = 3;
@@ -289,18 +301,6 @@ namespace medilink.Views.autenticacion
             this.panelVistas.Name = "panelVistas";
             this.panelVistas.Size = new System.Drawing.Size(916, 697);
             this.panelVistas.TabIndex = 1;
-            // 
-            // BCambiarPerfil
-            // 
-            this.BCambiarPerfil.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
-            this.BCambiarPerfil.FlatAppearance.BorderSize = 0;
-            this.BCambiarPerfil.Image = ((System.Drawing.Image)(resources.GetObject("BCambiarPerfil.Image")));
-            this.BCambiarPerfil.Location = new System.Drawing.Point(137, 663);
-            this.BCambiarPerfil.Name = "BCambiarPerfil";
-            this.BCambiarPerfil.Size = new System.Drawing.Size(61, 56);
-            this.BCambiarPerfil.TabIndex = 13;
-            this.BCambiarPerfil.UseVisualStyleBackColor = false;
-            this.BCambiarPerfil.Click += new System.EventHandler(this.BCambiarPerfil_Click);
             // 
             // Menu
             // 

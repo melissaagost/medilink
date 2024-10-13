@@ -16,6 +16,7 @@ namespace medilink.Views.usuario
 {
     public partial class EditarPerfil : Form
     {
+        private UsuarioM usuarioOriginal;
         private UsuarioM usuarioLogueado;
         private CrudVM usuarioVM;
         public EditarPerfil(UsuarioM usuario)
@@ -23,8 +24,12 @@ namespace medilink.Views.usuario
 
             InitializeComponent();
             this.usuarioLogueado = usuario;
+            this.usuarioOriginal = usuario;
             usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
+
+
             // Cargar los datos del usuario en los campos
+            textBoxCorreo.Text = usuarioLogueado.correo;
             textBoxEditUsuario.Text = usuarioLogueado.usuario;
             textBoxEditDomicilio.Text = usuarioLogueado.direccion;
             textBoxEditTelefono.Text = usuarioLogueado.telefono;
@@ -56,36 +61,11 @@ namespace medilink.Views.usuario
             pictureBoxEditPFP.Tag = null;
         }
 
-        private UsuarioM usuarioOriginal;
 
-        public void CargarDatosUsuario(UsuarioM usuario)
-        {
-            usuarioOriginal = usuario;
-
-            textBoxEditUsuario.Text = usuario.usuario;
-            textBoxEditDomicilio.Text = usuario.direccion;
-            textBoxEditTelefono.Text = usuario.telefono;
-            textBoxEditContraseña.Text = usuario.contraseña;
-
-            // Cargar la foto si tiene
-            if (usuario.foto != null && usuario.foto.Length > 0)
-                {
-                    using (var ms = new MemoryStream(usuario.foto))
-                    {
-                        pictureBoxEditPFP.Image = Image.FromStream(ms);
-                    }
-            }
-
-        }
-
-        private void GuardarCambios()
-        {
-            //
-        }
 
         private void buttonGuardarCambios_Click(object sender, EventArgs e)
         {
-            // Convierte la imagen del PictureBox a un arreglo de bytes
+            
             byte[] foto = null;
             if (pictureBoxEditPFP.Image != null)
             {
@@ -95,6 +75,7 @@ namespace medilink.Views.usuario
                     foto = ms.ToArray();
                 }
             }
+
             // Crea un nuevo objeto UsuarioM con los datos editados
             UsuarioM usuarioEditado = new UsuarioM
             {
@@ -106,7 +87,7 @@ namespace medilink.Views.usuario
                 contraseña = textBoxEditContraseña.Text
             };
 
-            // Llama al método para editar el perfil
+            
             bool resultado = usuarioVM.EditarPerfil(usuarioEditado, usuarioLogueado.id_usuario);
 
             if (resultado)
@@ -117,6 +98,21 @@ namespace medilink.Views.usuario
             {
                 MessageBox.Show("Error al actualizar el perfil.");
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {   
+            DialogResult resultado = MessageBox.Show(
+                "¿Estás seguro de que deseas cancelar los cambios?",
+                "Confirmar cancelación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.Yes)
+            {
+                this.Close();
+            }
+            
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,29 @@ namespace medilink.Models
 {
     public class UsuarioM
     {
+        //delegacion de responsabilidades: el usuario se "autocrea" leyendo los datos de la BD
+        public static UsuarioM UserFromTableRow(MySqlDataReader reader)
+        {
+            return new UsuarioM
+            {
+                id_usuario = Convert.ToInt32(reader["id_usuario"]),
+                dni = Convert.ToInt32(reader["dni"]),
+                id_perfil = Convert.ToInt32(reader["id_perfil"]),
+                usuario = reader["usuario"].ToString(),
+                nombre = reader["nombre"].ToString(),
+                apellido = reader["apellido"].ToString(),
+                foto = reader["foto"] != DBNull.Value ? (byte[])reader["foto"] : null,
+                correo = reader["correo"].ToString(),
+                status = reader["status"].ToString(),
+                id_provincia = Convert.ToInt32(reader["id_provincia"]),
+                id_ciudad = Convert.ToInt32(reader["id_ciudad"]),
+                contraseña = reader["contraseña"].ToString(),
+                fecha_nacimiento = Convert.ToDateTime(reader["fecha_nacimiento"]),
+                direccion = reader["direccion"].ToString(),
+                telefono = reader["telefono"].ToString()
+            };
+        }
+
         public int id_usuario { get; set; }
         public int dni { get; set; }
         public string nombre { get; set; }

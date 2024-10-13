@@ -42,6 +42,8 @@
             this.textBoxEditTelefono = new System.Windows.Forms.TextBox();
             this.buttonGuardarCambios = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.textBoxCorreo = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEditPFP)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,7 +62,7 @@
             // 
             // pictureBoxEditPFP
             // 
-            this.pictureBoxEditPFP.Location = new System.Drawing.Point(84, 204);
+            this.pictureBoxEditPFP.Location = new System.Drawing.Point(84, 145);
             this.pictureBoxEditPFP.Name = "pictureBoxEditPFP";
             this.pictureBoxEditPFP.Size = new System.Drawing.Size(170, 156);
             this.pictureBoxEditPFP.TabIndex = 2;
@@ -71,7 +73,7 @@
             this.BEditarPFP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(166)))), ((int)(((byte)(124)))));
             this.BEditarPFP.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BEditarPFP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
-            this.BEditarPFP.Location = new System.Drawing.Point(172, 366);
+            this.BEditarPFP.Location = new System.Drawing.Point(172, 314);
             this.BEditarPFP.Name = "BEditarPFP";
             this.BEditarPFP.Size = new System.Drawing.Size(82, 35);
             this.BEditarPFP.TabIndex = 3;
@@ -84,7 +86,7 @@
             this.buttonEliminarPFP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(87)))), ((int)(((byte)(87)))));
             this.buttonEliminarPFP.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonEliminarPFP.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
-            this.buttonEliminarPFP.Location = new System.Drawing.Point(84, 366);
+            this.buttonEliminarPFP.Location = new System.Drawing.Point(84, 314);
             this.buttonEliminarPFP.Name = "buttonEliminarPFP";
             this.buttonEliminarPFP.Size = new System.Drawing.Size(82, 35);
             this.buttonEliminarPFP.TabIndex = 4;
@@ -97,7 +99,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label2.Location = new System.Drawing.Point(356, 204);
+            this.label2.Location = new System.Drawing.Point(319, 143);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(50, 13);
             this.label2.TabIndex = 5;
@@ -108,7 +110,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label1.Location = new System.Drawing.Point(356, 306);
+            this.label1.Location = new System.Drawing.Point(319, 245);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 13);
             this.label1.TabIndex = 6;
@@ -119,7 +121,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label3.Location = new System.Drawing.Point(605, 204);
+            this.label3.Location = new System.Drawing.Point(568, 143);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 13);
             this.label3.TabIndex = 7;
@@ -130,7 +132,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label4.Location = new System.Drawing.Point(605, 306);
+            this.label4.Location = new System.Drawing.Point(568, 245);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(55, 13);
             this.label4.TabIndex = 8;
@@ -138,28 +140,28 @@
             // 
             // textBoxEditUsuario
             // 
-            this.textBoxEditUsuario.Location = new System.Drawing.Point(359, 220);
+            this.textBoxEditUsuario.Location = new System.Drawing.Point(322, 159);
             this.textBoxEditUsuario.Name = "textBoxEditUsuario";
             this.textBoxEditUsuario.Size = new System.Drawing.Size(157, 20);
             this.textBoxEditUsuario.TabIndex = 14;
             // 
             // textBoxEditDomicilio
             // 
-            this.textBoxEditDomicilio.Location = new System.Drawing.Point(608, 220);
+            this.textBoxEditDomicilio.Location = new System.Drawing.Point(571, 159);
             this.textBoxEditDomicilio.Name = "textBoxEditDomicilio";
             this.textBoxEditDomicilio.Size = new System.Drawing.Size(157, 20);
             this.textBoxEditDomicilio.TabIndex = 15;
             // 
             // textBoxEditContraseña
             // 
-            this.textBoxEditContraseña.Location = new System.Drawing.Point(359, 322);
+            this.textBoxEditContraseña.Location = new System.Drawing.Point(322, 261);
             this.textBoxEditContraseña.Name = "textBoxEditContraseña";
             this.textBoxEditContraseña.Size = new System.Drawing.Size(157, 20);
             this.textBoxEditContraseña.TabIndex = 16;
             // 
             // textBoxEditTelefono
             // 
-            this.textBoxEditTelefono.Location = new System.Drawing.Point(608, 322);
+            this.textBoxEditTelefono.Location = new System.Drawing.Point(571, 261);
             this.textBoxEditTelefono.Name = "textBoxEditTelefono";
             this.textBoxEditTelefono.Size = new System.Drawing.Size(157, 20);
             this.textBoxEditTelefono.TabIndex = 17;
@@ -188,6 +190,25 @@
             this.button2.TabIndex = 19;
             this.button2.Text = "Cancelar";
             this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // textBoxCorreo
+            // 
+            this.textBoxCorreo.Location = new System.Drawing.Point(322, 353);
+            this.textBoxCorreo.Name = "textBoxCorreo";
+            this.textBoxCorreo.Size = new System.Drawing.Size(157, 20);
+            this.textBoxCorreo.TabIndex = 21;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label5.Location = new System.Drawing.Point(319, 337);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(47, 13);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "Correo";
             // 
             // EditarPerfil
             // 
@@ -196,6 +217,8 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
             this.ClientSize = new System.Drawing.Size(914, 572);
             this.ControlBox = false;
+            this.Controls.Add(this.textBoxCorreo);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.buttonGuardarCambios);
             this.Controls.Add(this.textBoxEditTelefono);
@@ -235,5 +258,7 @@
         private System.Windows.Forms.TextBox textBoxEditTelefono;
         private System.Windows.Forms.Button buttonGuardarCambios;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox textBoxCorreo;
+        private System.Windows.Forms.Label label5;
     }
 }

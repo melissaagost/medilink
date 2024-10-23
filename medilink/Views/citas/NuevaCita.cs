@@ -54,6 +54,37 @@ namespace medilink.Views.citas
 
         private void buttonAgendar_Click(object sender, EventArgs e)
         {
+            // Validar que se seleccione un paciente
+            if (comboBoxBuscarPaciente.SelectedItem == null)
+            {
+                MessageBox.Show("Debe seleccionar un paciente.");
+                return;
+            }
+
+
+            // Validar que se seleccione un médico
+            if (comboBoxSelecMedico.SelectedItem == null)
+            {
+                MessageBox.Show("Debe seleccionar un médico.");
+                return;
+            }
+
+            
+
+            // Validar que la fecha de la cita sea hoy o posterior
+            if (dateTimePickerCita.Value.Date < DateTime.Now.Date)
+            {
+                MessageBox.Show("La fecha de la cita debe ser hoy o una fecha futura.");
+                return;
+            }
+
+            // Validar que el motivo no esté vacío
+            if (string.IsNullOrWhiteSpace(richTextBoxMotivo.Text))
+            {
+                MessageBox.Show("Debe ingresar un motivo para la cita.");
+                return;
+            }
+
             CitaM nuevaCita = new CitaM()
             {
                 id_paciente = (int)comboBoxBuscarPaciente.SelectedValue,

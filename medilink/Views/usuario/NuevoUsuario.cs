@@ -91,7 +91,82 @@ namespace medilink.Views.usuario
 
         private void buttonCrear_Click(object sender, EventArgs e)
         {
+            // Validar que los campos no estén vacíos
+            if (string.IsNullOrWhiteSpace(textBoxNombre.Text) ||
+                string.IsNullOrWhiteSpace(textBoxApellido.Text) ||
+                string.IsNullOrWhiteSpace(textBoxUsuario.Text) ||
+                string.IsNullOrWhiteSpace(textBoxContraseña.Text) ||
+                string.IsNullOrWhiteSpace(textBoxCorreo.Text) ||
+                string.IsNullOrWhiteSpace(textBoxTelefono.Text) ||
+                string.IsNullOrWhiteSpace(textBoxDomicilio.Text) ||
+                comboBoxProvincia.SelectedItem == null ||
+                comboBoxCiudad.SelectedItem == null ||
+                comboBoxPerfil.SelectedItem == null)
+            {
+                MessageBox.Show("Todos los campos son obligatorios.");
+                return;
+            }
 
+            // Validar el formato del DNI (debe ser numérico y tener 7 u 8 dígitos)
+            if (!int.TryParse(textBoxDNI.Text, out int dni) ||
+                (textBoxDNI.Text.Length != 7 && textBoxDNI.Text.Length != 8))
+            {
+                MessageBox.Show("El DNI debe ser un número válido de 7 u 8 dígitos.");
+                return;
+            }
+
+            // Validar el nombre (debe ser solo letras)
+            if (!IsValidName(textBoxNombre.Text))
+            {
+                MessageBox.Show("El nombre debe contener solo letras.");
+                return;
+            }
+
+            // Validar el apellido (debe ser solo letras)
+            if (!IsValidName(textBoxApellido.Text))
+            {
+                MessageBox.Show("El apellido debe contener solo letras.");
+                return;
+            }
+
+            // Validar el formato del correo
+            if (!IsValidEmail(textBoxCorreo.Text))
+            {
+                MessageBox.Show("El correo electrónico no es válido.");
+                return;
+            }
+
+            // Validar el formato del teléfono (debe ser numérico, entre 10 y 15 dígitos)
+            if (!long.TryParse(textBoxTelefono.Text, out long telefono) ||
+                textBoxTelefono.Text.Length < 10 || textBoxTelefono.Text.Length > 15)
+            {
+                MessageBox.Show("El número de teléfono debe ser numérico y contener entre 10 y 15 dígitos.");
+                return;
+            }
+
+            // Validar que la fecha de nacimiento no sea posterior a la fecha actual
+            if (dateTimePicker1.Value.Date > DateTime.Now.Date)
+            {
+                MessageBox.Show("La fecha de nacimiento no puede ser posterior a la fecha actual.");
+                return;
+            }
+
+            // Validar que el usuario no contenga espacios
+            if (textBoxUsuario.Text.Contains(" "))
+            {
+                MessageBox.Show("El usuario no debe contener espacios.");
+                return;
+            }
+
+            // Validar que la contraseña no contenga espacios
+            if (textBoxContraseña.Text.Contains(" "))
+            {
+                MessageBox.Show("La contraseña no debe contener espacios.");
+                return;
+            }
+
+
+            // Crear el objeto UsuarioM
             UsuarioM nuevoUsuario = new UsuarioM()
             {
                 dni = int.Parse(textBoxDNI.Text),
@@ -108,7 +183,6 @@ namespace medilink.Views.usuario
                 fecha_nacimiento = dateTimePicker1.Value
             };
 
-           
             try
             {
                 int? idEspecialidad = null;
@@ -131,10 +205,30 @@ namespace medilink.Views.usuario
             }
             catch (UnauthorizedAccessException ex)
             {
-                MessageBox.Show(ex.Message);  
+                MessageBox.Show(ex.Message);
             }
         }
 
+
+        // Método para validar formato de correo electrónico
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var emailAddr = new System.Net.Mail.MailAddress(email);
+                return emailAddr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // Método para validar que el nombre contenga solo letras
+        private bool IsValidName(string name)
+        {
+            return name.All(c => char.IsLetter(c) || char.IsWhiteSpace(c)); // Permite letras y espacios
+        }
         private void buttonCancelar_Click(object sender, EventArgs e)
         {
             this.Close();

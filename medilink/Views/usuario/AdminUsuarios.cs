@@ -90,25 +90,35 @@ namespace medilink.Views.usuario
 
         private void dataGridViewActivos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
             if (e.ColumnIndex == dataGridViewActivos.Columns["btnDarDeBaja"].Index && e.RowIndex >= 0)
             {
                 int id_usuario = Convert.ToInt32(dataGridViewActivos.Rows[e.RowIndex].Cells["id_usuario"].Value);
 
-                
-                bool resultado = usuarioVM.DarDeBajaUsuario(id_usuario);
+                DialogResult confirmResult = MessageBox.Show("¿Está seguro que desea dar de baja a este usuario?",
+                                                              "Confirmación",
+                                                              MessageBoxButtons.YesNo,
+                                                              MessageBoxIcon.Question);
 
-                if (resultado)
+                if (confirmResult == DialogResult.Yes) 
                 {
-                    MessageBox.Show("Usuario dado de baja exitosamente.");
-                    CargarUsuariosActivos(); // Refresca la grilla después de dar de baja
-                    CargarUsuariosInactivos();
+                    bool resultado = usuarioVM.DarDeBajaUsuario(id_usuario);
+
+                    if (resultado)
+                    {
+                        MessageBox.Show("Usuario dado de baja exitosamente.");
+                        CargarUsuariosActivos(); // Refresca la grilla después de dar de baja
+                        CargarUsuariosInactivos();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al dar de baja al usuario.");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Error al dar de baja al usuario.");
+                else {
+                    MessageBox.Show("La operación fue cancelada.");
                 }
             }
+
         }
 
         //lo mismo pero para el grid de inactivos
@@ -169,26 +179,39 @@ namespace medilink.Views.usuario
 
         private void dataGridViewInactivos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
             if (e.ColumnIndex == dataGridViewInactivos.Columns["btnDarDeAlta"].Index && e.RowIndex >= 0)
             {
-                int id_usuario = Convert.ToInt32(dataGridViewInactivos.Rows[e.RowIndex].Cells["id_usuarioI"].Value);
+                int id_usuario = Convert.ToInt32(dataGridViewInactivos.Rows[e.RowIndex].Cells["id_usuario"].Value);
 
+                // Confirmación antes de dar de alta al usuario
+                DialogResult confirmResult = MessageBox.Show("¿Está seguro que desea dar de alta a este usuario?",
+                                                              "Confirmación",
+                                                              MessageBoxButtons.YesNo,
+                                                              MessageBoxIcon.Question);
 
-                bool resultado = usuarioVM.DarDeAltaUsuario(id_usuario);
-
-                if (resultado)
+                if (confirmResult == DialogResult.Yes)
                 {
-                    MessageBox.Show("Usuario dado de alta exitosamente.");
-                    CargarUsuariosActivos();
-                    CargarUsuariosInactivos(); // Refresca la grilla después de dar de baja
+                    bool resultado = usuarioVM.DarDeAltaUsuario(id_usuario);
+
+                    if (resultado)
+                    {
+                        MessageBox.Show("Usuario dado de alta exitosamente.");
+                        CargarUsuariosActivos();
+                        CargarUsuariosInactivos(); // Refresca la grilla después de dar de baja
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al dar de alta al usuario.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Error al dar de alta al usuario.");
+                    // Acciones si el usuario cancela la operación
+                    MessageBox.Show("La operación fue cancelada.");
                 }
             }
         }
+
 
     }
 }

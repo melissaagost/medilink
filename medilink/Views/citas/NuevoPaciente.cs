@@ -55,7 +55,17 @@ namespace medilink.Views.citas
 
         private void buttonCancelarPaciente_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult resultado = MessageBox.Show(
+               "¿Estás seguro de que deseas cancelar los cambios?",
+               "Confirmar cancelación",
+               MessageBoxButtons.YesNo,
+               MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.Yes)
+            {
+                this.Close();
+            }
+
         }
 
         private void buttonAñadirPaciente_Click(object sender, EventArgs e)

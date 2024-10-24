@@ -269,6 +269,21 @@ namespace medilink.Views.usuario
         {
            //ignorar
         }
+
+        private void buttonCancelar_Click_1(object sender, EventArgs e)
+        {
+            DialogResult resultado = MessageBox.Show(
+               "¿Estás seguro de que deseas cancelar los cambios?",
+               "Confirmar cancelación",
+               MessageBoxButtons.YesNo,
+               MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.Yes)
+            {
+                this.Close();
+            }
+
+        }
     }
 }
     

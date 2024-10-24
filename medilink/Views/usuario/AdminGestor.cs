@@ -22,7 +22,7 @@ namespace medilink.Views.usuario
             this.Load += new EventHandler(AdminGestor_Load);
             this.usuarioLogueado = usuarioLogueado;
             usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
-        }
+        } 
 
         private void AdminGestor_Load(object sender, EventArgs e)
         {
@@ -96,16 +96,29 @@ namespace medilink.Views.usuario
             {
                 int id_usuario = Convert.ToInt32(dataGridViewMedicos.Rows[e.RowIndex].Cells["id_usuario"].Value);
 
-                bool resultado = usuarioVM.DarDeBajaUsuario(id_usuario); 
+                
+                DialogResult confirmResult = MessageBox.Show("¿Está seguro que desea dar de baja a este médico?",
+                                                              "Confirmación",
+                                                              MessageBoxButtons.YesNo,
+                                                              MessageBoxIcon.Question);
 
-                if (resultado)
+                if (confirmResult == DialogResult.Yes)
                 {
-                    MessageBox.Show("Médico dado de baja exitosamente.");
-                    dataGridViewMedicos.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightCoral;
+                    bool resultado = usuarioVM.DarDeBajaUsuario(id_usuario);
+
+                    if (resultado)
+                    {
+                        MessageBox.Show("Médico dado de baja exitosamente.");
+                        dataGridViewMedicos.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightCoral;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al dar de baja al médico.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Error al dar de baja al médico.");
+                    MessageBox.Show("La operación fue cancelada.");
                 }
             }
 
@@ -113,19 +126,33 @@ namespace medilink.Views.usuario
             {
                 int id_usuario = Convert.ToInt32(dataGridViewMedicos.Rows[e.RowIndex].Cells["id_usuario"].Value);
 
-                bool resultado = usuarioVM.DarDeAltaUsuario(id_usuario); 
+                
+                DialogResult confirmResult = MessageBox.Show("¿Está seguro que desea dar de alta a este médico?",
+                                                              "Confirmación",
+                                                              MessageBoxButtons.YesNo,
+                                                              MessageBoxIcon.Question);
 
-                if (resultado)
+                if (confirmResult == DialogResult.Yes)
                 {
-                    MessageBox.Show("Médico dado de alta exitosamente.");
-                    dataGridViewMedicos.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+                    bool resultado = usuarioVM.DarDeAltaUsuario(id_usuario);
+
+                    if (resultado)
+                    {
+                        MessageBox.Show("Médico dado de alta exitosamente.");
+                        dataGridViewMedicos.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al dar de alta al médico.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Error al dar de alta al médico.");
+                    MessageBox.Show("La operación fue cancelada.");
                 }
             }
         }
+
 
         //recepcionistas
         private void CargarRecepcionistas()
@@ -186,34 +213,60 @@ namespace medilink.Views.usuario
             {
                 int id_usuario = Convert.ToInt32(dataGridViewRecepcionistas.Rows[e.RowIndex].Cells["id_usuario"].Value);
 
-                bool resultado = usuarioVM.DarDeBajaUsuario(id_usuario);
+                DialogResult confirmResult = MessageBox.Show("¿Está seguro que desea dar de baja a este recepcionista?",
+                                              "Confirmación",
+                                              MessageBoxButtons.YesNo,
+                                              MessageBoxIcon.Question);
 
-                if (resultado)
+                if (confirmResult == DialogResult.Yes)
                 {
-                    MessageBox.Show("Recepcionista dado de baja exitosamente.");
-                    dataGridViewRecepcionistas.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightCoral;
+                    bool resultado = usuarioVM.DarDeBajaUsuario(id_usuario);
+
+                    if (resultado)
+                    {
+                        MessageBox.Show("Recepcionista dado de baja exitosamente.");
+                        dataGridViewRecepcionistas.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightCoral;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al dar de baja al recepcionista.");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Error al dar de baja al recepcionista.");
+                else {
+                    MessageBox.Show("La operación fue cancelada.");
                 }
+
+                
             }
 
             if (e.ColumnIndex == dataGridViewRecepcionistas.Columns["btnDarDeAlta"].Index && e.RowIndex >= 0)
             {
                 int id_usuario = Convert.ToInt32(dataGridViewRecepcionistas.Rows[e.RowIndex].Cells["id_usuario"].Value);
 
-                bool resultado = usuarioVM.DarDeAltaUsuario(id_usuario);
+                DialogResult confirmResult = MessageBox.Show("¿Está seguro que desea dar de baja a este recepcionista?",
+                              "Confirmación",
+                              MessageBoxButtons.YesNo,
+                              MessageBoxIcon.Question);
 
-                if (resultado)
+                if (confirmResult == DialogResult.Yes) 
                 {
-                    MessageBox.Show("Recepcionista dado de alta exitosamente.");
-                    dataGridViewRecepcionistas.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+                    bool resultado = usuarioVM.DarDeAltaUsuario(id_usuario);
+
+                    if (resultado)
+                    {
+                        MessageBox.Show("Recepcionista dado de alta exitosamente.");
+                        dataGridViewRecepcionistas.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al dar de alta al recepcionista.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Error al dar de alta al recepcionista.");
+                    MessageBox.Show("La operación fue cancelada.");
                 }
+
             }
 
         }
@@ -275,34 +328,53 @@ namespace medilink.Views.usuario
             {
                 int id_paciente = Convert.ToInt32(dataGridViewPacientes.Rows[e.RowIndex].Cells["id_paciente"].Value);
 
-                bool resultado = usuarioVM.DarDeBajaPaciente(id_paciente);
+                DialogResult confirmResult = MessageBox.Show("¿Está seguro que desea dar de baja a este paciente?",
+                              "Confirmación",
+                              MessageBoxButtons.YesNo,
+                              MessageBoxIcon.Question);
 
-                if (resultado)
+                if (confirmResult == DialogResult.Yes) 
                 {
-                    MessageBox.Show("Paciente dado de baja exitosamente.");
-                    dataGridViewPacientes.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightCoral;
+                    bool resultado = usuarioVM.DarDeBajaPaciente(id_paciente);
+
+                    if (resultado)
+                    {
+                        MessageBox.Show("Paciente dado de baja exitosamente.");
+                        dataGridViewPacientes.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightCoral;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al dar de baja al paciente.");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Error al dar de baja al paciente.");
-                }
+                else { MessageBox.Show("La operación fue cancelada."); }
+               
             }
 
             if (e.ColumnIndex == dataGridViewPacientes.Columns["btnDarDeAlta"].Index && e.RowIndex >= 0)
             {
                 int id_paciente = Convert.ToInt32(dataGridViewPacientes.Rows[e.RowIndex].Cells["id_paciente"].Value);
 
-                bool resultado = usuarioVM.DarDeAltaPaciente(id_paciente);
+                DialogResult confirmResult = MessageBox.Show("¿Está seguro que desea dar de baja a este paciente?",
+                              "Confirmación",
+                              MessageBoxButtons.YesNo,
+                              MessageBoxIcon.Question);
+                if (confirmResult == DialogResult.Yes) 
+                {
+                    bool resultado = usuarioVM.DarDeAltaPaciente(id_paciente);
 
-                if (resultado)
-                {
-                    MessageBox.Show("Paciente dado de alta exitosamente.");
-                    dataGridViewPacientes.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+                    if (resultado)
+                    {
+                        MessageBox.Show("Paciente dado de alta exitosamente.");
+                        dataGridViewPacientes.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.White;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al dar de alta al paciente.");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Error al dar de alta al paciente.");
-                }
+                else { MessageBox.Show("La operación fue cancelada."); }
+                
             }
         }
     }

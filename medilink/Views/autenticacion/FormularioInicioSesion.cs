@@ -200,28 +200,29 @@ namespace medilink.Views.autenticacion
                                     {
                                         reader.Read();
 
-                                    
                                         var usuarioEncontrado = UsuarioM.UserFromTableRow(reader);
 
+                                        
+                                        if (usuarioEncontrado.status.ToLower() == "no")
+                                        {
+                                            MessageBox.Show("Tu cuenta se encuentra dada de baja. Por favor, comunicate con Atención al Cliente.");
+                                            return; 
+                                        }
 
                                         if (usuarioEncontrado.contraseña == contraseña)
                                         {
-                                            // Almacenar el usuario logueado en la clase Sesion y redirigir al menu correspondiente
+                                           
                                             FormularioInicioSesion.UsuarioActual = usuarioEncontrado;
-                                            int perfilUsuario = UsuarioActual.id_perfil; // Almacena el perfil del usuario
+                                            int perfilUsuario = UsuarioActual.id_perfil; 
 
-                                            
                                             Menu menuForm = new Menu(usuarioEncontrado);
 
                                             // Llamar al método para configurar el menú según el perfil
                                             menuForm.ConfigurarMenuPorPerfil(UsuarioActual.id_perfil);
 
-                                            // Mostrar el formulario Menu
                                             menuForm.Show();
 
-                                            // Cerrar el formulario actual (FormularioInicioSesion)
                                             this.Close();
-
                                         }
                                         else
                                         {
@@ -251,5 +252,6 @@ namespace medilink.Views.autenticacion
                 MessageBox.Show("Se produjo un error inesperado: " + ex.Message);
             }
         }
+
     }
 }

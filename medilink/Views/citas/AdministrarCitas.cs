@@ -29,7 +29,7 @@ namespace medilink.Views.citas
         private void AdministrarCitas_Load(object sender, EventArgs e)
         {
             int idUsuarioLogueado = usuarioLogueado.id_usuario;
-            CargarCitas(idUsuarioLogueado);
+            CargarCitas(idUsuarioLogueado); 
             CargarCitasCanceladas(idUsuarioLogueado);   
         }
 
@@ -97,19 +97,29 @@ namespace medilink.Views.citas
             {
                 int id_cita = Convert.ToInt32(dataGridViewProgramadas.Rows[e.RowIndex].Cells["id_cita"].Value);
 
-                bool resultado = usuarioVM.CancelarCita(id_cita);
+                DialogResult confirmResult = MessageBox.Show("¿Está seguro que desea cancelar la cita?",
+                              "Confirmación",
+                              MessageBoxButtons.YesNo,
+                              MessageBoxIcon.Question);
 
-                if (resultado)
+                if (confirmResult == DialogResult.Yes) 
                 {
-                    MessageBox.Show("Cita cancelada exitosamente.");
-                    int idUsuarioLogueado = usuarioLogueado.id_usuario;
-                    CargarCitasCanceladas(idUsuarioLogueado);
-                    CargarCitas(idUsuarioLogueado);
+                    bool resultado = usuarioVM.CancelarCita(id_cita);
+
+                    if (resultado)
+                    {
+                        MessageBox.Show("Cita cancelada exitosamente.");
+                        int idUsuarioLogueado = usuarioLogueado.id_usuario;
+                        CargarCitasCanceladas(idUsuarioLogueado);
+                        CargarCitas(idUsuarioLogueado);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al cancelar cita.");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Error al cancelar cita.");
-                }
+                else { MessageBox.Show("La operación fue cancelada."); }
+               
             }
         }
 

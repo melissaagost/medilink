@@ -25,7 +25,7 @@ namespace medilink.Views.citas
             this.usuarioLogueado = usuarioLogueado;
             usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
         }
-
+         
         private void AdminCitasMedico_Load(object sender, EventArgs e)
         {
             int idUsuarioLogueado = usuarioLogueado.id_usuario; // Asegúrate de que obtienes el ID correcto.
@@ -100,19 +100,29 @@ namespace medilink.Views.citas
             {
                 int id_cita = Convert.ToInt32(dataGridViewProgramadas.Rows[e.RowIndex].Cells["id_cita"].Value);
 
-                bool resultado = usuarioVM.CancelarCita(id_cita);
+                DialogResult confirmResult = MessageBox.Show("¿Está seguro que desea cancelar la cita?",
+                              "Confirmación",
+                              MessageBoxButtons.YesNo,
+                              MessageBoxIcon.Question);
 
-                if (resultado)
+                if (confirmResult == DialogResult.Yes) 
                 {
-                    MessageBox.Show("Cita cancelada exitosamente.");
-                    int idUsuarioLogueado = usuarioLogueado.id_usuario;
-                    CargarCitasCanceladas(idUsuarioLogueado);
-                    CargarCitasActivas(idUsuarioLogueado);
+                    bool resultado = usuarioVM.CancelarCita(id_cita);
+
+                    if (resultado)
+                    {
+                        MessageBox.Show("Cita cancelada exitosamente.");
+                        int idUsuarioLogueado = usuarioLogueado.id_usuario;
+                        CargarCitasCanceladas(idUsuarioLogueado);
+                        CargarCitasActivas(idUsuarioLogueado);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al cancelar cita.");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Error al cancelar cita.");
-                }
+                else { MessageBox.Show("La operación fue cancelada."); }
+               
             }
         }
 

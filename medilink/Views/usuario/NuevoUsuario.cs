@@ -145,11 +145,31 @@ namespace medilink.Views.usuario
             }
 
             // Validar que la fecha de nacimiento no sea posterior a la fecha actual
-            if (dateTimePicker1.Value.Date > DateTime.Now.Date)
+            if (dateTimePicker1.Value.Date >= DateTime.Now.Date)
             {
-                MessageBox.Show("La fecha de nacimiento no puede ser posterior a la fecha actual.");
+                MessageBox.Show("La fecha de nacimiento no puede ser el día de hoy ni una fecha futura.");
                 return;
             }
+
+            // Validar que el usuario sea mayor de edad (por ejemplo, 18 años)
+            int edadMinima = 18;
+            DateTime fechaActual = DateTime.Now;
+            DateTime fechaNacimiento = dateTimePicker1.Value;
+
+            int edad = fechaActual.Year - fechaNacimiento.Year;
+
+            // Restar un año si la fecha de nacimiento aún no ha ocurrido este año
+            if (fechaNacimiento > fechaActual.AddYears(-edad))
+            {
+                edad--;
+            }
+
+            if (edad < edadMinima)
+            {
+                MessageBox.Show($"El usuario debe tener al menos {edadMinima} años para poder registrarse.");
+                return;
+            }
+
 
             // Validar que el usuario no contenga espacios
             if (textBoxUsuario.Text.Contains(" "))
@@ -195,11 +215,16 @@ namespace medilink.Views.usuario
                 }
 
                 // Si no es médico, pasar valores nulos
-                bool resultado = usuarioVM.CrearUsuario(nuevoUsuario, idEspecialidad ?? -1, idTurno ?? -1);
+                string mensajeError;
+                bool resultado = usuarioVM.CrearUsuario(nuevoUsuario, idEspecialidad ?? -1, idTurno ?? -1, out mensajeError);
 
                 if (resultado)
                 {
                     MessageBox.Show("Usuario creado exitosamente.");
+                }
+                else
+                {
+                    MessageBox.Show(mensajeError); 
                 }
 
             }

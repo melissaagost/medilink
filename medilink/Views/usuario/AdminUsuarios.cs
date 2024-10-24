@@ -165,8 +165,8 @@ namespace medilink.Views.usuario
                 // Agregar columna oculta con el ID del usuario
                 dataGridViewInactivos.Columns.Add(new DataGridViewTextBoxColumn()
                 {
-                    Name = "id_usuarioI",
-                    HeaderText = "ID UsuarioI",
+                    Name = "id_usuario",
+                    HeaderText = "ID Usuario",
                     DataPropertyName = "id_usuario",
                     Visible = false
                 });
@@ -206,7 +206,6 @@ namespace medilink.Views.usuario
                 }
                 else
                 {
-                    // Acciones si el usuario cancela la operación
                     MessageBox.Show("La operación fue cancelada.");
                 }
             }

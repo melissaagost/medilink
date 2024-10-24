@@ -15,9 +15,10 @@ namespace medilink.BD
     {
 
         //regsitro de un user y si es medico lo almacena en la tabla medico (contexto: usado por sistemas)
-        public static bool Registrar(UsuarioM usuario, int idEspecialidad, int idTurno)
+        public static bool Registrar(UsuarioM usuario, int idEspecialidad, int idTurno, out string mensajeError)
         {
             bool resultado = false;
+            mensajeError = "";
 
             using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
             {
@@ -30,13 +31,33 @@ namespace medilink.BD
                 {
                     try
                     {
-                        
+                        // Primero, verificar si el DNI, correo, teléfono o usuario ya existen en la base de datos
+                        string queryVerificacion = @"SELECT COUNT(*) FROM Usuario 
+                                             WHERE dni = @dni OR correo = @correo OR telefono = @telefono OR usuario = @usuario";
+
+                        MySqlCommand comandoVerificacion = new MySqlCommand(queryVerificacion, oconexion, transaccion);
+                        comandoVerificacion.Parameters.AddWithValue("@dni", usuario.dni);
+                        comandoVerificacion.Parameters.AddWithValue("@correo", usuario.correo);
+                        comandoVerificacion.Parameters.AddWithValue("@telefono", usuario.telefono);
+                        comandoVerificacion.Parameters.AddWithValue("@usuario", usuario.usuario);
+
+                        int count = Convert.ToInt32(comandoVerificacion.ExecuteScalar());
+
+                        if (count > 0)
+                        {
+                            // Si el registro ya existe, configurar el mensaje de error y retornar
+                            mensajeError = "El DNI, correo, teléfono o usuario ya están registrados.";
+                            transaccion.Rollback();
+                            return false;
+                        }
+
+                        // Si no hay conflictos, insertar el usuario
                         string queryUsuario = @"INSERT INTO Usuario (dni, nombre, apellido, usuario, contraseña, 
-                                    fecha_nacimiento, telefono, correo, direccion, status, id_provincia, 
-                                    id_ciudad, id_perfil) 
-                                    VALUES (@dni, @nombre, @apellido, @usuario, @contraseña, 
-                                    @fecha_nacimiento, @telefono, @correo, @direccion, 'si', 
-                                    @id_provincia, @id_ciudad, @id_perfil)";
+                                        fecha_nacimiento, telefono, correo, direccion, status, id_provincia, 
+                                        id_ciudad, id_perfil) 
+                                        VALUES (@dni, @nombre, @apellido, @usuario, @contraseña, 
+                                        @fecha_nacimiento, @telefono, @correo, @direccion, 'si', 
+                                        @id_provincia, @id_ciudad, @id_perfil)";
 
                         MySqlCommand comandoUsuario = new MySqlCommand(queryUsuario, oconexion, transaccion);
                         comandoUsuario.Parameters.AddWithValue("@dni", usuario.dni);
@@ -59,7 +80,6 @@ namespace medilink.BD
                         // Verificar si el perfil del usuario es médico (id_perfil == 3)
                         if (usuario.id_perfil == 3)
                         {
-                            
                             string queryMedico = "INSERT INTO Medico (id_usuario, id_especialidad, id_turno) VALUES (@id_usuario, @id_especialidad, @id_turno)";
 
                             MySqlCommand comandoMedico = new MySqlCommand(queryMedico, oconexion, transaccion);
@@ -76,7 +96,7 @@ namespace medilink.BD
                     catch (Exception ex)
                     {
                         transaccion.Rollback();
-                        Console.WriteLine("Error al registrar usuario y/o médico: " + ex.Message);
+                        mensajeError = "Error al registrar usuario y/o médico: " + ex.Message;
                         throw;
                     }
                 }
@@ -84,6 +104,7 @@ namespace medilink.BD
 
             return resultado;
         }
+
 
 
         // listar usuarios (contexto: usado por sistemas y gestor) 
@@ -465,10 +486,11 @@ namespace medilink.BD
 
 
 
-        //registrar un paciente (Contexto: a cargo de la recep)
-        public static bool RegistrarPaciente(PacienteM paciente)
+        public static bool RegistrarPaciente(PacienteM paciente, out string mensajeError)
         {
             bool resultado = false;
+            mensajeError = "";
+
             try
             {
                 using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
@@ -478,31 +500,56 @@ namespace medilink.BD
                         oconexion.Open();
                     }
 
-                    using (MySqlCommand comando = new MySqlCommand("INSERT INTO Paciente (dni, nombre, apellido, fecha_nacimiento, correo, telefono, direccion, edad, status, id_obra_social, id_ciudad, id_provincia) VALUES (@dni, @nombre, @apellido, @fecha_nacimiento, @correo, @telefono, @direccion, @edad, 'si', @id_obra_social, @id_ciudad, @id_provincia)", oconexion))
+                    string queryVerificacion = @"SELECT COUNT(*) FROM Paciente 
+                                         WHERE dni = @dni OR correo = @correo OR telefono = @telefono";
+
+                    using (MySqlCommand comandoVerificacion = new MySqlCommand(queryVerificacion, oconexion))
                     {
-                        comando.Parameters.AddWithValue("@dni", paciente.dni);
-                        comando.Parameters.AddWithValue("@nombre", paciente.nombre);
-                        comando.Parameters.AddWithValue("@apellido", paciente.apellido);
-                        comando.Parameters.AddWithValue("@fecha_nacimiento", paciente.fecha_nacimiento);
-                        comando.Parameters.AddWithValue("@correo", paciente.correo);
-                        comando.Parameters.AddWithValue("@telefono", paciente.telefono);
-                        comando.Parameters.AddWithValue("@direccion", paciente.direccion);
-                        comando.Parameters.AddWithValue("@edad", paciente.edad);
-                        comando.Parameters.AddWithValue("@id_obra_social", paciente.id_obra_social);
-                        comando.Parameters.AddWithValue("@id_ciudad", paciente.id_ciudad);
-                        comando.Parameters.AddWithValue("@id_provincia", paciente.id_provincia);
-                        int filasAfectadas = comando.ExecuteNonQuery();
+                        comandoVerificacion.Parameters.AddWithValue("@dni", paciente.dni);
+                        comandoVerificacion.Parameters.AddWithValue("@correo", paciente.correo);
+                        comandoVerificacion.Parameters.AddWithValue("@telefono", paciente.telefono);
+
+                        int count = Convert.ToInt32(comandoVerificacion.ExecuteScalar());
+
+                        if (count > 0)
+                        {
+                            mensajeError = "El DNI, correo o teléfono ya están registrados para otro paciente.";
+                            return false;
+                        }
+                    }
+
+                    string queryInsert = @"INSERT INTO Paciente (dni, nombre, apellido, fecha_nacimiento, correo, telefono, 
+                                  direccion, edad, status, id_obra_social, id_ciudad, id_provincia) 
+                                  VALUES (@dni, @nombre, @apellido, @fecha_nacimiento, @correo, @telefono, 
+                                  @direccion, @edad, 'si', @id_obra_social, @id_ciudad, @id_provincia)";
+
+                    using (MySqlCommand comandoInsert = new MySqlCommand(queryInsert, oconexion))
+                    {
+                        comandoInsert.Parameters.AddWithValue("@dni", paciente.dni);
+                        comandoInsert.Parameters.AddWithValue("@nombre", paciente.nombre);
+                        comandoInsert.Parameters.AddWithValue("@apellido", paciente.apellido);
+                        comandoInsert.Parameters.AddWithValue("@fecha_nacimiento", paciente.fecha_nacimiento);
+                        comandoInsert.Parameters.AddWithValue("@correo", paciente.correo);
+                        comandoInsert.Parameters.AddWithValue("@telefono", paciente.telefono);
+                        comandoInsert.Parameters.AddWithValue("@direccion", paciente.direccion);
+                        comandoInsert.Parameters.AddWithValue("@edad", paciente.edad);
+                        comandoInsert.Parameters.AddWithValue("@id_obra_social", paciente.id_obra_social);
+                        comandoInsert.Parameters.AddWithValue("@id_ciudad", paciente.id_ciudad);
+                        comandoInsert.Parameters.AddWithValue("@id_provincia", paciente.id_provincia);
+
+                        int filasAfectadas = comandoInsert.ExecuteNonQuery();
                         resultado = filasAfectadas > 0;
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al registrar paciente" + ex.Message);
+                mensajeError = "Error al registrar paciente: " + ex.Message;
             }
-            return resultado;
 
+            return resultado;
         }
+
 
 
 

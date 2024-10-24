@@ -153,15 +153,18 @@ namespace medilink.Views.citas
 
             try
             {
-                bool resultado = usuarioVM.RegistrarPaciente(nuevoPaciente);
+                // Llamar al método RegistrarPaciente y capturar el mensaje de error
+                string mensajeError;
+                bool resultado = usuarioVM.RegistrarPaciente(nuevoPaciente, out mensajeError);
 
                 if (resultado)
                 {
-                    MessageBox.Show("Paciente agendado exitosamente.");
+                    MessageBox.Show("Paciente registrado exitosamente.");
                 }
                 else
                 {
-                    MessageBox.Show("No se pudo agendar el paciente. Intente nuevamente.");
+                    // Mostrar el mensaje de error en caso de que los campos no sean únicos
+                    MessageBox.Show(mensajeError);
                 }
             }
             catch (UnauthorizedAccessException ex)

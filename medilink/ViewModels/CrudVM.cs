@@ -28,19 +28,23 @@ namespace medilink.ViewModels
         }
 
         //filtros de sistemas y gestor
-        public bool CrearUsuario(UsuarioM usuario, int especialidad, int turno)
+        public bool CrearUsuario(UsuarioM usuario, int especialidad, int turno, out string mensajeError)
         {
+            // Validar que el perfil sea adecuado para crear usuarios
             if (id_perfil == 1 || id_perfil == 2)
             {
-                return Crud.Registrar(usuario, especialidad, turno);
+                // Llamar al método Registrar del CRUD y pasar el parámetro de salida mensajeError
+                return Crud.Registrar(usuario, especialidad, turno, out mensajeError);
             }
             else
             {
+                // Si no tiene permisos, lanzar una excepción
                 throw new UnauthorizedAccessException("No tienes permisos para crear usuarios.");
             }
         }
 
-         public List<UsuarioM> ListarUsuarios()
+
+        public List<UsuarioM> ListarUsuarios()
          {
             if (id_perfil == 1 || id_perfil == 2)
             {
@@ -125,11 +129,11 @@ namespace medilink.ViewModels
         }
 
         //filtros recep y gestor
-        public bool RegistrarPaciente(PacienteM paciente)
+        public bool RegistrarPaciente(PacienteM paciente, out string mensajeError)
         {
             if (id_perfil == 4 || id_perfil == 2)
             {
-                return Crud.RegistrarPaciente(paciente);
+                return Crud.RegistrarPaciente(paciente, out mensajeError);
             }
             else
             {

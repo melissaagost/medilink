@@ -621,6 +621,87 @@ namespace medilink.BD
             }
             return listaPacientes;
         }
+
+        //editar pacientes (a cargo de recep)
+        public static bool EditarPaciente(PacienteM paciente)
+        {
+            bool resultado = false;
+            try
+            {
+                using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+                {
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
+                    string query = "UPDATE Paciente SET id_obra_social = @obraSocial, direccion = @direccion, " +
+                                   "correo = @correo, telefono = @telefono WHERE id_paciente = @idPaciente";
+
+                    using (MySqlCommand comando = new MySqlCommand(query, oconexion))
+                    {
+                        comando.Parameters.AddWithValue("@obraSocial", paciente.id_obra_social);
+                        comando.Parameters.AddWithValue("@direccion", paciente.direccion);
+                        comando.Parameters.AddWithValue("@correo", paciente.correo);
+                        comando.Parameters.AddWithValue("@telefono", paciente.telefono);
+                        comando.Parameters.AddWithValue("@idPaciente", paciente.id_paciente);
+
+                        int filasAfectadas = comando.ExecuteNonQuery();
+                        resultado = filasAfectadas > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al editar el paciente: " + ex.Message);
+            }
+            return resultado;
+        }
+
+        public static PacienteM ObtenerPacientePorId(int idPaciente)
+        {
+            PacienteM paciente = null;
+            try
+            {
+                using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+                {
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
+                    string query = "SELECT id_paciente, id_obra_social, direccion, correo, telefono " +
+                                   "FROM Paciente WHERE id_paciente = @idPaciente";
+
+                    using (MySqlCommand comando = new MySqlCommand(query, oconexion))
+                    {
+                        comando.Parameters.AddWithValue("@idPaciente", idPaciente);
+
+                        using (MySqlDataReader reader = comando.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                paciente = new PacienteM
+                                {
+                                    id_paciente = Convert.ToInt32(reader["id_paciente"]),
+                                    id_obra_social = Convert.ToInt32(reader["id_obra_social"]),
+                                    direccion = reader["direccion"].ToString(),
+                                    correo = reader["correo"].ToString(),
+                                    telefono = reader["telefono"].ToString()
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener el paciente: " + ex.Message);
+            }
+            return paciente;
+        }
+
+
         //dar de baja y alta pacientes (contexto: a cargo de gestor)
         public bool BajaPacientes(int id_paciente)
         {

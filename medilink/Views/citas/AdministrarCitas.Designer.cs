@@ -307,6 +307,7 @@
             this.dataGridViewPacientes.Name = "dataGridViewPacientes";
             this.dataGridViewPacientes.Size = new System.Drawing.Size(876, 473);
             this.dataGridViewPacientes.TabIndex = 2;
+            this.dataGridViewPacientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPacientes_CellContentClick);
             // 
             // dataGridViewTextBoxColumn7
             // 

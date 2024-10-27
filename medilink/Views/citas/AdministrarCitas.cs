@@ -327,15 +327,32 @@ namespace medilink.Views.citas
                 });
 
 
-                DataGridViewButtonColumn btnBaja = new DataGridViewButtonColumn();
-                btnBaja.HeaderText = "Acción";
-                btnBaja.Text = "Editar Paciente";
-                btnBaja.Name = "btnEditar";
-                btnBaja.UseColumnTextForButtonValue = true;
-                dataGridViewPacientes.Columns.Add(btnBaja);
+                DataGridViewButtonColumn btnEditar = new DataGridViewButtonColumn();
+                btnEditar.HeaderText = "Acción";
+                btnEditar.Text = "Editar Paciente";
+                btnEditar.Name = "btnEditar";
+                btnEditar.UseColumnTextForButtonValue = true;
+                dataGridViewPacientes.Columns.Add(btnEditar);
 
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private void dataGridViewPacientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridViewPacientes.Columns["btnEditar"].Index && e.RowIndex >= 0)
+            {
+                int id_paciente = Convert.ToInt32(dataGridViewPacientes.Rows[e.RowIndex].Cells["id_paciente"].Value);
+
+                // Llamar a la función que obtiene la información del paciente
+                PacienteM paciente = usuarioVM.ObtenerPacientePorId(id_paciente);
+
+                if (paciente != null)
+                {
+                    var editarPaciente = new EditarPaciente(paciente, usuarioLogueado);
+                    editarPaciente.ShowDialog();
+                }
+            }
         }
     } 
 }

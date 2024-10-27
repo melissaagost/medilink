@@ -142,6 +142,12 @@
     <Compile Include="Views\citas\AdministrarCitas.Designer.cs">
       <DependentUpon>AdministrarCitas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\citas\EditarPaciente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\citas\EditarPaciente.Designer.cs">
+      <DependentUpon>EditarPaciente.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\citas\NuevaCita.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,6 +243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\citas\AdministrarCitas.resx">
       <DependentUpon>AdministrarCitas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\citas\EditarPaciente.resx">
+      <DependentUpon>EditarPaciente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\citas\NuevaCita.resx">
       <DependentUpon>NuevaCita.cs</DependentUpon>

@@ -152,6 +152,15 @@ namespace medilink.ViewModels
             }
         }
 
+        public bool EditarPaciente(PacienteM paciente)
+        {
+            return Crud.EditarPaciente(paciente);
+        }
+        public PacienteM ObtenerPacientePorId(int idPaciente)
+        {
+            return Crud.ObtenerPacientePorId(idPaciente);
+        }
+
         public List<PacienteM> ListarPacientes()
         {
             if (id_perfil == 4 || id_perfil == 2) //quizas que solo dejamos medico

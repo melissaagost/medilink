@@ -14,7 +14,7 @@ using medilink.Views;
 
 namespace medilink.Views.citas
 {
-    public partial class ReprogramarCita : Form
+    public partial class ReprogramarCita : Form 
     {
         private UsuarioM usuarioLogueado;
         private CrudVM usuarioVM;

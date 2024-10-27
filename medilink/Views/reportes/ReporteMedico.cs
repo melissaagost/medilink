@@ -29,6 +29,8 @@ namespace medilink.Views.reportes
             InitializeComponent(); 
             this.usuarioLogueado = usuarioLogueado;
             usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
+            this.Load += new EventHandler(ReporteMedico_Load);
+
             toolTip1.SetToolTip(BGenerar, "Generar Reporte");
             toolTip2.SetToolTip(BExportar, "Exportar Reporte");
             toolTip3.SetToolTip(BLimpiar, "Limpiar Filtros");
@@ -37,12 +39,19 @@ namespace medilink.Views.reportes
         }
 
         //cargamos cb
+        private void CargarEstados()
+        {
+            List<string> estados = new List<string> { "Todas", "Canceladas", "Reprogramadas", "Completadas" };
+            CBEstado.DataSource = estados;
+        }
+
         private void ReporteMedico_Load(object sender, EventArgs e)
         {
-            CBEstado.Items.Add("Todas");
-            CBEstado.Items.Add("Activas");
-            CBEstado.Items.Add("Canceladas");
-            CBEstado.SelectedIndex = 0; 
+            CargarEstados();
+            //CBEstado.Items.Add("Todas");
+            //CBEstado.Items.Add("Activas");
+            //CBEstado.Items.Add("Canceladas");
+            //CBEstado.SelectedIndex = 0; 
         }
 
         //botones
@@ -73,33 +82,37 @@ namespace medilink.Views.reportes
 
         private void BGenerar_Click(object sender, EventArgs e)
         {
-            string estado = CBEstado.SelectedItem?.ToString();
-            if (estado == "Todas") estado = "";
+            // Obtener el id del médico logueado
+            int idMedico = usuarioLogueado.id_medico.HasValue ? usuarioLogueado.id_medico.Value : 0;
 
 
-            DateTime fechaInicio = DTPInicio.Value;
-            DateTime fechaFin = DTPFin.Value;
+            //filtros
+            string estadoSeleccionado = CBEstado.SelectedItem?.ToString() ?? "Todas";
+            DateTime fechaInicio = DTPInicio.Value.Date;
+            DateTime fechaFin = DTPFin.Value.Date;
 
-            if (usuarioLogueado.id_medico.HasValue)
+            
+            List<CitaM> citas = usuarioVM.ListarCitasFiltradas(idMedico, estadoSeleccionado, fechaInicio, fechaFin);
+
+           
+            chartCitas.Series.Clear();
+
+            
+            var serie = new Series("Citas")
             {
-                var citas = usuarioVM.ListarCitasPorEstadoYFecha(usuarioLogueado.id_medico.Value, estado, fechaInicio, fechaFin);
+                ChartType = SeriesChartType.Column,
+                IsValueShownAsLabel = true
+            };
 
-                // Configurar el Chart
-                chartCitas.Series.Clear();
-                var series = new System.Windows.Forms.DataVisualization.Charting.Series("Citas");
-                series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
-
-                foreach (var cita in citas)
-                {
-                    series.Points.AddXY(cita.Tipo, cita.Cantidad);
-                }
-
-                chartCitas.Series.Add(series);
-            }
-            else
+            
+            foreach (var cita in citas)
             {
-                MessageBox.Show("No se encontró un médico asociado a este usuario.");
+                // usar la fecha como X y algún valor o categoría como Y (ejemplo: 1 para citas canceladas, 2 para reprogramadas, etc.)
+                serie.Points.AddXY(cita.fecha.ToShortDateString(), 1); 
             }
+
+            
+            chartCitas.Series.Add(serie);
         }
 
 

@@ -977,88 +977,54 @@ namespace medilink.BD
         }
 
         //reportes
-        public class ReporteCitas
-        {
-            public string Tipo { get; set; } // "Cancelada" o "activa"
-            public int Cantidad { get; set; }
-        }
+    
 
-        public static List<ReporteCitas> ObtenerCitasPorEstadoYFecha(int id_medico, string estado, DateTime fechaInicio, DateTime fechaFin)
+        public static List<CitaM> ObtenerCitasFiltradas(int idMedico, string estado, DateTime fechaInicio, DateTime fechaFin)
         {
-            List<ReporteCitas> reporte = new List<ReporteCitas>();
+            List<CitaM> citas = new List<CitaM>();
+
             using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
             {
-                try
+                
+                string query = "SELECT * FROM Cita WHERE id_medico = @idMedico " +
+                               "AND fecha BETWEEN @fechaInicio AND @fechaFin";
+
+                if (!string.IsNullOrEmpty(estado) && estado != "Todas")
                 {
-                    if (conexion.State == ConnectionState.Closed)
-                    {
-                        conexion.Open();
-                    }
+                    query += " AND status = @estado";
+                }
 
-                    string query = "SELECT status, COUNT(*) AS cantidad FROM Cita WHERE id_medico = @id_medico " +
-                                   "AND status = @estado AND fecha BETWEEN @fechaInicio AND @fechaFin GROUP BY status";
+                using (MySqlCommand comando = new MySqlCommand(query, conexion))
+                {
+                    comando.Parameters.AddWithValue("@idMedico", idMedico);
+                    comando.Parameters.AddWithValue("@fechaInicio", fechaInicio);
+                    comando.Parameters.AddWithValue("@fechaFin", fechaFin);
 
-                    using (MySqlCommand comando = new MySqlCommand(query, conexion))
+                    if (!string.IsNullOrEmpty(estado) && estado != "Todas")
                     {
-                        comando.Parameters.AddWithValue("@id_medico", id_medico);
                         comando.Parameters.AddWithValue("@estado", estado);
-                        comando.Parameters.AddWithValue("@fechaInicio", fechaInicio);
-                        comando.Parameters.AddWithValue("@fechaFin", fechaFin);
+                    }
 
-                        using (MySqlDataReader reader = comando.ExecuteReader())
+                    //conexion.Open();
+                    using (MySqlDataReader reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
                         {
-                            while (reader.Read())
+                            citas.Add(new CitaM
                             {
-                                reporte.Add(new ReporteCitas
-                                {
-                                    Tipo = reader["status"].ToString(),
-                                    Cantidad = Convert.ToInt32(reader["cantidad"])
-                                });
-                            }
+                                id_cita = Convert.ToInt32(reader["id_cita"]),
+                                fecha = Convert.ToDateTime(reader["fecha"]),
+                                motivo = reader["motivo"].ToString(),
+                                status = reader["status"].ToString(),
+                                
+                            });
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error al obtener el reporte de citas: " + ex.Message);
-                }
             }
-            return reporte;
+
+            return citas;
         }
-
-        public static int? ObtenerIdMedicoPorUsuario(int id_usuario)
-        {
-            int? idMedico = null;
-            using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
-            {
-                try
-                {
-                    if (conexion.State == ConnectionState.Closed)
-                    {
-                        conexion.Open();
-                    }
-
-                    string query = "SELECT id_medico FROM medico WHERE id_usuario = @id_usuario";
-                    using (MySqlCommand comando = new MySqlCommand(query, conexion))
-                    {
-                        comando.Parameters.AddWithValue("@id_usuario", id_usuario);
-
-                        object result = comando.ExecuteScalar();
-                        if (result != null)
-                        {
-                            idMedico = Convert.ToInt32(result);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error al obtener el id_medico: " + ex.Message);
-                }
-            }
-            return idMedico;
-        }
-
-
 
     }
 } 

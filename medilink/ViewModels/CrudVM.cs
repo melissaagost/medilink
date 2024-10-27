@@ -251,16 +251,9 @@ namespace medilink.ViewModels
         }
 
         //reportes
-        public List<ReporteCitas> ListarCitasPorEstadoYFecha(int id_medico, string estado, DateTime fechaInicio, DateTime fechaFin)
+        public List<CitaM> ListarCitasFiltradas(int idMedico, string estado, DateTime fechaInicio, DateTime fechaFin)
         {
-           
-            return Crud.ObtenerCitasPorEstadoYFecha(id_medico, estado, fechaInicio, fechaFin);
-        }
-
-        public int? ObtenerIdMedico(int id_usuario)
-        {
-            
-            return Crud.ObtenerIdMedicoPorUsuario(id_usuario);
+            return Crud.ObtenerCitasFiltradas(idMedico, estado, fechaInicio, fechaFin);
         }
 
 

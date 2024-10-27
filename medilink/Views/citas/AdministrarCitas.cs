@@ -16,7 +16,7 @@ namespace medilink.Views.citas
     {
 
         private UsuarioM usuarioLogueado;
-        private CrudVM usuarioVM;
+        private CrudVM usuarioVM; 
         public AdministrarCitas(UsuarioM usuarioLogueado)
         {
             InitializeComponent();
@@ -30,7 +30,9 @@ namespace medilink.Views.citas
         {
             int idUsuarioLogueado = usuarioLogueado.id_usuario;
             CargarCitas(idUsuarioLogueado); 
-            CargarCitasCanceladas(idUsuarioLogueado);   
+            CargarCitasCanceladas(idUsuarioLogueado);
+            CargarCitasCompletadas(idUsuarioLogueado);
+
         }
 
         private void CargarCitas(int idUsuarioLogueado) {
@@ -216,6 +218,77 @@ namespace medilink.Views.citas
                 reprogramarForm.Show();
 
 
+            }
+        }
+
+        //completadas (solo ver)
+        private void CargarCitasCompletadas(int idUsuarioLogueado)
+        {
+            try
+            {
+                List<CitaM> citas = usuarioVM.ListarCitas(idUsuarioLogueado);
+                List<CitaM> citasCompletadas = citas
+                .Where(u => u.status != null && u.status.Trim().Equals("completada", StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+                dataGridViewCompletadas.AutoGenerateColumns = false;
+                dataGridViewCompletadas.DataSource = citasCompletadas;
+                dataGridViewCompletadas.Columns.Clear();
+
+
+                dataGridViewCompletadas.Columns.Add("paciente_nombre", "Nombre del Paciente");
+                dataGridViewCompletadas.Columns["paciente_nombre"].DataPropertyName = "paciente_nombre";
+
+                dataGridViewCompletadas.Columns.Add("medico_nombre", "Profesional a cargo");
+                dataGridViewCompletadas.Columns["medico_nombre"].DataPropertyName = "medico_nombre";
+
+                dataGridViewCompletadas.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "fecha",
+                    HeaderText = "Fecha",
+                    DataPropertyName = "fecha"
+                });
+
+                dataGridViewCompletadas.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "motivo",
+                    HeaderText = "Motivo",
+                    DataPropertyName = "motivo"
+                });
+
+                dataGridViewCompletadas.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "status",
+                    HeaderText = "Status",
+                    DataPropertyName = "status"
+                });
+
+                dataGridViewCompletadas.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "id_paciente",
+                    DataPropertyName = "id_paciente",
+                    Visible = false
+                });
+
+                dataGridViewCompletadas.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "id_medico",
+                    DataPropertyName = "id_medico",
+                    Visible = false
+                });
+
+                dataGridViewCompletadas.Columns.Add(new DataGridViewTextBoxColumn()
+                {
+                    Name = "id_cita",
+                    HeaderText = "ID Cita",
+                    DataPropertyName = "id_cita",
+                    Visible = false
+                });
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar las citas: " + ex.Message);
             }
         }
     } 

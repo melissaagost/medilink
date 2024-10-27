@@ -392,6 +392,36 @@ namespace medilink.BD
             return resultado;
         }
 
+        //completar cita cita (contexto: usado por medico)
+        public static bool Completar(int id_cita)
+        {
+            bool resultado = false;
+            try
+            {
+                using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+                {
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
+                    using (MySqlCommand comando = new MySqlCommand("UPDATE Cita SET status = 'completada' WHERE id_cita = @id_cita", oconexion))
+                    {
+                        comando.Parameters.AddWithValue("@status", "completada");
+                        comando.Parameters.AddWithValue("@id_cita", id_cita);
+
+                        int filasAfectadas = comando.ExecuteNonQuery();
+                        resultado = filasAfectadas > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al marcar cita como completada." + ex.Message);
+            }
+            return resultado;
+        }
+
         //listar citas (contexto: usado por recep)
         public static List<CitaM> ListarCitas()
         {

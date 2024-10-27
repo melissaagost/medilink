@@ -44,11 +44,20 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CFecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CAccionCita = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dataGridViewCompletadas = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabControlCitasMedico.SuspendLayout();
             this.tabPageActivas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProgramadas)).BeginInit();
             this.tabPageCanceladas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCanceladas)).BeginInit();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompletadas)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -66,6 +75,7 @@
             // 
             this.tabControlCitasMedico.Controls.Add(this.tabPageActivas);
             this.tabControlCitasMedico.Controls.Add(this.tabPageCanceladas);
+            this.tabControlCitasMedico.Controls.Add(this.tabPage1);
             this.tabControlCitasMedico.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlCitasMedico.Location = new System.Drawing.Point(12, 50);
             this.tabControlCitasMedico.Name = "tabControlCitasMedico";
@@ -200,6 +210,67 @@
             this.CAccionCita.UseColumnTextForButtonValue = true;
             this.CAccionCita.Width = 167;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.dataGridViewCompletadas);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(882, 479);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "Completadas";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewCompletadas
+            // 
+            this.dataGridViewCompletadas.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
+            this.dataGridViewCompletadas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCompletadas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn6,
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewButtonColumn1});
+            this.dataGridViewCompletadas.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewCompletadas.Name = "dataGridViewCompletadas";
+            this.dataGridViewCompletadas.Size = new System.Drawing.Size(876, 473);
+            this.dataGridViewCompletadas.TabIndex = 1;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "DNI";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.Width = 167;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "Nombre";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 167;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.HeaderText = "Apellido";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.Width = 167;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.HeaderText = "Fecha - Hora";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.Width = 167;
+            // 
+            // dataGridViewButtonColumn1
+            // 
+            this.dataGridViewButtonColumn1.HeaderText = "Acción";
+            this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
+            this.dataGridViewButtonColumn1.Text = "Dar de Alta";
+            this.dataGridViewButtonColumn1.UseColumnTextForButtonValue = true;
+            this.dataGridViewButtonColumn1.Width = 167;
+            // 
             // AdminCitasMedico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -218,6 +289,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProgramadas)).EndInit();
             this.tabPageCanceladas.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCanceladas)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCompletadas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,5 +314,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn CFecha;
         private System.Windows.Forms.DataGridViewButtonColumn CAccionCita;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.DataGridView dataGridViewCompletadas;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn1;
     }
 }

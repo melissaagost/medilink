@@ -109,6 +109,17 @@ namespace medilink.ViewModels
                 throw new UnauthorizedAccessException("No tienes permisos para cancelar una cita.");
             }
         }
+        public bool CompletarCita(int cita)
+        {
+            if (id_perfil == 3)
+            {
+                return Crud.Completar(cita);
+            }
+            else
+            {
+                throw new UnauthorizedAccessException("No tienes permisos para completar una cita.");
+            }
+        }
 
         public List<CitaM> ListarCitas(int idUsuarioLogueado)
         {

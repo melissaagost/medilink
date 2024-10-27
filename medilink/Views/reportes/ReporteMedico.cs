@@ -13,6 +13,7 @@ using medilink.Views;
 using medilink.BD;
 using static medilink.BD.Crud;
 using System.Windows.Forms.DataVisualization.Charting;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace medilink.Views.reportes
@@ -25,41 +26,97 @@ namespace medilink.Views.reportes
 
         public ReporteMedico(UsuarioM usuarioLogueado)
         {
-            InitializeComponent();
+            InitializeComponent(); 
             this.usuarioLogueado = usuarioLogueado;
             usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
+            toolTip1.SetToolTip(BGenerar, "Generar Reporte");
+            toolTip2.SetToolTip(BExportar, "Exportar Reporte");
+            toolTip3.SetToolTip(BLimpiar, "Limpiar Filtros");
+            toolTip4.SetToolTip(PBAyuda, "Seleccione el estado de las citas que desea ver, luego indique el rango de fechas.");
+
         }
 
-        private void CargarReporteCitas(int idMedico)
+        //cargamos cb
+        private void ReporteMedico_Load(object sender, EventArgs e)
         {
-            // Llama a la función del ViewModel para obtener los datos
-            List<ReporteCitas> datos = usuarioVM.ListarCitasCanceladasYReprogramadas(idMedico);
+            CBEstado.Items.Add("Todas");
+            CBEstado.Items.Add("Activas");
+            CBEstado.Items.Add("Canceladas");
+            CBEstado.SelectedIndex = 0; 
+        }
 
-            // Limpia series anteriores del chart
+        //botones
+        private void BLimpiar_Click(object sender, EventArgs e)
+        {
+            CBEstado.SelectedIndex = -1;
+            DTPInicio.Value = DateTime.Now;
+            DTPFin.Value = DateTime.Now;
             chartCitas.Series.Clear();
-
-            // Crea una nueva serie para el gráfico
-            var serie = new Series("Citas")
-            {
-                ChartType = SeriesChartType.Pie, // Puedes usar SeriesChartType.Bar para un gráfico de barras
-                IsValueShownAsLabel = true // Muestra las etiquetas con valores
-            };
-
-            // Añade los puntos a la serie
-            foreach (var dato in datos)
-            {
-                serie.Points.AddXY(dato.Tipo, dato.Cantidad);
-            }
-
-            // Añade la serie al chart
-            chartCitas.Series.Add(serie);
         }
 
-        // Llama a esta función cuando se cargue el formulario de reporte
-        private void ReporteCitasMedico_Load(object sender, EventArgs e)
+        private void BExportar_Click(object sender, EventArgs e)
         {
-            int idMedico = usuarioLogueado.id_usuario; // Suponiendo que tienes el id del médico logueado
-            CargarReporteCitas(idMedico);
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Image Files|*.png;*.jpg;*.bmp|PDF Files|*.pdf|Excel Files|*.xlsx";
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    
+                    if (saveFileDialog.FileName.EndsWith(".png") || saveFileDialog.FileName.EndsWith(".jpg") || saveFileDialog.FileName.EndsWith(".bmp"))
+                    {
+                        chartCitas.SaveImage(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                    }
+                    
+                }
+            }
+        }
+
+        private void BGenerar_Click(object sender, EventArgs e)
+        {
+            string estado = CBEstado.SelectedItem?.ToString();
+            if (estado == "Todas") estado = "";
+
+
+            DateTime fechaInicio = DTPInicio.Value;
+            DateTime fechaFin = DTPFin.Value;
+
+            if (usuarioLogueado.id_medico.HasValue)
+            {
+                var citas = usuarioVM.ListarCitasPorEstadoYFecha(usuarioLogueado.id_medico.Value, estado, fechaInicio, fechaFin);
+
+                // Configurar el Chart
+                chartCitas.Series.Clear();
+                var series = new System.Windows.Forms.DataVisualization.Charting.Series("Citas");
+                series.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Bar;
+
+                foreach (var cita in citas)
+                {
+                    series.Points.AddXY(cita.Tipo, cita.Cantidad);
+                }
+
+                chartCitas.Series.Add(series);
+            }
+            else
+            {
+                MessageBox.Show("No se encontró un médico asociado a este usuario.");
+            }
+        }
+
+
+
+
+
+
+
+        //por accidente
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void chartCitas_Click(object sender, EventArgs e)
+        {
+
         }
 
     }

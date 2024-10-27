@@ -251,11 +251,18 @@ namespace medilink.ViewModels
         }
 
         //reportes
-        public List<ReporteCitas> ListarCitasCanceladasYReprogramadas(int id_medico)
+        public List<ReporteCitas> ListarCitasPorEstadoYFecha(int id_medico, string estado, DateTime fechaInicio, DateTime fechaFin)
         {
-            // Llama a la función del Crud para obtener los datos de la base de datos
-            return Crud.ObtenerCitasCanceladasYReprogramadas(id_medico);
+           
+            return Crud.ObtenerCitasPorEstadoYFecha(id_medico, estado, fechaInicio, fechaFin);
         }
+
+        public int? ObtenerIdMedico(int id_usuario)
+        {
+            
+            return Crud.ObtenerIdMedicoPorUsuario(id_usuario);
+        }
+
 
 
     }

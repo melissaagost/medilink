@@ -32,6 +32,7 @@ namespace medilink.Views.citas
             CargarCitas(idUsuarioLogueado); 
             CargarCitasCanceladas(idUsuarioLogueado);
             CargarCitasCompletadas(idUsuarioLogueado);
+            CargarPacientes();
 
         }
 
@@ -290,6 +291,51 @@ namespace medilink.Views.citas
             {
                 MessageBox.Show("Error al cargar las citas: " + ex.Message);
             }
+        }
+
+        //pacientes
+        private void CargarPacientes()
+        {
+            try
+            {
+                List<PacienteM> pacientes = usuarioVM.ListarPacientes();
+
+                dataGridViewPacientes.AutoGenerateColumns = false;
+                dataGridViewPacientes.DataSource = pacientes;
+                dataGridViewPacientes.Columns.Clear();
+
+
+                dataGridViewPacientes.Columns.Add("dni", "DNI");
+                dataGridViewPacientes.Columns["dni"].DataPropertyName = "dni";
+
+                dataGridViewPacientes.Columns.Add("nombre", "Nombre");
+                dataGridViewPacientes.Columns["nombre"].DataPropertyName = "nombre";
+
+                dataGridViewPacientes.Columns.Add("apellido", "Apellido");
+                dataGridViewPacientes.Columns["apellido"].DataPropertyName = "apellido";
+
+                dataGridViewPacientes.Columns.Add("telefono", "Teléfono");
+                dataGridViewPacientes.Columns["telefono"].DataPropertyName = "telefono";
+
+
+                dataGridViewPacientes.Columns.Add(new DataGridViewTextBoxColumn()
+                {
+                    Name = "id_paciente",
+                    HeaderText = "ID Paciente",
+                    DataPropertyName = "id_paciente",
+                    Visible = false
+                });
+
+
+                DataGridViewButtonColumn btnBaja = new DataGridViewButtonColumn();
+                btnBaja.HeaderText = "Acción";
+                btnBaja.Text = "Editar Paciente";
+                btnBaja.Name = "btnEditar";
+                btnBaja.UseColumnTextForButtonValue = true;
+                dataGridViewPacientes.Columns.Add(btnBaja);
+
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
     } 
 }

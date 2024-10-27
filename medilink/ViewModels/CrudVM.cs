@@ -263,8 +263,17 @@ namespace medilink.ViewModels
 
         //reportes
         public List<CitaM> ListarCitasFiltradas(int idMedico, string estado, DateTime fechaInicio, DateTime fechaFin)
+
         {
-            return Crud.ObtenerCitasFiltradas(idMedico, estado, fechaInicio, fechaFin);
+            if (id_perfil == 3)
+            {
+                return Crud.ObtenerCitasFiltradas(idMedico, estado, fechaInicio, fechaFin);
+            }
+            else
+            {
+                return new List<CitaM>();
+            }
+            
         }
 
 

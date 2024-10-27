@@ -14,6 +14,7 @@ using medilink.BD;
 using static medilink.BD.Crud;
 using System.Windows.Forms.DataVisualization.Charting;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using MySql.Data.MySqlClient;
 
 
 namespace medilink.Views.reportes
@@ -23,7 +24,7 @@ namespace medilink.Views.reportes
 
         private UsuarioM usuarioLogueado;
         private CrudVM usuarioVM;
-
+         
         public ReporteMedico(UsuarioM usuarioLogueado)
         {
             InitializeComponent(); 
@@ -80,10 +81,47 @@ namespace medilink.Views.reportes
             }
         }
 
+        private int BuscarMedico(int idUsuario)
+        {
+
+            using (var conexionBD = new ConexionBD()) // Asegúrate de que `conexionBD` es una instancia válida.
+            {
+                using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
+                {
+                    if (conexion.State == System.Data.ConnectionState.Open)
+                    {
+                        string query = "SELECT * FROM medico WHERE id_usuario = @usuario";
+                        using (MySqlCommand comando = new MySqlCommand(query, conexion))
+                        {
+                            comando.Parameters.AddWithValue("@usuario", idUsuario);
+
+                            using (MySqlDataReader reader = comando.ExecuteReader())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    reader.Read();
+
+                                    return Convert.ToInt32(reader["id_usuario"]);
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+            }
+            return 0;
+        }
+
+
+
+
+
         private void BGenerar_Click(object sender, EventArgs e)
         {
             // Obtener el id del médico logueado
-            int idMedico = usuarioLogueado.id_medico.HasValue ? usuarioLogueado.id_medico.Value : 0;
+
+            int idMedico = BuscarMedico(usuarioLogueado.id_usuario);
 
 
             //filtros

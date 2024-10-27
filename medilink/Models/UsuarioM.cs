@@ -48,6 +48,6 @@ namespace medilink.Models
         public int id_provincia { get; set; }
         public int id_ciudad { get; set; }
         public int id_perfil { get; set; }
-        public int? id_medico { get; set; }
+        //public int? id_medico { get; set; }
     }
 }

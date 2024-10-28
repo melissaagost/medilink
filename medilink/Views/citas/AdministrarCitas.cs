@@ -217,7 +217,12 @@ namespace medilink.Views.citas
                 // Abrir el formulario de reprogramar cita y pasarle los datos de la cita actual
                 // Si tienes el objeto usuarioLogueado en tu vista de origen
                 var reprogramarForm = new ReprogramarCita(id_cita, motivo, id_paciente, id_profesional, usuarioLogueado);
-                reprogramarForm.Show();
+                if (reprogramarForm.ShowDialog() == DialogResult.OK)
+                {
+                    CargarCitas(usuarioLogueado.id_usuario); // Refresca 
+                    CargarCitasCanceladas(usuarioLogueado.id_usuario);
+                }
+
 
 
             }

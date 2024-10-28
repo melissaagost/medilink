@@ -254,7 +254,7 @@ namespace medilink.Views.citas
 
                 
                 if (reprogramarForm.ShowDialog() == DialogResult.OK)
-                {
+                { 
                     CargarCitasActivas(usuarioLogueado.id_usuario); // Refresca 
                     CargarCitasCanceladas(usuarioLogueado.id_usuario);
                 }

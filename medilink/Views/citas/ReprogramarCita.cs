@@ -50,33 +50,27 @@ namespace medilink.Views.citas
             comboBoxSelecMedico.Enabled = false;
         }
 
-        private void buttonAgendar_Click(object sender, EventArgs e)
-        {
-            DateTime nuevaFecha = dateTimePickerCita.Value;
-
-            bool resultado = usuarioVM.ReprogramarCita(id_cita, nuevaFecha);
-            if (resultado)
-            {
-                MessageBox.Show("Cita reprogramada con éxito.");
-                CargarCitasActivas();
-
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Error al reprogramar la cita.");
-            }
-        }
 
         private void buttonAgendar_Click_1(object sender, EventArgs e)
         {
-            DateTime nuevaFecha = dateTimePickerCita.Value;
 
-            bool resultado = usuarioVM.ReprogramarCita(id_cita, nuevaFecha);
+            DateTime nuevaFechaHora = dateTimePickerCita.Value;
+
+            DateTime fechaHoraActual = DateTime.Now; 
+
+            if (nuevaFechaHora <= fechaHoraActual)
+            {
+                MessageBox.Show("Por favor, seleccione una fecha futura (no puede ser la fecha actual ni una anterior).");
+                return;
+            }
+
+
+            bool resultado = usuarioVM.ReprogramarCita(id_cita, nuevaFechaHora);
             if (resultado)
             {
                 MessageBox.Show("Cita reprogramada con éxito.");
-                CargarCitasActivas();
+                this.DialogResult = DialogResult.OK;
+
 
                 this.Close();
             }

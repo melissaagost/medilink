@@ -282,7 +282,7 @@ namespace medilink.Views.usuario
                 dataGridViewPacientes.Columns.Clear();
 
 
-                dataGridViewPacientes.Columns.Add("dni", "DNI");
+                dataGridViewPacientes.Columns.Add("dni", "DNI"); 
                 dataGridViewPacientes.Columns["dni"].DataPropertyName = "dni";
 
                 dataGridViewPacientes.Columns.Add("nombre", "Nombre");

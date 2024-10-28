@@ -15,7 +15,7 @@ using medilink.Views;
 namespace medilink.Views.usuario
 {
     public partial class EditarPerfil : Form
-    {
+    { 
         private UsuarioM usuarioOriginal;
         private UsuarioM usuarioLogueado;
         private CrudVM usuarioVM;
@@ -96,6 +96,7 @@ namespace medilink.Views.usuario
             {
                 PerfilActualizado?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show("Perfil actualizado exitosamente.");
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             else

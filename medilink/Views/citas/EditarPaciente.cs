@@ -53,25 +53,43 @@ namespace medilink.Views.citas
 
         private void buttonGuardarCambios_Click(object sender, EventArgs e)
         {
-            // Actualizar los datos del pacienteOriginal con los nuevos valores del formulario
+            // validaciones
+            if (string.IsNullOrWhiteSpace(textBoxEditDomicilio.Text) ||
+                string.IsNullOrWhiteSpace(textBoxCorreo.Text) ||
+                string.IsNullOrWhiteSpace(textBoxEditTelefono.Text))
+            {
+                MessageBox.Show("Todos los campos son obligatorios.");
+                return;
+            }
+
+            
+            if (textBoxEditTelefono.Text.Length != 10 || !long.TryParse(textBoxEditTelefono.Text, out _))
+            {
+                MessageBox.Show("El teléfono debe tener 10 caracteres numéricos.");
+                return;
+            }
+
+            //actualiza
             pacienteOriginal.id_obra_social = Convert.ToInt32(comboBoxObraSocial.SelectedValue);
             pacienteOriginal.direccion = textBoxEditDomicilio.Text;
             pacienteOriginal.correo = textBoxCorreo.Text;
             pacienteOriginal.telefono = textBoxEditTelefono.Text;
 
-            // Llamar a la función del ViewModel para actualizar
+            
             bool resultado = usuarioVM.EditarPaciente(pacienteOriginal);
 
             if (resultado)
             {
                 MessageBox.Show("Paciente actualizado exitosamente.");
-                this.Close(); 
+                this.DialogResult = DialogResult.OK; 
+                this.Close();
             }
             else
             {
-                MessageBox.Show("Error al actualizar el paciente.");
+                MessageBox.Show("Error al actualizar el paciente. Verifique que el correo y teléfono sean únicos.");
             }
         }
+
 
         private void button2_Click(object sender, EventArgs e)
         {

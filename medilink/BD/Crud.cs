@@ -635,6 +635,23 @@ namespace medilink.BD
                         oconexion.Open();
                     }
 
+                    // Verificar si el correo o el teléfono ya están en uso por otro paciente
+                    string checkQuery = "SELECT COUNT(*) FROM Paciente WHERE (correo = @correo OR telefono = @telefono) AND id_paciente != @idPaciente";
+                    using (MySqlCommand checkCommand = new MySqlCommand(checkQuery, oconexion))
+                    {
+                        checkCommand.Parameters.AddWithValue("@correo", paciente.correo);
+                        checkCommand.Parameters.AddWithValue("@telefono", paciente.telefono);
+                        checkCommand.Parameters.AddWithValue("@idPaciente", paciente.id_paciente);
+
+                        int count = Convert.ToInt32(checkCommand.ExecuteScalar());
+                        if (count > 0)
+                        {
+                            // Si ya existe un paciente con el mismo correo o teléfono, devolver false
+                            return false;
+                        }
+                    }
+
+                    // Si no hay conflicto, proceder a la actualización
                     string query = "UPDATE Paciente SET id_obra_social = @obraSocial, direccion = @direccion, " +
                                    "correo = @correo, telefono = @telefono WHERE id_paciente = @idPaciente";
 
@@ -657,6 +674,7 @@ namespace medilink.BD
             }
             return resultado;
         }
+
 
         public static PacienteM ObtenerPacientePorId(int idPaciente)
         {

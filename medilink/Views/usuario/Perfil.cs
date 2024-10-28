@@ -16,7 +16,7 @@ namespace medilink.Views.usuario
     public partial class Perfil : Form
     {
         private Panel panelVistas; // Define una variable para almacenar la referencia al panel
-        private UsuarioM usuarioLogueado;
+        private UsuarioM usuarioLogueado; 
         private CrudVM usuarioVM;
         private EditarPerfil editarPerfilForm; // Agregar una referencia a la vista de edición
 
@@ -46,6 +46,7 @@ namespace medilink.Views.usuario
                 editarPerfilForm.Dock = DockStyle.Fill;
                 panelVistas.Controls.Add(editarPerfilForm);
                 editarPerfilForm.Show();
+
             }
             else
             {

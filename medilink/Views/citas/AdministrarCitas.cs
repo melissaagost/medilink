@@ -21,6 +21,7 @@ namespace medilink.Views.citas
         {
             InitializeComponent();
             this.Load += new EventHandler(AdministrarCitas_Load);
+            dataGridViewPacientes.CellFormatting += dataGridViewPacientes_CellFormatting;
 
             this.usuarioLogueado = usuarioLogueado;
             usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
@@ -294,6 +295,19 @@ namespace medilink.Views.citas
         }
 
         //pacientes
+
+        private void dataGridViewPacientes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dataGridViewPacientes.Columns[e.ColumnIndex].Name == "status")
+            {
+                
+                if (e.Value != null && e.Value.ToString().ToLower() == "no")
+                {
+                    dataGridViewPacientes.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightCoral;
+                }
+            }
+        }
+
         private void CargarPacientes()
         {
             try
@@ -316,6 +330,8 @@ namespace medilink.Views.citas
 
                 dataGridViewPacientes.Columns.Add("telefono", "Teléfono");
                 dataGridViewPacientes.Columns["telefono"].DataPropertyName = "telefono";
+
+                
 
 
                 dataGridViewPacientes.Columns.Add(new DataGridViewTextBoxColumn()
@@ -350,9 +366,15 @@ namespace medilink.Views.citas
                 if (paciente != null)
                 {
                     var editarPaciente = new EditarPaciente(paciente, usuarioLogueado);
-                    editarPaciente.ShowDialog();
+
+                    // Si se cierra el formulario, refrescar la tabla
+                    if (editarPaciente.ShowDialog() == DialogResult.OK)
+                    {
+                        CargarPacientes(); // Refresca el DataGridView después de editar el paciente
+                    }
                 }
             }
         }
-    } 
+
+    }
 }

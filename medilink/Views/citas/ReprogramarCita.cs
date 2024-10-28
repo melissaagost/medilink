@@ -16,6 +16,7 @@ namespace medilink.Views.citas
 {
     public partial class ReprogramarCita : Form 
     {
+       // private int idMedicoSeleccionado;
         private UsuarioM usuarioLogueado;
         private CrudVM usuarioVM;
         private int id_cita;
@@ -33,7 +34,7 @@ namespace medilink.Views.citas
             this.id_cita = id_cita;
             this.usuarioLogueado = usuarioLogueado; 
             usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
-
+           // this.idMedicoSeleccionado = id_profesional;
 
 
 
@@ -84,6 +85,24 @@ namespace medilink.Views.citas
         {
             this.Close();
         }
+
+        private void BVerificar_Click(object sender, EventArgs e)
+        {
+            DateTime nuevaFecha = dateTimePickerCita.Value;
+            int idMedico = Convert.ToInt32(comboBoxSelecMedico.SelectedValue);
+
+            bool disponible = usuarioVM.VerificarDisponibilidadMedico(idMedico, nuevaFecha);
+
+            if (disponible)
+            {
+                MessageBox.Show("El médico está disponible en esta fecha y hora.");
+            }
+            else
+            {
+                MessageBox.Show("El médico no está disponible en esta fecha y hora. Por favor, seleccione otra.");
+            }
+        }
+
     }
-    }
+}
 

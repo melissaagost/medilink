@@ -361,6 +361,49 @@ namespace medilink.BD
             return resultado;
         }
 
+        public static bool VerificarDisponibilidadMedico(int idMedico, DateTime fechaHora)
+        {
+            bool disponible = true;
+
+            try
+            {
+                using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+                {
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
+                    // Consulta para verificar si hay citas activas para el médico en esa fecha y hora específica
+                    string query = "SELECT COUNT(*) FROM Cita WHERE id_medico = @idMedico " +
+                                   "AND DATE(fecha_hora) = DATE(@fechaHora) AND HOUR(fecha_hora) = HOUR(@fechaHora) " +
+                                   "AND MINUTE(fecha_hora) = MINUTE(@fechaHora) AND estado = 'activa'";
+
+                    using (MySqlCommand comando = new MySqlCommand(query, oconexion))
+                    {
+                        comando.Parameters.AddWithValue("@idMedico", idMedico);
+                        comando.Parameters.AddWithValue("@fechaHora", fechaHora);
+
+                        int count = Convert.ToInt32(comando.ExecuteScalar());
+                        // Si el conteo es mayor a 0, significa que el médico ya tiene una cita en esa fecha y hora exacta
+                        if (count > 0)
+                        {
+                            disponible = false;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al verificar la disponibilidad del médico: " + ex.Message);
+                disponible = false;
+            }
+
+            return disponible;
+        }
+
+
+
 
         //cancelar cita (contexto: usado por recep y medico)
         public static bool Cancelar(int id_cita)

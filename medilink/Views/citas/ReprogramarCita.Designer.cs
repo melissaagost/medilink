@@ -40,12 +40,16 @@
             this.comboBoxBuscarPaciente = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.labelNuevoUsuario = new System.Windows.Forms.Label();
+            this.BVerificar = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.BVerificar);
             this.panel1.Controls.Add(this.buttonCancelarAgenda);
             this.panel1.Controls.Add(this.buttonAgendar);
             this.panel1.Controls.Add(this.label4);
@@ -178,6 +182,27 @@
             this.labelNuevoUsuario.TabIndex = 39;
             this.labelNuevoUsuario.Text = "Reprogramar Cita";
             // 
+            // BVerificar
+            // 
+            this.BVerificar.Location = new System.Drawing.Point(469, 349);
+            this.BVerificar.Name = "BVerificar";
+            this.BVerificar.Size = new System.Drawing.Size(129, 29);
+            this.BVerificar.TabIndex = 1;
+            this.BVerificar.Text = "Verificar Disponibilidad";
+            this.BVerificar.UseVisualStyleBackColor = true;
+            this.BVerificar.Click += new System.EventHandler(this.BVerificar_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Verdana", 7.75F);
+            this.label5.ForeColor = System.Drawing.Color.Red;
+            this.label5.Location = new System.Drawing.Point(466, 332);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(373, 13);
+            this.label5.TabIndex = 50;
+            this.label5.Text = "Verifique disponibilidad de la fecha antes de reprogramar la cita";
+            // 
             // ReprogramarCita
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -210,5 +235,7 @@
         private System.Windows.Forms.ComboBox comboBoxBuscarPaciente;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelNuevoUsuario;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button BVerificar;
     }
 }

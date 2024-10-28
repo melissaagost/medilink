@@ -97,6 +97,11 @@ namespace medilink.ViewModels
             return usuarioLogueado.ReprogramarCita(id_cita, nuevaFecha);
         }
 
+        public bool VerificarDisponibilidadMedico(int idMedico, DateTime fechaHora)
+        {
+            return Crud.VerificarDisponibilidadMedico(idMedico, fechaHora);
+        }
+
 
         public bool CancelarCita(int cita)
         {

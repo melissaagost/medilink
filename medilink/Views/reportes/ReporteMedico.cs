@@ -42,7 +42,8 @@ namespace medilink.Views.reportes
         //cargamos cb
         private void CargarEstados()
         {
-            List<string> estados = new List<string> { "Todas", "Canceladas", "Reprogramadas", "Completadas" };
+            //los estados son exactamente los de la BD, no podemos poner en plural ni mayuscula
+            List<string> estados = new List<string> { "Todas", "cancelada", "completada", "activa" };
             CBEstado.DataSource = estados;
         }
 

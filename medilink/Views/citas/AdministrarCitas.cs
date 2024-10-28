@@ -214,8 +214,7 @@ namespace medilink.Views.citas
                 int id_paciente = Convert.ToInt32(dataGridViewInactivos.Rows[e.RowIndex].Cells["id_paciente"].Value);
                 int id_profesional = Convert.ToInt32(dataGridViewInactivos.Rows[e.RowIndex].Cells["id_medico"].Value);
 
-                // Abrir el formulario de reprogramar cita y pasarle los datos de la cita actual
-                // Si tienes el objeto usuarioLogueado en tu vista de origen
+                
                 var reprogramarForm = new ReprogramarCita(id_cita, motivo, id_paciente, id_profesional, usuarioLogueado);
                 if (reprogramarForm.ShowDialog() == DialogResult.OK)
                 {
@@ -300,7 +299,7 @@ namespace medilink.Views.citas
         }
 
         //pacientes
-
+        //no esta funcionando el color
         private void dataGridViewPacientes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (dataGridViewPacientes.Columns[e.ColumnIndex].Name == "status")

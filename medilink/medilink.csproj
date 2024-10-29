@@ -259,6 +259,9 @@
     <EmbeddedResource Include="Views\reportes\ReporteMedico.resx">
       <DependentUpon>ReporteMedico.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\reportes\ReporteRecep.resx">
+      <DependentUpon>ReporteRecep.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\usuario\AdminGestor.resx">
       <DependentUpon>AdminGestor.cs</DependentUpon>
     </EmbeddedResource>

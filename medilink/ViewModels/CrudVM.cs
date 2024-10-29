@@ -289,6 +289,19 @@ namespace medilink.ViewModels
             }
             
         }
+        public List<CitaM> ListarCitasRecep( string estado, DateTime fechaInicio, DateTime fechaFin)
+
+        {
+            if (id_perfil == 4)
+            {
+                return Crud.ObtenerCitasRecep(estado, fechaInicio, fechaFin);
+            }
+            else
+            {
+                return new List<CitaM>();
+            }
+
+        }
 
 
 

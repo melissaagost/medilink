@@ -1197,6 +1197,51 @@ namespace medilink.BD
 
             return citas;
         }
+        public static List<CitaM> ObtenerCitasRecep(string estado, DateTime fechaInicio, DateTime fechaFin)
+        {
+            List<CitaM> citas = new List<CitaM>();
+
+            using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+
+                string query = "SELECT * FROM Cita WHERE " +
+                               " fecha BETWEEN @fechaInicio AND @fechaFin";
+
+                if (!string.IsNullOrEmpty(estado) && estado != "Todas")
+                {
+                    query += " AND status = @estado";
+                }
+
+                using (MySqlCommand comando = new MySqlCommand(query, conexion))
+                {
+                    comando.Parameters.AddWithValue("@fechaInicio", fechaInicio);
+                    comando.Parameters.AddWithValue("@fechaFin", fechaFin);
+
+                    if (!string.IsNullOrEmpty(estado) && estado != "Todas")
+                    {
+                        comando.Parameters.AddWithValue("@estado", estado);
+                    }
+
+                    //conexion.Open();
+                    using (MySqlDataReader reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            citas.Add(new CitaM
+                            {
+                                id_cita = Convert.ToInt32(reader["id_cita"]),
+                                fecha = Convert.ToDateTime(reader["fecha"]),
+                                motivo = reader["motivo"].ToString(),
+                                status = reader["status"].ToString(),
+
+                            });
+                        }
+                    }
+                }
+            }
+
+            return citas;
+        }
 
     }
 } 

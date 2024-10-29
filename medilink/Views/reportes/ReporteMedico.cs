@@ -171,6 +171,10 @@ namespace medilink.Views.reportes
 
         }
 
+        private void toolTip4_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
     }
 }
  

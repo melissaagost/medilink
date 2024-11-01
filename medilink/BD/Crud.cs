@@ -1243,6 +1243,39 @@ namespace medilink.BD
             return citas;
         }
 
+        public static List<CitaRG> ObtenerCitasGestor(DateTime fechaInicio, DateTime fechaFin)
+        {
+            List<CitaRG> citasPorMedico = new List<CitaRG>();
+
+            using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                string query = @"SELECT id_medico, COUNT(*) AS total_citas 
+                         FROM Cita 
+                         WHERE fecha BETWEEN @fechaInicio AND @fechaFin
+                         GROUP BY id_medico";
+
+                using (MySqlCommand comando = new MySqlCommand(query, conexion))
+                {
+                    comando.Parameters.AddWithValue("@fechaInicio", fechaInicio);
+                    comando.Parameters.AddWithValue("@fechaFin", fechaFin);
+
+                    using (MySqlDataReader reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            citasPorMedico.Add(new CitaRG
+                            {
+                                id_medico = Convert.ToInt32(reader["id_medico"]),
+                                total_citas = Convert.ToInt32(reader["total_citas"])
+                            });
+                        }
+                    }
+                }
+            }
+
+            return citasPorMedico;
+        }
+
     }
 } 
 

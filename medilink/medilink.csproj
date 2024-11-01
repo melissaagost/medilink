@@ -103,6 +103,7 @@
     <Compile Include="BD\ConexionBD.cs" />
     <Compile Include="BD\Crud.cs" />
     <Compile Include="Models\CitaM.cs" />
+    <Compile Include="Models\CitaRG.cs" />
     <Compile Include="Models\CiudadM.cs" />
     <Compile Include="Models\EspecialidadM.cs" />
     <Compile Include="Models\MedicoM.cs" />
@@ -255,6 +256,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\citas\ReprogramarCita.resx">
       <DependentUpon>ReprogramarCita.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\reportes\ReporteGestor.resx">
+      <DependentUpon>ReporteGestor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\reportes\ReporteMedico.resx">
       <DependentUpon>ReporteMedico.cs</DependentUpon>

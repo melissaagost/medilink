@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReporteRecep));
             this.labelNuevoUsuario = new System.Windows.Forms.Label();
             this.labeLDNI = new System.Windows.Forms.Label();
@@ -144,17 +144,17 @@
             // 
             // chartCitas
             // 
-            chartArea8.Name = "ChartArea1";
-            this.chartCitas.ChartAreas.Add(chartArea8);
-            legend8.Name = "Legend1";
-            this.chartCitas.Legends.Add(legend8);
+            chartArea1.Name = "ChartArea1";
+            this.chartCitas.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartCitas.Legends.Add(legend1);
             this.chartCitas.Location = new System.Drawing.Point(19, 17);
             this.chartCitas.Margin = new System.Windows.Forms.Padding(4);
             this.chartCitas.Name = "chartCitas";
-            series8.ChartArea = "ChartArea1";
-            series8.Legend = "Legend1";
-            series8.Name = "Series";
-            this.chartCitas.Series.Add(series8);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series";
+            this.chartCitas.Series.Add(series1);
             this.chartCitas.Size = new System.Drawing.Size(700, 370);
             this.chartCitas.TabIndex = 0;
             this.chartCitas.Text = "chart1";
@@ -251,9 +251,9 @@
         private System.Windows.Forms.Button BExportar;
         private System.Windows.Forms.Button BLimpiar;
         private System.Windows.Forms.PictureBox PBAyuda;
-        private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolTip toolTip2;
         private System.Windows.Forms.ToolTip toolTip3;
         private System.Windows.Forms.ToolTip toolTip4;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

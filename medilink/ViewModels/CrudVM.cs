@@ -303,6 +303,18 @@ namespace medilink.ViewModels
 
         }
 
+        public List<CitaRG> ListarCitasGestor(DateTime fechaInicio, DateTime fechaFin)
+        {
+            if (id_perfil == 2) 
+            {
+                return Crud.ObtenerCitasGestor(fechaInicio, fechaFin);
+            }
+            else
+            {
+                return new List<CitaRG>();
+            }
+        }
+
 
 
     }

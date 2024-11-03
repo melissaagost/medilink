@@ -20,7 +20,7 @@ namespace medilink.BD
             bool resultado = false;
             mensajeError = "";
 
-            using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+            using (MySqlConnection oconexion = ConexionBD.ObtenerConexion()) 
             {
                 if (oconexion.State == ConnectionState.Closed)
                 {
@@ -1243,38 +1243,48 @@ namespace medilink.BD
             return citas;
         }
 
-        public static List<CitaRG> ObtenerCitasGestor(DateTime fechaInicio, DateTime fechaFin)
+        public static List<CitaM> ObtenerCitasGestor(string estado, DateTime fechaInicio, DateTime fechaFin)
         {
-            List<CitaRG> citasPorMedico = new List<CitaRG>();
+            List<CitaM> citas = new List<CitaM>();
 
             using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
             {
-                string query = @"SELECT id_medico, COUNT(*) AS total_citas 
-                         FROM Cita 
-                         WHERE fecha BETWEEN @fechaInicio AND @fechaFin
-                         GROUP BY id_medico";
+                string query = "SELECT * FROM Cita WHERE fecha BETWEEN @fechaInicio AND @fechaFin";
+
+                if (!string.IsNullOrEmpty(estado) && estado != "Todas")
+                {
+                    query += " AND status = @estado";
+                }
 
                 using (MySqlCommand comando = new MySqlCommand(query, conexion))
                 {
                     comando.Parameters.AddWithValue("@fechaInicio", fechaInicio);
                     comando.Parameters.AddWithValue("@fechaFin", fechaFin);
 
+                    if (!string.IsNullOrEmpty(estado) && estado != "Todas")
+                    {
+                        comando.Parameters.AddWithValue("@estado", estado);
+                    }
+
                     using (MySqlDataReader reader = comando.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            citasPorMedico.Add(new CitaRG
+                            citas.Add(new CitaM
                             {
-                                id_medico = Convert.ToInt32(reader["id_medico"]),
-                                total_citas = Convert.ToInt32(reader["total_citas"])
+                                id_cita = Convert.ToInt32(reader["id_cita"]),
+                                fecha = Convert.ToDateTime(reader["fecha"]),
+                                motivo = reader["motivo"].ToString(),
+                                status = reader["status"].ToString(),
                             });
                         }
                     }
                 }
             }
 
-            return citasPorMedico;
+            return citas;
         }
+
 
     }
 } 

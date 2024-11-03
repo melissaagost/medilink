@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReporteGestor));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.labelNuevoUsuario = new System.Windows.Forms.Label();
             this.PBAyuda = new System.Windows.Forms.PictureBox();
             this.labeLDNI = new System.Windows.Forms.Label();
@@ -63,7 +63,7 @@
             this.labelNuevoUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(166)))), ((int)(((byte)(124)))));
             this.labelNuevoUsuario.Location = new System.Drawing.Point(200, 12);
             this.labelNuevoUsuario.Name = "labelNuevoUsuario";
-            this.labelNuevoUsuario.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.labelNuevoUsuario.Padding = new System.Windows.Forms.Padding(5);
             this.labelNuevoUsuario.Size = new System.Drawing.Size(505, 41);
             this.labelNuevoUsuario.TabIndex = 4;
             this.labelNuevoUsuario.Text = "Analice las citas del Centro Médico";
@@ -122,19 +122,19 @@
             // 
             // chartCitas
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartCitas.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartCitas.Legends.Add(legend2);
+            chartArea5.Name = "ChartArea1";
+            this.chartCitas.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.chartCitas.Legends.Add(legend5);
             this.chartCitas.Location = new System.Drawing.Point(14, 14);
             this.chartCitas.Name = "chartCitas";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series";
-            this.chartCitas.Series.Add(series2);
+            this.chartCitas.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
+            series5.ChartArea = "ChartArea1";
+            series5.Legend = "Legend1";
+            series5.Name = "Series";
+            this.chartCitas.Series.Add(series5);
             this.chartCitas.Size = new System.Drawing.Size(525, 301);
             this.chartCitas.TabIndex = 0;
-            this.chartCitas.Text = "chart1";
             // 
             // BGenerar
             // 
@@ -146,6 +146,7 @@
             this.BGenerar.TabIndex = 21;
             this.BGenerar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BGenerar.UseVisualStyleBackColor = false;
+            this.BGenerar.Click += new System.EventHandler(this.BGenerar_Click_1);
             // 
             // BExportar
             // 
@@ -157,6 +158,7 @@
             this.BExportar.Size = new System.Drawing.Size(70, 74);
             this.BExportar.TabIndex = 22;
             this.BExportar.UseVisualStyleBackColor = false;
+            this.BExportar.Click += new System.EventHandler(this.BExportar_Click_1);
             // 
             // BLimpiar
             // 
@@ -169,6 +171,7 @@
             this.BLimpiar.TabIndex = 23;
             this.BLimpiar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BLimpiar.UseVisualStyleBackColor = false;
+            this.BLimpiar.Click += new System.EventHandler(this.BLimpiar_Click_1);
             // 
             // CBEstado
             // 
@@ -211,9 +214,10 @@
             this.Controls.Add(this.PBAyuda);
             this.Controls.Add(this.labelNuevoUsuario);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ReporteGestor";
             this.Text = "ReporteGestor";
+            this.Load += new System.EventHandler(this.ReporteGestor_Load_1);
             ((System.ComponentModel.ISupportInitialize)(this.PBAyuda)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartCitas)).EndInit();

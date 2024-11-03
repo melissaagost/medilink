@@ -30,7 +30,7 @@ namespace medilink.Views.reportes
             InitializeComponent(); 
             this.usuarioLogueado = usuarioLogueado;
             usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
-            this.Load += new EventHandler(ReporteMedico_Load);
+            this.Load += new EventHandler(ReporteMedico_Load); 
 
             toolTip1.SetToolTip(BGenerar, "Generar Reporte");
             toolTip2.SetToolTip(BExportar, "Exportar Reporte");

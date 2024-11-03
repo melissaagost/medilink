@@ -125,24 +125,25 @@ namespace medilink.ViewModels
                 throw new UnauthorizedAccessException("No tienes permisos para completar una cita.");
             }
         }
-
-        public List<CitaM> ListarCitas(int idUsuarioLogueado)
+        public List<CitaM> ListarCitas(int idUsuarioLogueado, int? idMedico = null, int? idPaciente = null)
         {
-            
             if (id_perfil == 3)
             {
-                return Crud.ListarCitasPorMedico(idUsuarioLogueado);
+                // Llama a ListarCitasPorMedico con los parámetros correctos
+                return Crud.ListarCitasPorMedico(idUsuarioLogueado, idMedico, idPaciente);
             }
             else if (id_perfil == 4)
             {
-                
-                return Crud.ListarCitas();
+                // Llama a ListarCitas con los filtros aplicados si se proporcionan
+                return Crud.ListarCitas(idMedico, idPaciente);
             }
             else
             {
                 throw new UnauthorizedAccessException("No tienes permisos para ver citas.");
             }
         }
+
+
 
         //filtros recep y gestor
         public bool RegistrarPaciente(PacienteM paciente, out string mensajeError)

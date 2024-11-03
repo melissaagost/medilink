@@ -465,55 +465,75 @@ namespace medilink.BD
         }
 
         //listar citas (contexto: usado por recep)
-        public static List<CitaM> ListarCitas()
+        public static List<CitaM> ListarCitas(int? idMedico = null, int? idPaciente = null)
         {
             List<CitaM> listaCitas = new List<CitaM>();
-            try
+
+            using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
             {
-                using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+                if (conexion.State == ConnectionState.Closed)
                 {
-                    if (oconexion.State == ConnectionState.Closed)
+                    conexion.Open();
+                }
+
+                // Consulta base
+                string query = "SELECT c.id_cita, c.fecha, c.motivo, c.status, c.id_medico, c.id_paciente, " +
+                               "p.nombre AS paciente_nombre, u.nombre AS medico_nombre " +
+                               "FROM Cita c " +
+                               "INNER JOIN Medico m ON c.id_medico = m.id_medico " +
+                               "INNER JOIN Paciente p ON c.id_paciente = p.id_paciente " +
+                               "INNER JOIN Usuario u ON m.id_usuario = u.id_usuario " +
+                               "WHERE 1=1"; // Para facilitar la adición de filtros
+
+                // Agregar filtros si se proporcionan
+                if (idMedico.HasValue)
+                {
+                    query += " AND c.id_medico = @idMedico";
+                }
+
+                if (idPaciente.HasValue)
+                {
+                    query += " AND c.id_paciente = @idPaciente";
+                }
+
+                using (MySqlCommand comando = new MySqlCommand(query, conexion))
+                {
+                    if (idMedico.HasValue)
                     {
-                        oconexion.Open();
+                        comando.Parameters.AddWithValue("@idMedico", idMedico.Value);
                     }
 
-                    using (MySqlCommand comando = new MySqlCommand(
-                     "SELECT c.id_cita, c.fecha, c.motivo, c.status, p.id_paciente, p.nombre AS paciente_nombre, u.nombre AS medico_nombre, m.id_medico " +
-                     "FROM Cita c " +
-                     "INNER JOIN Medico m ON c.id_medico = m.id_medico " +
-                     "INNER JOIN Paciente p ON c.id_paciente = p.id_paciente " +
-                     "INNER JOIN Usuario u ON m.id_usuario = u.id_usuario ", oconexion))
+                    if (idPaciente.HasValue)
                     {
-                        using (MySqlDataReader reader = comando.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                listaCitas.Add(new CitaM()
-                                {
-                                    id_medico = Convert.ToInt32(reader["id_medico"]),
-                                    id_paciente = Convert.ToInt32(reader["id_paciente"]),
-                                    id_cita = Convert.ToInt32(reader["id_cita"]),
-                                    fecha = Convert.ToDateTime(reader["fecha"]),
-                                    motivo = reader["motivo"].ToString(),
-                                    status = reader["status"].ToString(),
-                                    paciente_nombre = reader["paciente_nombre"].ToString(),
-                                    medico_nombre = reader["medico_nombre"].ToString()
+                        comando.Parameters.AddWithValue("@idPaciente", idPaciente.Value);
+                    }
 
-                                });
-                            }
+                    using (MySqlDataReader reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            listaCitas.Add(new CitaM
+                            {
+                                id_cita = Convert.ToInt32(reader["id_cita"]),
+                                fecha = Convert.ToDateTime(reader["fecha"]),
+                                motivo = reader["motivo"].ToString(),
+                                status = reader["status"].ToString(),
+                                id_medico = Convert.ToInt32(reader["id_medico"]),
+                                id_paciente = Convert.ToInt32(reader["id_paciente"]),
+                                paciente_nombre = reader["paciente_nombre"].ToString(),
+                                medico_nombre = reader["medico_nombre"].ToString()
+                            });
                         }
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error al listar citas." + ex.Message);
-            }
+
             return listaCitas;
         }
 
+
         //listar citas asociadas a un medico
-        internal static List<CitaM> ListarCitasPorMedico(int idUsuarioLogueado)
+        internal static List<CitaM> ListarCitasPorMedico(int idUsuarioLogueado, int? idMedico = null, int? idPaciente = null)
         {
             List<CitaM> listaCitas = new List<CitaM>();
 
@@ -524,15 +544,40 @@ namespace medilink.BD
                     oconexion.Open();
                 }
 
-                using (MySqlCommand comando = new MySqlCommand(
-                    "SELECT c.id_cita, c.fecha, c.motivo, c.status, p.id_paciente, p.nombre AS paciente_nombre, m.id_medico " +
-                    "FROM Cita c " +
-                    "INNER JOIN Medico m ON c.id_medico = m.id_medico " +
-                    "INNER JOIN Paciente p ON c.id_paciente = p.id_paciente " +
-                    "INNER JOIN Usuario u ON m.id_usuario = u.id_usuario " +
-                    "WHERE u.id_usuario = @idUsuarioLogueado", oconexion))
+                // Construcción de la consulta base
+                string query = "SELECT c.id_cita, c.fecha, c.motivo, c.status, p.id_paciente, p.nombre AS paciente_nombre, m.id_medico " +
+                               "FROM Cita c " +
+                               "INNER JOIN Medico m ON c.id_medico = m.id_medico " +
+                               "INNER JOIN Paciente p ON c.id_paciente = p.id_paciente " +
+                               "INNER JOIN Usuario u ON m.id_usuario = u.id_usuario " +
+                               "WHERE u.id_usuario = @idUsuarioLogueado";
+
+                // Agregar filtros opcionales si se proporcionan
+                if (idMedico.HasValue)
                 {
+                    query += " AND c.id_medico = @idMedico";
+                }
+
+                if (idPaciente.HasValue)
+                {
+                    query += " AND c.id_paciente = @idPaciente";
+                }
+
+                using (MySqlCommand comando = new MySqlCommand(query, oconexion))
+                {
+                    // Asignación del parámetro obligatorio
                     comando.Parameters.AddWithValue("@idUsuarioLogueado", idUsuarioLogueado);
+
+                    // Asignación de parámetros opcionales
+                    if (idMedico.HasValue)
+                    {
+                        comando.Parameters.AddWithValue("@idMedico", idMedico.Value);
+                    }
+
+                    if (idPaciente.HasValue)
+                    {
+                        comando.Parameters.AddWithValue("@idPaciente", idPaciente.Value);
+                    }
 
                     using (MySqlDataReader reader = comando.ExecuteReader())
                     {

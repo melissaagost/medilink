@@ -59,6 +59,12 @@
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewButtonColumn2 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.comboBoxBuscarPaciente = new System.Windows.Forms.ComboBox();
+            this.comboBoxBuscarMedico = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.BBuscar = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControlCitasRecep.SuspendLayout();
             this.tabPageActivas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProgramadas)).BeginInit();
@@ -352,13 +358,77 @@
             this.dataGridViewButtonColumn2.UseColumnTextForButtonValue = true;
             this.dataGridViewButtonColumn2.Width = 126;
             // 
+            // comboBoxBuscarPaciente
+            // 
+            this.comboBoxBuscarPaciente.FormattingEnabled = true;
+            this.comboBoxBuscarPaciente.Location = new System.Drawing.Point(440, 602);
+            this.comboBoxBuscarPaciente.Name = "comboBoxBuscarPaciente";
+            this.comboBoxBuscarPaciente.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxBuscarPaciente.TabIndex = 35;
+            // 
+            // comboBoxBuscarMedico
+            // 
+            this.comboBoxBuscarMedico.FormattingEnabled = true;
+            this.comboBoxBuscarMedico.Location = new System.Drawing.Point(149, 602);
+            this.comboBoxBuscarMedico.Name = "comboBoxBuscarMedico";
+            this.comboBoxBuscarMedico.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxBuscarMedico.TabIndex = 33;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label4.Location = new System.Drawing.Point(24, 605);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(119, 13);
+            this.label4.TabIndex = 32;
+            this.label4.Text = "Buscar por médico:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label2.Location = new System.Drawing.Point(308, 605);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(126, 13);
+            this.label2.TabIndex = 36;
+            this.label2.Text = "Buscar por paciente:";
+            // 
+            // BBuscar
+            // 
+            this.BBuscar.Location = new System.Drawing.Point(611, 600);
+            this.BBuscar.Name = "BBuscar";
+            this.BBuscar.Size = new System.Drawing.Size(75, 23);
+            this.BBuscar.TabIndex = 37;
+            this.BBuscar.Text = "Buscar";
+            this.BBuscar.UseVisualStyleBackColor = true;
+            this.BBuscar.Click += new System.EventHandler(this.BBuscar_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(692, 600);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(95, 23);
+            this.button1.TabIndex = 38;
+            this.button1.Text = "Limpiar Filtros";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // AdministrarCitas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
-            this.ClientSize = new System.Drawing.Size(930, 611);
+            this.ClientSize = new System.Drawing.Size(930, 670);
             this.ControlBox = false;
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BBuscar);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.comboBoxBuscarPaciente);
+            this.Controls.Add(this.comboBoxBuscarMedico);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tabControlCitasRecep);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -412,5 +482,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn2;
+        private System.Windows.Forms.ComboBox comboBoxBuscarPaciente;
+        private System.Windows.Forms.ComboBox comboBoxBuscarMedico;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button BBuscar;
+        private System.Windows.Forms.Button button1;
     }
 }

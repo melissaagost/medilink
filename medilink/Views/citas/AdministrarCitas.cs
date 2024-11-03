@@ -22,7 +22,7 @@ namespace medilink.Views.citas
             InitializeComponent();
             this.Load += new EventHandler(AdministrarCitas_Load); 
             dataGridViewPacientes.CellFormatting += dataGridViewPacientes_CellFormatting;
-
+             
             this.usuarioLogueado = usuarioLogueado;
             usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
         }
@@ -34,7 +34,28 @@ namespace medilink.Views.citas
             CargarCitasCanceladas(idUsuarioLogueado);
             CargarCitasCompletadas(idUsuarioLogueado);
             CargarPacientes();
+            CargarComboboxes();
 
+        }
+
+        private void CargarComboboxes()
+        {
+            try
+            {
+                comboBoxBuscarPaciente.DataSource = usuarioVM.ObtenerPacientes();
+                comboBoxBuscarPaciente.DisplayMember = "dni";
+                comboBoxBuscarPaciente.ValueMember = "id_paciente";
+
+
+                comboBoxBuscarMedico.DataSource = usuarioVM.ObtenerMedicos();
+                comboBoxBuscarMedico.DisplayMember = "nombre";
+                comboBoxBuscarMedico.ValueMember = "id_medico";
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los ComboBoxes: " + ex.Message);
+            }
         }
 
         private void CargarCitas(int idUsuarioLogueado) {
@@ -379,6 +400,49 @@ namespace medilink.Views.citas
                 }
             }
         }
+
+        private void BBuscar_Click(object sender, EventArgs e)
+        {
+            int? idMedico = comboBoxBuscarMedico.SelectedValue as int? == -1 ? (int?)null : comboBoxBuscarMedico.SelectedValue as int?;
+            int? idPaciente = comboBoxBuscarPaciente.SelectedValue as int? == -1 ? (int?)null : comboBoxBuscarPaciente.SelectedValue as int?;
+
+            // Usar usuarioLogueado.id_usuario en lugar de idUsuarioLogueado
+            List<CitaM> citasFiltradas = usuarioVM.ListarCitas(usuarioLogueado.id_usuario, idMedico, idPaciente);
+            dataGridViewProgramadas.DataSource = citasFiltradas;
+            dataGridViewInactivos.DataSource = citasFiltradas;
+            dataGridViewCompletadas.DataSource= citasFiltradas;
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Reiniciar los filtros de búsqueda
+            comboBoxBuscarMedico.SelectedIndex = -1;
+            comboBoxBuscarPaciente.SelectedIndex = -1;
+
+            // Obtener todas las citas una sola vez
+            List<CitaM> todasLasCitas = usuarioVM.ListarCitas(usuarioLogueado.id_usuario);
+
+            // Filtrar las citas por estado
+            List<CitaM> citasActivas = todasLasCitas
+                .Where(u => u.status != null && u.status.Trim().Equals("activa", StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            List<CitaM> citasCanceladas = todasLasCitas
+                .Where(u => u.status != null && u.status.Trim().Equals("cancelada", StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            List<CitaM> citasCompletadas = todasLasCitas
+                .Where(u => u.status != null && u.status.Trim().Equals("completada", StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            // Asignar cada lista filtrada a su respectivo DataGridView
+            dataGridViewProgramadas.DataSource = citasActivas;
+            dataGridViewInactivos.DataSource = citasCanceladas;
+            dataGridViewCompletadas.DataSource = citasCompletadas;
+        }
+
+
 
     }
 }

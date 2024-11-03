@@ -22,10 +22,31 @@ namespace medilink.Views.citas
         private int id_cita;
 
         private void CargarCitasActivas()
-        {
+        { 
             List<CitaM> citasActivas = usuarioVM.ListarCitas(usuarioLogueado.id_usuario);
-            //falta ver como refrescar el grid de citas activas al reprogramar
+            
         }
+
+        private void CargarComboboxes()
+        {
+            try
+            {
+                comboBoxBuscarPaciente.DataSource = usuarioVM.ObtenerPacientes();
+                comboBoxBuscarPaciente.DisplayMember = "dni";
+                comboBoxBuscarPaciente.ValueMember = "id_paciente";
+
+
+                comboBoxSelecMedico.DataSource = usuarioVM.ObtenerMedicos();
+                comboBoxSelecMedico.DisplayMember = "nombre";
+                comboBoxSelecMedico.ValueMember = "id_medico";
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los ComboBoxes: " + ex.Message);
+            }
+        }
+
 
 
         public ReprogramarCita(int id_cita, string motivo, int id_paciente, int id_profesional, UsuarioM usuarioLogueado)
@@ -34,7 +55,8 @@ namespace medilink.Views.citas
             this.id_cita = id_cita;
             this.usuarioLogueado = usuarioLogueado; 
             usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
-           // this.idMedicoSeleccionado = id_profesional;
+            CargarComboboxes();
+            
 
 
 
@@ -85,7 +107,7 @@ namespace medilink.Views.citas
         {
             this.Close();
         }
-
+         
         private void BVerificar_Click(object sender, EventArgs e)
         {
             DateTime nuevaFecha = dateTimePickerCita.Value;

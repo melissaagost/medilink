@@ -376,13 +376,12 @@ namespace medilink.BD
 
                     // Consulta para verificar si hay citas activas para el médico en esa fecha y hora específica
                     string query = "SELECT COUNT(*) FROM Cita WHERE id_medico = @idMedico " +
-                                   "AND DATE(fecha_hora) = DATE(@fechaHora) AND HOUR(fecha_hora) = HOUR(@fechaHora) " +
-                                   "AND MINUTE(fecha_hora) = MINUTE(@fechaHora) AND estado = 'activa'";
+                                   "AND DATE(fecha) = DATE(@fecha) AND status = 'activa'";
 
                     using (MySqlCommand comando = new MySqlCommand(query, oconexion))
                     {
                         comando.Parameters.AddWithValue("@idMedico", idMedico);
-                        comando.Parameters.AddWithValue("@fechaHora", fechaHora);
+                        comando.Parameters.AddWithValue("@fecha", fechaHora);
 
                         int count = Convert.ToInt32(comando.ExecuteScalar());
                         // Si el conteo es mayor a 0, significa que el médico ya tiene una cita en esa fecha y hora exacta

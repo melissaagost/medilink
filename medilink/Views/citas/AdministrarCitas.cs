@@ -20,7 +20,7 @@ namespace medilink.Views.citas
         public AdministrarCitas(UsuarioM usuarioLogueado)
         {
             InitializeComponent();
-            this.Load += new EventHandler(AdministrarCitas_Load);
+            this.Load += new EventHandler(AdministrarCitas_Load); 
             dataGridViewPacientes.CellFormatting += dataGridViewPacientes_CellFormatting;
 
             this.usuarioLogueado = usuarioLogueado;

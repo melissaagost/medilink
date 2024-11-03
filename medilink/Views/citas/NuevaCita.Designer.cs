@@ -49,7 +49,7 @@
             this.labelNuevoUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(166)))), ((int)(((byte)(124)))));
             this.labelNuevoUsuario.Location = new System.Drawing.Point(248, 43);
             this.labelNuevoUsuario.Name = "labelNuevoUsuario";
-            this.labelNuevoUsuario.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.labelNuevoUsuario.Padding = new System.Windows.Forms.Padding(5);
             this.labelNuevoUsuario.Size = new System.Drawing.Size(394, 41);
             this.labelNuevoUsuario.TabIndex = 1;
             this.labelNuevoUsuario.Text = "Programar una Nueva Cita";
@@ -113,6 +113,7 @@
             this.comboBoxSelecMedico.Name = "comboBoxSelecMedico";
             this.comboBoxSelecMedico.Size = new System.Drawing.Size(233, 21);
             this.comboBoxSelecMedico.TabIndex = 8;
+            this.comboBoxSelecMedico.SelectedIndexChanged += new System.EventHandler(this.comboBoxSelecMedico_SelectedIndexChanged);
             // 
             // dateTimePickerCita
             // 

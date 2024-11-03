@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReporteRecep));
             this.labelNuevoUsuario = new System.Windows.Forms.Label();
             this.labeLDNI = new System.Windows.Forms.Label();
@@ -61,7 +61,7 @@
             this.labelNuevoUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
             this.labelNuevoUsuario.Font = new System.Drawing.Font("Georgia", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelNuevoUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(166)))), ((int)(((byte)(124)))));
-            this.labelNuevoUsuario.Location = new System.Drawing.Point(200, 12);
+            this.labelNuevoUsuario.Location = new System.Drawing.Point(186, 33);
             this.labelNuevoUsuario.Name = "labelNuevoUsuario";
             this.labelNuevoUsuario.Padding = new System.Windows.Forms.Padding(5);
             this.labelNuevoUsuario.Size = new System.Drawing.Size(505, 41);
@@ -136,16 +136,17 @@
             // 
             // chartCitas
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chartCitas.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.chartCitas.Legends.Add(legend4);
+            chartArea1.Name = "ChartArea1";
+            this.chartCitas.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartCitas.Legends.Add(legend1);
             this.chartCitas.Location = new System.Drawing.Point(14, 14);
             this.chartCitas.Name = "chartCitas";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series";
-            this.chartCitas.Series.Add(series4);
+            this.chartCitas.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series";
+            this.chartCitas.Series.Add(series1);
             this.chartCitas.Size = new System.Drawing.Size(525, 301);
             this.chartCitas.TabIndex = 0;
             this.chartCitas.Text = "chart1";

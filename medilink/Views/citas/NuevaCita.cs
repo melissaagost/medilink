@@ -121,5 +121,10 @@ namespace medilink.Views.citas
             }
 
         }
+
+        private void comboBoxSelecMedico_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //
+        }
     }
 }

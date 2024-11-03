@@ -21,7 +21,7 @@ namespace medilink.Views.reportes
         
         private CrudVM usuarioVM;
 
-        public ReporteGestor(UsuarioM usuarioLogueado)
+        public ReporteGestor(UsuarioM usuarioLogueado)  
         {
             InitializeComponent();
             usuarioVM = new CrudVM(usuarioLogueado.id_perfil);

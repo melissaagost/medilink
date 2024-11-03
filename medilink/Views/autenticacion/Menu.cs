@@ -50,12 +50,14 @@ namespace medilink.Views.autenticacion
             this.BAdminUsuarios = new System.Windows.Forms.Button();
             this.BNuevoUsuario = new System.Windows.Forms.Button();
             this.panelVistas = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.panelMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
+            this.panelMenu.Controls.Add(this.button1);
             this.panelMenu.Controls.Add(this.BCambiarPerfil);
             this.panelMenu.Controls.Add(this.BPerfil);
             this.panelMenu.Controls.Add(this.Bcerrar);
@@ -125,7 +127,7 @@ namespace medilink.Views.autenticacion
             this.BReportesGestor.Name = "BReportesGestor";
             this.BReportesGestor.Size = new System.Drawing.Size(211, 54);
             this.BReportesGestor.TabIndex = 10;
-            this.BReportesGestor.Text = "          Reportes";
+            this.BReportesGestor.Text = "          Reportes Citas";
             this.BReportesGestor.UseVisualStyleBackColor = false;
             this.BReportesGestor.Click += new System.EventHandler(this.BReportesGestor_Click);
             // 
@@ -306,6 +308,23 @@ namespace medilink.Views.autenticacion
             this.panelVistas.Size = new System.Drawing.Size(916, 697);
             this.panelVistas.TabIndex = 1;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(244)))), ((int)(((byte)(223)))));
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button1.FlatAppearance.BorderSize = 3;
+            this.button1.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Bold);
+            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(12, 132);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(211, 54);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "          Reportes Usuarios";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Menu
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(166)))), ((int)(((byte)(124)))));
@@ -447,6 +466,18 @@ namespace medilink.Views.autenticacion
             nuevaVistaForm.Show();
         }
 
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            panelVistas.Controls.Clear();
+            Form nuevaVistaForm = new ReporteGestor2(usuarioLogueado);
+            nuevaVistaForm.TopLevel = false;
+            nuevaVistaForm.FormBorderStyle = FormBorderStyle.None;
+            nuevaVistaForm.Dock = DockStyle.Fill;
+            panelVistas.Controls.Add(nuevaVistaForm);
+            nuevaVistaForm.Show();
+        }
+
         //BOTONES CERRAR Y VER PERFIL
         private void Bcerrar_Click(object sender, EventArgs e)
         {
@@ -478,6 +509,7 @@ namespace medilink.Views.autenticacion
             BAdminUsuarios.Visible = false;
             BAdminGestor.Visible = false; //gestor
             BReportesGestor.Visible = false;
+            button1.Visible = false;
             BAdminMedico.Visible = false;  //medico 
             BReporteMedico.Visible = false;
             BNuevaCita.Visible = false;  //recep
@@ -497,6 +529,7 @@ namespace medilink.Views.autenticacion
                 case 2: 
                     BAdminGestor.Visible = true; 
                     BReportesGestor.Visible = true;
+                    button1.Visible = true;
                     break;
                 case 3: 
                     BAdminMedico.Visible = true;
@@ -526,5 +559,6 @@ namespace medilink.Views.autenticacion
                 this.Close();
             }
         }
+
     }
 }

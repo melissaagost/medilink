@@ -1353,6 +1353,60 @@ namespace medilink.BD
             return citas;
         }
 
+        public static List<UsuarioM> ObtenerUsuariosPorEstadoYPerfil(string status, int? perfil)
+        {
+            List<UsuarioM> usuarios = new List<UsuarioM>();
+
+            using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
+            {
+                if (conexion.State == ConnectionState.Closed)
+                {
+                    conexion.Open();
+                }
+
+                string query = "SELECT * FROM Usuario WHERE 1=1";
+
+                if (status != "Todos")
+                {
+                    query += " AND status = @estado";
+                }
+
+                if (perfil.HasValue)
+                {
+                    query += " AND id_perfil = @perfil";
+                }
+
+                using (MySqlCommand comando = new MySqlCommand(query, conexion))
+                {
+                    if (status != "Todos")
+                    {
+                        comando.Parameters.AddWithValue("@estado", status);
+                    }
+
+                    if (perfil.HasValue)
+                    {
+                        comando.Parameters.AddWithValue("@perfil", perfil);
+                    }
+
+                    using (MySqlDataReader reader = comando.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            usuarios.Add(new UsuarioM
+                            {
+                                id_usuario = Convert.ToInt32(reader["id_usuario"]),
+                                id_perfil = Convert.ToInt32(reader["id_perfil"]),
+                                status = reader["status"].ToString()
+                                // Agrega otros campos según tu modelo
+                            });
+                        }
+                    }
+                }
+            }
+
+            return usuarios;
+        }
+
 
     }
 } 

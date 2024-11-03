@@ -310,6 +310,10 @@ namespace medilink.ViewModels
         }
 
 
+        public List<UsuarioM> ObtenerUsuariosPorEstadoYPerfil(string estado, int? perfil)
+        {
+            return Crud.ObtenerUsuariosPorEstadoYPerfil(estado, perfil);
+        }
 
 
     }

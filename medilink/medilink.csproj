@@ -185,6 +185,12 @@
     <Compile Include="Views\reportes\ReporteGestor.Designer.cs">
       <DependentUpon>ReporteGestor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\reportes\ReporteGestor2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\reportes\ReporteGestor2.Designer.cs">
+      <DependentUpon>ReporteGestor2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\reportes\ReporteMedico.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -277,6 +283,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\reportes\ReporteGestor.resx">
       <DependentUpon>ReporteGestor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\reportes\ReporteGestor2.resx">
+      <DependentUpon>ReporteGestor2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\reportes\ReporteMedico.resx">
       <DependentUpon>ReporteMedico.cs</DependentUpon>

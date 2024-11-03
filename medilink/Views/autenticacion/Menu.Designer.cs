@@ -36,5 +36,6 @@
         private System.Windows.Forms.Button BPerfil;
         private System.Windows.Forms.Panel panelVistas;
         private System.Windows.Forms.Button BCambiarPerfil;
+        private System.Windows.Forms.Button button1;
     }
 }

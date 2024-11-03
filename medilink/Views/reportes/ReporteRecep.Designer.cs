@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReporteRecep));
             this.labelNuevoUsuario = new System.Windows.Forms.Label();
             this.labeLDNI = new System.Windows.Forms.Label();
@@ -63,7 +63,7 @@
             this.labelNuevoUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(166)))), ((int)(((byte)(124)))));
             this.labelNuevoUsuario.Location = new System.Drawing.Point(200, 12);
             this.labelNuevoUsuario.Name = "labelNuevoUsuario";
-            this.labelNuevoUsuario.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.labelNuevoUsuario.Padding = new System.Windows.Forms.Padding(5);
             this.labelNuevoUsuario.Size = new System.Drawing.Size(505, 41);
             this.labelNuevoUsuario.TabIndex = 3;
             this.labelNuevoUsuario.Text = "Analice las citas del Centro Médico";
@@ -136,16 +136,16 @@
             // 
             // chartCitas
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartCitas.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartCitas.Legends.Add(legend1);
+            chartArea4.Name = "ChartArea1";
+            this.chartCitas.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chartCitas.Legends.Add(legend4);
             this.chartCitas.Location = new System.Drawing.Point(14, 14);
             this.chartCitas.Name = "chartCitas";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series";
-            this.chartCitas.Series.Add(series1);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series";
+            this.chartCitas.Series.Add(series4);
             this.chartCitas.Size = new System.Drawing.Size(525, 301);
             this.chartCitas.TabIndex = 0;
             this.chartCitas.Text = "chart1";
@@ -160,6 +160,7 @@
             this.BGenerar.TabIndex = 12;
             this.BGenerar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BGenerar.UseVisualStyleBackColor = false;
+            this.BGenerar.Click += new System.EventHandler(this.BGenerar_Click_1);
             // 
             // BExportar
             // 
@@ -171,6 +172,7 @@
             this.BExportar.Size = new System.Drawing.Size(70, 74);
             this.BExportar.TabIndex = 13;
             this.BExportar.UseVisualStyleBackColor = false;
+            this.BExportar.Click += new System.EventHandler(this.BExportar_Click_1);
             // 
             // BLimpiar
             // 
@@ -183,6 +185,7 @@
             this.BLimpiar.TabIndex = 14;
             this.BLimpiar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.BLimpiar.UseVisualStyleBackColor = false;
+            this.BLimpiar.Click += new System.EventHandler(this.BLimpiar_Click_1);
             // 
             // PBAyuda
             // 
@@ -213,9 +216,10 @@
             this.Controls.Add(this.labeLDNI);
             this.Controls.Add(this.labelNuevoUsuario);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ReporteRecep";
             this.Text = "ReporteRecep";
+            this.Load += new System.EventHandler(this.ReporteRecep_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartCitas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBAyuda)).EndInit();

@@ -19,15 +19,13 @@ namespace medilink.Views.reportes
     public partial class ReporteRecep : Form
     {
 
-        private UsuarioM usuarioLogueado;
         private CrudVM usuarioVM;
 
         public ReporteRecep(UsuarioM usuarioLogueado)
         {
             InitializeComponent();
-            this.usuarioLogueado = usuarioLogueado;
             usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
-            this.Load += new EventHandler(ReporteRecepcionista_Load);
+            this.Load += new EventHandler(ReporteRecep_Load);
 
             toolTip1.SetToolTip(BGenerar, "Generar Reporte");
             toolTip2.SetToolTip(BExportar, "Exportar Reporte");
@@ -43,36 +41,13 @@ namespace medilink.Views.reportes
             CBEstado.DataSource = estados;
         }
 
-        private void ReporteRecepcionista_Load(object sender, EventArgs e)
+        private void ReporteRecep_Load(object sender, EventArgs e)
         {
             CargarEstados();
         }
 
         // Botones
-        private void BLimpiar_Click(object sender, EventArgs e)
-        {
-            CBEstado.SelectedIndex = -1;
-            DTPInicio.Value = DateTime.Now;
-            DTPFin.Value = DateTime.Now;
-            chartCitas.Series.Clear();
-        }
-
-        private void BExportar_Click(object sender, EventArgs e)
-        {
-            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
-            {
-                saveFileDialog.Filter = "Image Files|*.png;*.jpg;*.bmp|PDF Files|*.pdf|Excel Files|*.xlsx";
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    if (saveFileDialog.FileName.EndsWith(".png") || saveFileDialog.FileName.EndsWith(".jpg") || saveFileDialog.FileName.EndsWith(".bmp"))
-                    {
-                        chartCitas.SaveImage(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Png);
-                    }
-                }
-            }
-        }
-
-        private void BGenerar_Click(object sender, EventArgs e)
+        private void BGenerar_Click_1(object sender, EventArgs e)
         {
             // Filtros
             string estadoSeleccionado = CBEstado.SelectedItem?.ToString() ?? "Todas";
@@ -91,12 +66,49 @@ namespace medilink.Views.reportes
 
             foreach (var cita in citas)
             {
-                // Usar la fecha como X y algún valor o categoría como Y (ejemplo: 1 para citas canceladas, 2 para completadas, etc.)
                 serie.Points.AddXY(cita.fecha.ToShortDateString(), 1);
             }
 
             chartCitas.Series.Add(serie);
         }
+
+        private void BExportar_Click_1(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Image Files|*.png;*.jpg;*.bmp|PDF Files|*.pdf|Excel Files|*.xlsx";
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    if (saveFileDialog.FileName.EndsWith(".png") || saveFileDialog.FileName.EndsWith(".jpg") || saveFileDialog.FileName.EndsWith(".bmp"))
+                    {
+                        chartCitas.SaveImage(saveFileDialog.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                    }
+                }
+            }
+        }
+
+        private void BLimpiar_Click_1(object sender, EventArgs e)
+        {
+            CBEstado.SelectedIndex = -1;
+            DTPInicio.Value = DateTime.Now;
+            DTPFin.Value = DateTime.Now;
+            chartCitas.Series.Clear();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void labeLDNI_Click(object sender, EventArgs e)
         {
@@ -107,5 +119,6 @@ namespace medilink.Views.reportes
         {
 
         }
+
     }
 }

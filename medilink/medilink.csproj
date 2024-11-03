@@ -131,6 +131,18 @@
     <Compile Include="Views\autenticacion\Menu.Designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\autenticacion\NuevaContrasena.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\autenticacion\NuevaContrasena.Designer.cs">
+      <DependentUpon>NuevaContrasena.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\autenticacion\RecuperarContrasena.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\autenticacion\RecuperarContrasena.Designer.cs">
+      <DependentUpon>RecuperarContrasena.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\citas\AdminCitasMedico.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -238,6 +250,12 @@
     </Compile>
     <EmbeddedResource Include="Views\autenticacion\Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\autenticacion\NuevaContrasena.resx">
+      <DependentUpon>NuevaContrasena.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\autenticacion\RecuperarContrasena.resx">
+      <DependentUpon>RecuperarContrasena.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\citas\AdminCitasMedico.resx">
       <DependentUpon>AdminCitasMedico.cs</DependentUpon>

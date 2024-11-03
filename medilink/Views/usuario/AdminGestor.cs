@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace medilink.Views.usuario
 {
-    public partial class AdminGestor : Form
+    public partial class AdminGestor : Form 
     {
         private UsuarioM usuarioLogueado;
         private CrudVM usuarioVM;

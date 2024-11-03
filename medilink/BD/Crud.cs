@@ -483,9 +483,9 @@ namespace medilink.BD
                                "INNER JOIN Medico m ON c.id_medico = m.id_medico " +
                                "INNER JOIN Paciente p ON c.id_paciente = p.id_paciente " +
                                "INNER JOIN Usuario u ON m.id_usuario = u.id_usuario " +
-                               "WHERE 1=1"; // Para facilitar la adición de filtros
+                               "WHERE 1=1"; 
 
-                // Agregar filtros si se proporcionan
+                
                 if (idMedico.HasValue)
                 {
                     query += " AND c.id_medico = @idMedico";
@@ -544,7 +544,6 @@ namespace medilink.BD
                     oconexion.Open();
                 }
 
-                // Construcción de la consulta base
                 string query = "SELECT c.id_cita, c.fecha, c.motivo, c.status, p.id_paciente, p.nombre AS paciente_nombre, m.id_medico " +
                                "FROM Cita c " +
                                "INNER JOIN Medico m ON c.id_medico = m.id_medico " +
@@ -552,7 +551,7 @@ namespace medilink.BD
                                "INNER JOIN Usuario u ON m.id_usuario = u.id_usuario " +
                                "WHERE u.id_usuario = @idUsuarioLogueado";
 
-                // Agregar filtros opcionales si se proporcionan
+                
                 if (idMedico.HasValue)
                 {
                     query += " AND c.id_medico = @idMedico";

@@ -49,11 +49,7 @@ namespace medilink.Views.reportes
 
         private void ReporteMedico_Load(object sender, EventArgs e)
         {
-            CargarEstados();
-            //CBEstado.Items.Add("Todas");
-            //CBEstado.Items.Add("Activas");
-            //CBEstado.Items.Add("Canceladas");
-            //CBEstado.SelectedIndex = 0; 
+            CargarEstados(); 
         }
 
         //botones

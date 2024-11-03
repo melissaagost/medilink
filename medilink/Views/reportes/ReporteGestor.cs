@@ -16,7 +16,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace medilink.Views.reportes
 {
-    public partial class ReporteGestor : Form
+    public partial class ReporteGestor : Form 
     {
         
         private CrudVM usuarioVM;
@@ -41,10 +41,32 @@ namespace medilink.Views.reportes
             CBEstado.DataSource = estados;
         }
 
+        private void CargarComboboxes()
+        {
+            try
+            {
+                CBPaciente.DataSource = usuarioVM.ObtenerPacientes();
+                CBPaciente.DisplayMember = "dni";
+                CBPaciente.ValueMember = "id_paciente";
+
+
+                CBMedico.DataSource = usuarioVM.ObtenerMedicos();
+                CBMedico.DisplayMember = "nombre";
+                CBMedico.ValueMember = "id_medico";
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los ComboBoxes: " + ex.Message);
+            }
+        }
+
         private void ReporteGestor_Load_1(object sender, EventArgs e)
         {
             CargarEstados();
+            CargarComboboxes();
         }
+       
 
 
         private void BGenerar_Click_1(object sender, EventArgs e)
@@ -53,8 +75,10 @@ namespace medilink.Views.reportes
             string estadoSeleccionado = CBEstado.SelectedItem?.ToString() ?? "Todas";
             DateTime fechaInicio = DTPInicio.Value.Date;
             DateTime fechaFin = DTPFin.Value.Date;
+            int? idMedico = CBMedico.SelectedValue as int?;
+            int? idPaciente = CBPaciente.SelectedValue as int?;
 
-            List<CitaM> citas = usuarioVM.ListarCitasGestor(estadoSeleccionado, fechaInicio, fechaFin);
+            List<CitaM> citas = usuarioVM.ListarCitasGestor(estadoSeleccionado, fechaInicio, fechaFin, idMedico, idPaciente);
 
             chartCitas.Series.Clear();
 
@@ -92,6 +116,8 @@ namespace medilink.Views.reportes
         private void BLimpiar_Click_1(object sender, EventArgs e)
         {
             CBEstado.SelectedIndex = -1;
+            CBPaciente.SelectedIndex = -1;
+            CBMedico.SelectedIndex = -1;
             DTPInicio.Value = DateTime.Now;
             DTPFin.Value = DateTime.Now;
             chartCitas.Series.Clear();

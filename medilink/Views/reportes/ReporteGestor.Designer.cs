@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReporteGestor));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.labelNuevoUsuario = new System.Windows.Forms.Label();
             this.PBAyuda = new System.Windows.Forms.PictureBox();
             this.labeLDNI = new System.Windows.Forms.Label();
@@ -50,9 +50,9 @@
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip4 = new System.Windows.Forms.ToolTip(this.components);
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.CBMedico = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.CBPaciente = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PBAyuda)).BeginInit();
             this.panel1.SuspendLayout();
@@ -126,17 +126,17 @@
             // 
             // chartCitas
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartCitas.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartCitas.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.chartCitas.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartCitas.Legends.Add(legend1);
             this.chartCitas.Location = new System.Drawing.Point(14, 14);
             this.chartCitas.Name = "chartCitas";
             this.chartCitas.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series";
-            this.chartCitas.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series";
+            this.chartCitas.Series.Add(series1);
             this.chartCitas.Size = new System.Drawing.Size(525, 301);
             this.chartCitas.TabIndex = 0;
             // 
@@ -199,13 +199,13 @@
             this.DTPFin.Size = new System.Drawing.Size(200, 20);
             this.DTPFin.TabIndex = 26;
             // 
-            // comboBox1
+            // CBMedico
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(309, 116);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 29;
+            this.CBMedico.FormattingEnabled = true;
+            this.CBMedico.Location = new System.Drawing.Point(309, 116);
+            this.CBMedico.Name = "CBMedico";
+            this.CBMedico.Size = new System.Drawing.Size(121, 21);
+            this.CBMedico.TabIndex = 29;
             // 
             // label4
             // 
@@ -218,13 +218,13 @@
             this.label4.TabIndex = 27;
             this.label4.Text = "Médico";
             // 
-            // comboBox2
+            // CBPaciente
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(466, 116);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 31;
+            this.CBPaciente.FormattingEnabled = true;
+            this.CBPaciente.Location = new System.Drawing.Point(466, 116);
+            this.CBPaciente.Name = "CBPaciente";
+            this.CBPaciente.Size = new System.Drawing.Size(121, 21);
+            this.CBPaciente.TabIndex = 31;
             // 
             // label3
             // 
@@ -243,9 +243,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
             this.ClientSize = new System.Drawing.Size(916, 573);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.CBPaciente);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.CBMedico);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.DTPFin);
             this.Controls.Add(this.DTPInicio);
@@ -291,9 +291,9 @@
         private System.Windows.Forms.ToolTip toolTip2;
         private System.Windows.Forms.ToolTip toolTip3;
         private System.Windows.Forms.ToolTip toolTip4;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox CBMedico;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox CBPaciente;
         private System.Windows.Forms.Label label3;
     }
 }

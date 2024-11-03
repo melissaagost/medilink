@@ -1242,17 +1242,31 @@ namespace medilink.BD
             return citas;
         }
 
-        public static List<CitaM> ObtenerCitasGestor(string estado, DateTime fechaInicio, DateTime fechaFin)
+        public static List<CitaM> ObtenerCitasGestor(string estado, DateTime fechaInicio, DateTime fechaFin, int? idMedico = null, int? idPaciente = null)
         {
             List<CitaM> citas = new List<CitaM>();
 
             using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
             {
+
+                //parametros que asignamos en los CB
                 string query = "SELECT * FROM Cita WHERE fecha BETWEEN @fechaInicio AND @fechaFin";
 
                 if (!string.IsNullOrEmpty(estado) && estado != "Todas")
                 {
                     query += " AND status = @estado";
+                }
+
+                
+                if (idMedico.HasValue)
+                {
+                    query += " AND id_medico = @idMedico";
+                }
+
+                
+                if (idPaciente.HasValue)
+                {
+                    query += " AND id_paciente = @idPaciente";
                 }
 
                 using (MySqlCommand comando = new MySqlCommand(query, conexion))
@@ -1264,6 +1278,17 @@ namespace medilink.BD
                     {
                         comando.Parameters.AddWithValue("@estado", estado);
                     }
+
+                    if (idMedico.HasValue)
+                    {
+                        comando.Parameters.AddWithValue("@idMedico", idMedico.Value);
+                    }
+
+                    if (idPaciente.HasValue)
+                    {
+                        comando.Parameters.AddWithValue("@idPaciente", idPaciente.Value);
+                    }
+
 
                     using (MySqlDataReader reader = comando.ExecuteReader())
                     {

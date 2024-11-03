@@ -303,17 +303,11 @@ namespace medilink.ViewModels
 
         }
 
-        public List<CitaM> ListarCitasGestor(string estado, DateTime fechaInicio, DateTime fechaFin)
+        public List<CitaM> ListarCitasGestor(string estado, DateTime fechaInicio, DateTime fechaFin, int? idMedico = null, int? idPaciente = null)
         {
-            if (id_perfil == 2) 
-            {
-                return Crud.ObtenerCitasGestor(estado, fechaInicio, fechaFin);
-            }
-            else
-            {
-                return new List<CitaM>();
-            }
+            return Crud.ObtenerCitasGestor(estado, fechaInicio, fechaFin, idMedico, idPaciente);
         }
+
 
 
 

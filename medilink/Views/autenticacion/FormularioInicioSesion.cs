@@ -139,6 +139,14 @@ namespace medilink.Views.autenticacion
                 Margin = new Padding(0, 10, 0, 0),
                 Anchor = AnchorStyles.None
             };
+
+            // Agregar el evento Click al botón
+            forgotPasswordButton.Click += (sender, e) =>
+            {
+                RecuperarContrasena recuperarContrasenaForm = new RecuperarContrasena();
+                recuperarContrasenaForm.Show(); // Muestra el formulario de RecuperarContraseña
+            };
+
             // Aquí puedes agregar un evento para manejar la recuperación de contraseña
             flowLayoutPanel.Controls.Add(forgotPasswordButton);
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -297,6 +298,96 @@ namespace medilink.BD
 
             return usuario;
         }
+        
+
+        //recueperar contraseña
+        public static bool ValidarCredencial(string credencial)
+        {
+            bool resultado = false;
+
+            try
+            {
+                using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+                {
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
+                    
+                    string query = "SELECT COUNT(*) FROM usuario WHERE correo = @credencial OR telefono = @credencial";
+                    using (MySqlCommand comando = new MySqlCommand(query, oconexion))
+                    {
+                        comando.Parameters.AddWithValue("@credencial", credencial);
+
+                        int count = Convert.ToInt32(comando.ExecuteScalar());
+                        if (count > 0)
+                        {
+                            resultado = true; 
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al validar credencial: " + ex.Message);
+            }
+
+            return resultado;
+        }
+
+
+        //cambiar contraseña
+        public static bool CambiarContrasena(string credencial, string nuevaContrasena)
+        {
+            bool resultado = false;
+
+            try
+            {
+                using (MySqlConnection oconexion = ConexionBD.ObtenerConexion())
+                {
+                    if (oconexion.State == ConnectionState.Closed)
+                    {
+                        oconexion.Open();
+                    }
+
+                   
+                    string queryCheck = "SELECT contraseña FROM usuario WHERE correo = @credencial OR telefono = @credencial";
+                    using (MySqlCommand comandoCheck = new MySqlCommand(queryCheck, oconexion))
+                    {
+                        comandoCheck.Parameters.AddWithValue("@credencial", credencial);
+                        object currentPassword = comandoCheck.ExecuteScalar();
+
+                        if (currentPassword != null && currentPassword.ToString() == nuevaContrasena)
+                        {
+                            Console.WriteLine("La nueva contraseña no puede ser la misma que la actual.");
+                            return false; 
+                        }
+                    }
+
+                    
+                    string query = "UPDATE usuario SET contraseña = @nuevaContrasena WHERE correo = @credencial OR telefono = @credencial";
+                    using (MySqlCommand comando = new MySqlCommand(query, oconexion))
+                    {
+                        comando.Parameters.AddWithValue("@nuevaContrasena", nuevaContrasena);
+                        comando.Parameters.AddWithValue("@credencial", credencial);
+
+                        int rowsAffected = comando.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            resultado = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al reestablecer contraseña: " + ex.Message);
+            }
+
+            return resultado;
+        }
+
         //agendar cita (contexto: usado por recep)
         public static bool Programar(CitaM cita)
         { bool resultado = false;
@@ -1406,7 +1497,6 @@ namespace medilink.BD
 
             return usuarios;
         }
-
 
     }
 } 

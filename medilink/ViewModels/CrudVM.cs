@@ -22,7 +22,7 @@ namespace medilink.ViewModels
         private Crud usuarioLogueado = new Crud(); 
         private int id_perfil;
 
-        public CrudVM(int rol)
+        public CrudVM(int rol = 0) //inicializamos por si el rol no es necesario
         {
             this.id_perfil= rol;
         }
@@ -43,7 +43,16 @@ namespace medilink.ViewModels
             }
         }
 
+        //modulo cambiar pass
+        public bool Validar(string credencial)
+        {
+            return Crud.ValidarCredencial(credencial);
+        }
 
+        public bool Cambiar(string crendencial, string nuevaPass) 
+        {
+            return Crud.CambiarContrasena(crendencial, nuevaPass);        
+        }
         public List<UsuarioM> ListarUsuarios()
          {
             if (id_perfil == 1 || id_perfil == 2)

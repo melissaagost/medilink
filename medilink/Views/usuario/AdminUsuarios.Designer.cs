@@ -46,6 +46,10 @@
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CAccion = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label1 = new System.Windows.Forms.Label();
+            this.BLimpiar = new System.Windows.Forms.Button();
+            this.BBuscar = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboBoxBuscarPerfil = new System.Windows.Forms.ComboBox();
             this.tabControlUsuarios.SuspendLayout();
             this.tabPageActivos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActivos)).BeginInit();
@@ -218,13 +222,56 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Gestione los Usuarios";
             // 
+            // BLimpiar
+            // 
+            this.BLimpiar.Location = new System.Drawing.Point(400, 587);
+            this.BLimpiar.Name = "BLimpiar";
+            this.BLimpiar.Size = new System.Drawing.Size(95, 23);
+            this.BLimpiar.TabIndex = 42;
+            this.BLimpiar.Text = "Limpiar Filtros";
+            this.BLimpiar.UseVisualStyleBackColor = true;
+            this.BLimpiar.Click += new System.EventHandler(this.BLimpiar_Click);
+            // 
+            // BBuscar
+            // 
+            this.BBuscar.Location = new System.Drawing.Point(319, 587);
+            this.BBuscar.Name = "BBuscar";
+            this.BBuscar.Size = new System.Drawing.Size(75, 23);
+            this.BBuscar.TabIndex = 41;
+            this.BBuscar.Text = "Buscar";
+            this.BBuscar.UseVisualStyleBackColor = true;
+            this.BBuscar.Click += new System.EventHandler(this.BBuscar_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label2.Location = new System.Drawing.Point(16, 592);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(107, 13);
+            this.label2.TabIndex = 40;
+            this.label2.Text = "Buscar por perfil:";
+            // 
+            // comboBoxBuscarPerfil
+            // 
+            this.comboBoxBuscarPerfil.FormattingEnabled = true;
+            this.comboBoxBuscarPerfil.Location = new System.Drawing.Point(129, 589);
+            this.comboBoxBuscarPerfil.Name = "comboBoxBuscarPerfil";
+            this.comboBoxBuscarPerfil.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxBuscarPerfil.TabIndex = 39;
+            // 
             // AdminUsuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
-            this.ClientSize = new System.Drawing.Size(914, 572);
+            this.ClientSize = new System.Drawing.Size(914, 641);
             this.ControlBox = false;
+            this.Controls.Add(this.BLimpiar);
+            this.Controls.Add(this.BBuscar);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.comboBoxBuscarPerfil);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tabControlUsuarios);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -261,5 +308,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewButtonColumn CAccion;
+        private System.Windows.Forms.Button BLimpiar;
+        private System.Windows.Forms.Button BBuscar;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBoxBuscarPerfil;
     }
 }

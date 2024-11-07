@@ -52,8 +52,6 @@
             this.toolTip4 = new System.Windows.Forms.ToolTip(this.components);
             this.CBMedico = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.CBPaciente = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PBAyuda)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCitas)).BeginInit();
@@ -132,7 +130,7 @@
             this.chartCitas.Legends.Add(legend1);
             this.chartCitas.Location = new System.Drawing.Point(14, 14);
             this.chartCitas.Name = "chartCitas";
-            this.chartCitas.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
+            this.chartCitas.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SemiTransparent;
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series";
@@ -218,33 +216,12 @@
             this.label4.TabIndex = 27;
             this.label4.Text = "Médico";
             // 
-            // CBPaciente
-            // 
-            this.CBPaciente.FormattingEnabled = true;
-            this.CBPaciente.Location = new System.Drawing.Point(466, 116);
-            this.CBPaciente.Name = "CBPaciente";
-            this.CBPaciente.Size = new System.Drawing.Size(121, 21);
-            this.CBPaciente.TabIndex = 31;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label3.Location = new System.Drawing.Point(463, 100);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 13);
-            this.label3.TabIndex = 30;
-            this.label3.Text = "Paciente";
-            // 
             // ReporteGestor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
             this.ClientSize = new System.Drawing.Size(916, 573);
-            this.Controls.Add(this.CBPaciente);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.CBMedico);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.DTPFin);
@@ -293,7 +270,5 @@
         private System.Windows.Forms.ToolTip toolTip4;
         private System.Windows.Forms.ComboBox CBMedico;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox CBPaciente;
-        private System.Windows.Forms.Label label3;
     }
 }

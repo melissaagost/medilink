@@ -86,6 +86,23 @@ namespace medilink.Views.usuario
         {
             CargarUsuariosActivos();
             CargarUsuariosInactivos();
+            CargarComboboxes();
+        }
+
+        private void CargarComboboxes()
+        {
+            try
+            {
+
+                comboBoxBuscarPerfil.DataSource = usuarioVM.ListarPerfiles();
+                comboBoxBuscarPerfil.DisplayMember = "nombre";
+                comboBoxBuscarPerfil.ValueMember = "id_perfil";
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los ComboBoxes: " + ex.Message);
+            }
         }
 
         private void dataGridViewActivos_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -210,7 +227,30 @@ namespace medilink.Views.usuario
                 }
             }
         }
+        private void BBuscar_Click(object sender, EventArgs e)
+        {
+            int? idPerfilSeleccionado = comboBoxBuscarPerfil.SelectedValue as int?;
+            List<UsuarioM> usuariosFiltrados = usuarioVM.ListarUsuarios(idPerfilSeleccionado);
+            dataGridViewActivos.DataSource = usuariosFiltrados;
+        }
 
 
+        private void BLimpiar_Click(object sender, EventArgs e)
+        {
+           
+            comboBoxBuscarPerfil.SelectedIndex = -1;
+
+            List<UsuarioM> usuariosActivos = usuarioVM.ListarUsuarios()
+                .Where(u => u.status != null && u.status.Trim().Equals("si", StringComparison.OrdinalIgnoreCase))
+                .ToList();
+            dataGridViewActivos.DataSource = usuariosActivos;
+
+            List<UsuarioM> usuariosInactivos = usuarioVM.ListarUsuarios()
+                .Where(u => u.status != null && u.status.Trim().Equals("no", StringComparison.OrdinalIgnoreCase))
+                .ToList();
+            dataGridViewInactivos.DataSource = usuariosInactivos;
+            
+
+        }
     }
 }

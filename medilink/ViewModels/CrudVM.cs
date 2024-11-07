@@ -53,17 +53,19 @@ namespace medilink.ViewModels
         {
             return Crud.CambiarContrasena(crendencial, nuevaPass);        
         }
-        public List<UsuarioM> ListarUsuarios()
-         {
-            if (id_perfil == 1 || id_perfil == 2)
+        public List<UsuarioM> ListarUsuarios(int? idPerfil = null)
+        {
+            if (id_perfil == 1 || id_perfil == 2) // Validación de permisos para Sistemas y Gestor
             {
-                return usuarioLogueado.Listar();
+                // Llamar a la función Listar() con el parámetro opcional idPerfil
+                return usuarioLogueado.Listar(idPerfil);
             }
             else
             {
                 throw new UnauthorizedAccessException("No tienes permisos para listar usuarios.");
             }
-         }
+        }
+
 
         public bool DarDeBajaUsuario(int id_usuario)
         {
@@ -315,7 +317,7 @@ namespace medilink.ViewModels
 
         public List<CitaM> ListarCitasGestor(string estado, DateTime fechaInicio, DateTime fechaFin, int? idMedico = null, int? idPaciente = null)
         {
-            return Crud.ObtenerCitasGestor(estado, fechaInicio, fechaFin, idMedico, idPaciente);
+            return Crud.ObtenerCitasGestor(estado, fechaInicio, fechaFin, idMedico);
         }
 
 

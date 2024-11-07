@@ -1,6 +1,7 @@
 ﻿using medilink.Models;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -108,8 +109,7 @@ namespace medilink.BD
 
 
 
-        // listar usuarios (contexto: usado por sistemas y gestor) 
-        public List<UsuarioM> Listar()
+        public List<UsuarioM> Listar(int? idPerfil = null)
         {
             List<UsuarioM> listaUsuarios = new List<UsuarioM>();
             try
@@ -121,8 +121,21 @@ namespace medilink.BD
                         oconexion.Open();
                     }
 
-                    using (MySqlCommand comando = new MySqlCommand("SELECT * FROM Usuario", oconexion))
+                    // Construir la consulta SQL con base en los filtros
+                    string query = "SELECT * FROM Usuario WHERE 1=1"; // 1=1 para facilitar la adición de filtros
+
+                    if (idPerfil.HasValue)
                     {
+                        query += " AND id_perfil = @idPerfil";
+                    }
+
+                    using (MySqlCommand comando = new MySqlCommand(query, oconexion))
+                    {
+                        if (idPerfil.HasValue)
+                        {
+                            comando.Parameters.AddWithValue("@idPerfil", idPerfil.Value);
+                        }
+
                         using (MySqlDataReader reader = comando.ExecuteReader())
                         {
                             while (reader.Read())
@@ -144,10 +157,11 @@ namespace medilink.BD
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error al listar usuarios" + ex.Message);
+                Console.WriteLine("Error al listar usuarios: " + ex.Message);
             }
             return listaUsuarios;
         }
+
 
         //Dar de baja un user (contexto: usado por sistemas y gestor)
         public bool Baja(int id_usuario)
@@ -1377,7 +1391,7 @@ namespace medilink.BD
             return citas;
         }
 
-        public static List<CitaM> ObtenerCitasGestor(string estado, DateTime fechaInicio, DateTime fechaFin, int? idMedico = null, int? idPaciente = null)
+        public static List<CitaM> ObtenerCitasGestor(string estado, DateTime fechaInicio, DateTime fechaFin, int? idMedico = null)
         {
             List<CitaM> citas = new List<CitaM>();
 
@@ -1398,11 +1412,6 @@ namespace medilink.BD
                     query += " AND id_medico = @idMedico";
                 }
 
-                
-                if (idPaciente.HasValue)
-                {
-                    query += " AND id_paciente = @idPaciente";
-                }
 
                 using (MySqlCommand comando = new MySqlCommand(query, conexion))
                 {
@@ -1419,10 +1428,6 @@ namespace medilink.BD
                         comando.Parameters.AddWithValue("@idMedico", idMedico.Value);
                     }
 
-                    if (idPaciente.HasValue)
-                    {
-                        comando.Parameters.AddWithValue("@idPaciente", idPaciente.Value);
-                    }
 
 
                     using (MySqlDataReader reader = comando.ExecuteReader())

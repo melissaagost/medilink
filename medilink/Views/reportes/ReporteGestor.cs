@@ -65,10 +65,8 @@ namespace medilink.Views.reportes
 
 
 
-        // Optimización del método para generar el gráfico en el reporte de gestor
         private void BGenerar_Click_1(object sender, EventArgs e)
         {
-            // Filtros
             string estadoSeleccionado = CBEstado.SelectedItem?.ToString() ?? "Todas";
             DateTime fechaInicio = DTPInicio.Value.Date;
             DateTime fechaFin = DTPFin.Value.Date;
@@ -76,35 +74,38 @@ namespace medilink.Views.reportes
 
             List<CitaM> citas = usuarioVM.ListarCitasGestor(estadoSeleccionado, fechaInicio, fechaFin, idMedico);
 
-            // Limpiar el gráfico antes de agregar nuevos datos
+            foreach (var cita in citas)
+            {
+                cita.Paciente = usuarioVM.ObtenerPacientePorId(cita.id_paciente);
+            }
+
+
             chartCitas.Series.Clear();
 
-            // Crear la serie para el gráfico
             var serie = new Series("Citas")
             {
                 ChartType = SeriesChartType.Doughnut,
                 IsValueShownAsLabel = true
             };
 
-            // Agregar puntos a la serie según los filtros
-            foreach (var cita in citas)
+            var citasPorEstado = citas.GroupBy(c => c.status)
+                                       .Select(g => new { Estado = g.Key, Cantidad = g.Count() });
+
+            foreach (var grupo in citasPorEstado)
             {
-                // Agrupar por fecha y contar la cantidad de citas
-                serie.Points.AddXY(cita.fecha.ToShortDateString(), 1);
+                serie.Points.AddXY(grupo.Estado, grupo.Cantidad);
             }
 
-            // Añadir la serie al gráfico
             chartCitas.Series.Add(serie);
-            // Mostrar métricas adicionales dependiendo de los filtros
+
             if (estadoSeleccionado == "Todas")
             {
-                // Mostrar citas por mes si se selecciona un estado específico para todos los médicos
                 lblResumen.Text = ObtenerResumenCitasPorMes(citas);
             }
-           
+
+
         }
 
-       
         private string ObtenerResumenCitasPorMes(List<CitaM> citas)
         {
             var citasPorMes = citas.GroupBy(c => c.fecha.Month)
@@ -138,7 +139,10 @@ namespace medilink.Views.reportes
             chartCitas.Series.Clear();
         }
 
+        private void LPMujeres_Click(object sender, EventArgs e)
+        {
 
+        }
     } 
 }
  

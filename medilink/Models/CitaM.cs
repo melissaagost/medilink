@@ -19,5 +19,8 @@ namespace medilink.Models
 
         public string medico_nombre { get; set; }
 
+        public PacienteM Paciente { get; set; }
+
+
     }
 }

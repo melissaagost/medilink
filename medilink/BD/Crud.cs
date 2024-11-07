@@ -1399,23 +1399,26 @@ namespace medilink.BD
             using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
             {
                 // Se construye la consulta con filtros opcionales
-                string query = "SELECT id_cita, fecha, motivo, status FROM Cita WHERE fecha BETWEEN @fechaInicio AND @fechaFin";
+                string query = "SELECT c.id_cita, c.fecha, c.motivo, c.status, p.id_paciente, p.nombre, p.apellido, p.genero FROM Cita c LEFT JOIN Paciente p ON c.id_paciente = p.id_paciente WHERE c.fecha BETWEEN @fechaInicio AND @fechaFin";
 
                 if (!string.IsNullOrEmpty(estado) && estado != "Todas")
                 {
-                    query += " AND status = @estado";
+                    query += " AND c.status = @estado";
                 }
 
                 if (idMedico.HasValue)
                 {
-                    query += " AND id_medico = @idMedico";
+                    query += " AND c.id_medico = @idMedico";
+                }
+                else
+                {
+                    query += " AND c.id_medico IS NOT NULL";
                 }
 
-                query += " ORDER BY fecha ASC"; // Ordenar los resultados por fecha para una mejor presentación
+                query += " ORDER BY fecha ASC";
 
                 using (MySqlCommand comando = new MySqlCommand(query, conexion))
                 {
-                    // Agregar los parámetros de la consulta
                     comando.Parameters.AddWithValue("@fechaInicio", fechaInicio);
                     comando.Parameters.AddWithValue("@fechaFin", fechaFin);
 
@@ -1439,6 +1442,13 @@ namespace medilink.BD
                                 fecha = Convert.ToDateTime(reader["fecha"]),
                                 motivo = reader["motivo"].ToString(),
                                 status = reader["status"].ToString(),
+                                Paciente = new PacienteM
+                                {
+                                    id_paciente = reader["id_paciente"] != DBNull.Value ? Convert.ToInt32(reader["id_paciente"]) : 0,
+                                    nombre = reader["nombre"].ToString(),
+                                    apellido = reader["apellido"].ToString(),
+                                    genero = reader["genero"].ToString()
+                                }
                             });
                         }
                     }
@@ -1447,7 +1457,6 @@ namespace medilink.BD
 
             return citas;
         }
-
         public static List<UsuarioM> ObtenerUsuariosPorEstadoYPerfil(string status, int? perfil)
         {
             List<UsuarioM> usuarios = new List<UsuarioM>();
@@ -1501,6 +1510,8 @@ namespace medilink.BD
 
             return usuarios;
         }
+
+
 
     }
 } 

@@ -1397,24 +1397,24 @@ namespace medilink.BD
 
             using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
             {
-
-                //parametros que asignamos en los CB
-                string query = "SELECT * FROM Cita WHERE fecha BETWEEN @fechaInicio AND @fechaFin";
+                // Se construye la consulta con filtros opcionales
+                string query = "SELECT id_cita, fecha, motivo, status FROM Cita WHERE fecha BETWEEN @fechaInicio AND @fechaFin";
 
                 if (!string.IsNullOrEmpty(estado) && estado != "Todas")
                 {
                     query += " AND status = @estado";
                 }
 
-                
                 if (idMedico.HasValue)
                 {
                     query += " AND id_medico = @idMedico";
                 }
 
+                query += " ORDER BY fecha ASC"; // Ordenar los resultados por fecha para una mejor presentación
 
                 using (MySqlCommand comando = new MySqlCommand(query, conexion))
                 {
+                    // Agregar los parámetros de la consulta
                     comando.Parameters.AddWithValue("@fechaInicio", fechaInicio);
                     comando.Parameters.AddWithValue("@fechaFin", fechaFin);
 
@@ -1427,8 +1427,6 @@ namespace medilink.BD
                     {
                         comando.Parameters.AddWithValue("@idMedico", idMedico.Value);
                     }
-
-
 
                     using (MySqlDataReader reader = comando.ExecuteReader())
                     {

@@ -62,12 +62,13 @@ namespace medilink.Views.reportes
             CargarEstados();
             CargarComboboxes();
         }
-       
 
 
+
+        // Optimización del método para generar el gráfico en el reporte de gestor
         private void BGenerar_Click_1(object sender, EventArgs e)
         {
-            //filtros
+            // Filtros
             string estadoSeleccionado = CBEstado.SelectedItem?.ToString() ?? "Todas";
             DateTime fechaInicio = DTPInicio.Value.Date;
             DateTime fechaFin = DTPFin.Value.Date;
@@ -75,20 +76,40 @@ namespace medilink.Views.reportes
 
             List<CitaM> citas = usuarioVM.ListarCitasGestor(estadoSeleccionado, fechaInicio, fechaFin, idMedico);
 
+            // Limpiar el gráfico antes de agregar nuevos datos
             chartCitas.Series.Clear();
 
+            // Crear la serie para el gráfico
             var serie = new Series("Citas")
             {
                 ChartType = SeriesChartType.Doughnut,
                 IsValueShownAsLabel = true
             };
 
+            // Agregar puntos a la serie según los filtros
             foreach (var cita in citas)
             {
+                // Agrupar por fecha y contar la cantidad de citas
                 serie.Points.AddXY(cita.fecha.ToShortDateString(), 1);
             }
 
+            // Añadir la serie al gráfico
             chartCitas.Series.Add(serie);
+            // Mostrar métricas adicionales dependiendo de los filtros
+            if (estadoSeleccionado == "Todas")
+            {
+                // Mostrar citas por mes si se selecciona un estado específico para todos los médicos
+                lblResumen.Text = ObtenerResumenCitasPorMes(citas);
+            }
+           
+        }
+
+       
+        private string ObtenerResumenCitasPorMes(List<CitaM> citas)
+        {
+            var citasPorMes = citas.GroupBy(c => c.fecha.Month)
+                                   .Select(g => $"Mes {g.Key}: {g.Count()} citas").ToList();
+            return string.Join("\n", citasPorMes);
         }
 
         private void BExportar_Click_1(object sender, EventArgs e)

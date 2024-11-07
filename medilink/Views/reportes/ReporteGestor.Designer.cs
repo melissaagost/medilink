@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReporteGestor));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.labelNuevoUsuario = new System.Windows.Forms.Label();
             this.PBAyuda = new System.Windows.Forms.PictureBox();
             this.labeLDNI = new System.Windows.Forms.Label();
@@ -52,6 +52,7 @@
             this.toolTip4 = new System.Windows.Forms.ToolTip(this.components);
             this.CBMedico = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.lblResumen = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PBAyuda)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCitas)).BeginInit();
@@ -124,17 +125,17 @@
             // 
             // chartCitas
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartCitas.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartCitas.Legends.Add(legend1);
+            chartArea3.Name = "ChartArea1";
+            this.chartCitas.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chartCitas.Legends.Add(legend3);
             this.chartCitas.Location = new System.Drawing.Point(14, 14);
             this.chartCitas.Name = "chartCitas";
             this.chartCitas.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SemiTransparent;
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series";
-            this.chartCitas.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series";
+            this.chartCitas.Series.Add(series3);
             this.chartCitas.Size = new System.Drawing.Size(525, 301);
             this.chartCitas.TabIndex = 0;
             // 
@@ -216,12 +217,22 @@
             this.label4.TabIndex = 27;
             this.label4.Text = "Médico";
             // 
+            // lblResumen
+            // 
+            this.lblResumen.AutoSize = true;
+            this.lblResumen.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResumen.Location = new System.Drawing.Point(149, 560);
+            this.lblResumen.Name = "lblResumen";
+            this.lblResumen.Size = new System.Drawing.Size(0, 13);
+            this.lblResumen.TabIndex = 30;
+            // 
             // ReporteGestor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
-            this.ClientSize = new System.Drawing.Size(916, 573);
+            this.ClientSize = new System.Drawing.Size(916, 612);
+            this.Controls.Add(this.lblResumen);
             this.Controls.Add(this.CBMedico);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.DTPFin);
@@ -270,5 +281,6 @@
         private System.Windows.Forms.ToolTip toolTip4;
         private System.Windows.Forms.ComboBox CBMedico;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblResumen;
     }
 }

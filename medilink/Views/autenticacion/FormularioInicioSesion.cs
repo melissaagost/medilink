@@ -25,7 +25,7 @@ namespace medilink.Views.autenticacion
         public FormularioInicioSesion()
         {
             InitializeComponent();
-            InitializeCustomComponents(); // Inicializa los componentes personalizados
+            InitializeCustomComponents();
             conexionBD = new ConexionBD();
 
 
@@ -37,12 +37,11 @@ namespace medilink.Views.autenticacion
             this.Text = "Iniciar Sesión";
 
             // Establecer el color de fondo
-            //this.BackColor = System.Drawing.Color.FromArgb(64, 112, 83); // Color #407053
             string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Views\assets\imagenes\formulario_inicio.png");
             this.BackgroundImage = System.Drawing.Image.FromFile(imagePath);
             this.BackgroundImageLayout = ImageLayout.Stretch;
 
-            // Centrar el formulario en la pantalla
+           
             this.StartPosition = FormStartPosition.CenterScreen;
 
             // Eliminar la barra de título (incluyendo los botones de minimizar, maximizar y cerrar)

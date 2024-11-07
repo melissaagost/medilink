@@ -739,9 +739,9 @@ namespace medilink.BD
                         }
                     }
 
-                    string queryInsert = @"INSERT INTO Paciente (dni, nombre, apellido, fecha_nacimiento, correo, telefono, 
+                    string queryInsert = @"INSERT INTO Paciente (dni, nombre, apellido, genero, fecha_nacimiento, correo, telefono, 
                                   direccion, edad, status, id_obra_social, id_ciudad, id_provincia) 
-                                  VALUES (@dni, @nombre, @apellido, @fecha_nacimiento, @correo, @telefono, 
+                                  VALUES (@dni, @nombre, @apellido, @genero, @fecha_nacimiento, @correo, @telefono, 
                                   @direccion, @edad, 'si', @id_obra_social, @id_ciudad, @id_provincia)";
 
                     using (MySqlCommand comandoInsert = new MySqlCommand(queryInsert, oconexion))
@@ -749,6 +749,7 @@ namespace medilink.BD
                         comandoInsert.Parameters.AddWithValue("@dni", paciente.dni);
                         comandoInsert.Parameters.AddWithValue("@nombre", paciente.nombre);
                         comandoInsert.Parameters.AddWithValue("@apellido", paciente.apellido);
+                        comandoInsert.Parameters.AddWithValue("@genero", paciente.genero);
                         comandoInsert.Parameters.AddWithValue("@fecha_nacimiento", paciente.fecha_nacimiento);
                         comandoInsert.Parameters.AddWithValue("@correo", paciente.correo);
                         comandoInsert.Parameters.AddWithValue("@telefono", paciente.telefono);

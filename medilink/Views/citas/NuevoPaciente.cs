@@ -13,7 +13,7 @@ using System.Windows.Forms;
 namespace medilink.Views.citas
 {
     public partial class NuevoPaciente : Form
-    { 
+    {  
         private UsuarioM usuarioLogueado;
         private CrudVM usuarioVM;
         public NuevoPaciente(UsuarioM usuarioLogueado)
@@ -26,7 +26,9 @@ namespace medilink.Views.citas
 
         private void NuevoPaciente_Load(object sender, EventArgs e)
         {
-            //por accidente
+            comboBoxGenero.Items.Add("M");
+            comboBoxGenero.Items.Add("F");
+            comboBoxGenero.DropDownStyle = ComboBoxStyle.DropDownList; 
         }
 
         private void CargarComboboxes()
@@ -70,7 +72,7 @@ namespace medilink.Views.citas
 
         private void buttonAñadirPaciente_Click(object sender, EventArgs e)
         {
-            // Validar que los campos no estén vacíos
+            
             if (string.IsNullOrWhiteSpace(textBoxNombrePaciente.Text) ||
                 string.IsNullOrWhiteSpace(textBoxApellidoPaciente.Text) ||
                 string.IsNullOrWhiteSpace(textBoxCorreoPaciente.Text) ||
@@ -85,7 +87,6 @@ namespace medilink.Views.citas
                 return;
             }
 
-            // Validar el formato del DNI (debe ser numérico y tener 7 u 8 dígitos)
             if (!int.TryParse(textBoxDNIPaciente.Text, out int dni) ||
                 (textBoxDNIPaciente.Text.Length != 7 && textBoxDNIPaciente.Text.Length != 8))
             {
@@ -93,35 +94,32 @@ namespace medilink.Views.citas
                 return;
             }
 
-            // Validar el nombre (debe ser solo letras)
             if (!IsValidName(textBoxNombrePaciente.Text))
             {
                 MessageBox.Show("El nombre debe contener solo letras.");
                 return;
             }
 
-            // Validar el apellido (debe ser solo letras)
             if (!IsValidName(textBoxApellidoPaciente.Text))
             {
                 MessageBox.Show("El apellido debe contener solo letras.");
                 return;
             }
 
-            // Validar el formato de la edad (debe ser numérico entre 0 y 100)
             if (!int.TryParse(textBoxEdadPaciente.Text, out int edad) || edad < 0 || edad > 100)
             {
                 MessageBox.Show("La edad debe ser un número entre 0 y 100.");
                 return;
             }
 
-            // Validar el formato del correo
+            
             if (!IsValidEmail(textBoxCorreoPaciente.Text))
             {
                 MessageBox.Show("El correo electrónico no es válido.");
                 return;
             }
 
-            // Validar el formato del teléfono (debe ser numérico, entre 10 y 15 dígitos)
+            
             if (!long.TryParse(textBoxTelefonoPaciente.Text, out long telefono) ||
                 textBoxTelefonoPaciente.Text.Length < 10 || textBoxTelefonoPaciente.Text.Length > 15)
             {
@@ -129,7 +127,7 @@ namespace medilink.Views.citas
                 return;
             }
 
-            // Validar que la fecha de nacimiento no sea posterior a la fecha actual
+            
             if (dateTimePickerPaciente.Value.Date > DateTime.Now.Date)
             {
                 MessageBox.Show("La fecha de nacimiento no puede ser posterior a la fecha actual.");
@@ -141,6 +139,7 @@ namespace medilink.Views.citas
                 dni = int.Parse(textBoxDNIPaciente.Text),
                 nombre = textBoxNombrePaciente.Text,
                 apellido = textBoxApellidoPaciente.Text,
+                genero = comboBoxGenero.SelectedItem?.ToString(),
                 fecha_nacimiento = dateTimePickerPaciente.Value,
                 correo = textBoxCorreoPaciente.Text,
                 telefono = textBoxTelefonoPaciente.Text,
@@ -153,7 +152,7 @@ namespace medilink.Views.citas
 
             try
             {
-                // Llamar al método RegistrarPaciente y capturar el mensaje de error
+                
                 string mensajeError;
                 bool resultado = usuarioVM.RegistrarPaciente(nuevoPaciente, out mensajeError);
 
@@ -163,7 +162,7 @@ namespace medilink.Views.citas
                 }
                 else
                 {
-                    // Mostrar el mensaje de error en caso de que los campos no sean únicos
+                    
                     MessageBox.Show(mensajeError);
                 }
             }
@@ -172,7 +171,6 @@ namespace medilink.Views.citas
                 MessageBox.Show(ex.Message);
             }
         }
-        // Método para validar formato de correo electrónico
         private bool IsValidEmail(string email)
         {
             try
@@ -185,7 +183,6 @@ namespace medilink.Views.citas
                 return false;
             }
         }
-        // Método para validar que el nombre contenga solo letras
         private bool IsValidName(string name)
         {
             return name.All(c => char.IsLetter(c) || char.IsWhiteSpace(c)); // Permite letras y espacios

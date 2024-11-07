@@ -28,13 +28,13 @@ namespace medilink.Views.reportes
             toolTip1.SetToolTip(BGenerar, "Generar Reporte");
             toolTip2.SetToolTip(BExportar, "Exportar Reporte");
             toolTip3.SetToolTip(BLimpiar, "Limpiar Filtros");
-            toolTip4.SetToolTip(PBAyuda, "Seleccione el estado de las citas que desea ver, luego indique el rango de fechas.");
+            toolTip4.SetToolTip(PBAyuda, "Seleccione el estado de los usuarios que desea ver, luego indique el rol de estos.");
         }
 
         private void CargarEstados()
         {
             //los estados son exactamente los de la BD, no podemos poner en plural ni mayuscula
-            List<string> estados = new List<string> { "si", "no"};
+            List<string> estados = new List<string> { "si", "no" };
             CBEstado.DataSource = estados;
         }
 
@@ -49,7 +49,7 @@ namespace medilink.Views.reportes
                 CBUsuario.ValueMember = "id_perfil";
             }
             catch (Exception ex)
-            {
+            { 
                 MessageBox.Show("Error al cargar los ComboBoxes: " + ex.Message);
             }
         }
@@ -90,14 +90,13 @@ namespace medilink.Views.reportes
 
         private void BGenerar_Click(object sender, EventArgs e)
         {
-            // Limpiar cualquier serie previa en el chart
+            
             chartUsuarios.Series.Clear();
 
-            // Obtener los valores seleccionados de los ComboBox
             string estadoSeleccionado = CBEstado.SelectedItem?.ToString();
             int? perfilSeleccionado = (int)CBUsuario.SelectedValue == -1 ? (int?)null : (int)CBUsuario.SelectedValue;
 
-            // Crear una serie para el gráfico de torta
+           
             Series serie = new Series("Usuarios")
             {
                 ChartType = SeriesChartType.Pie,

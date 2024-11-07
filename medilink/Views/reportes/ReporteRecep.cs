@@ -60,7 +60,7 @@ namespace medilink.Views.reportes
 
             var serie = new Series("Citas")
             {
-                ChartType = SeriesChartType.Column,
+                ChartType = SeriesChartType.Doughnut,
                 IsValueShownAsLabel = true
             };
 

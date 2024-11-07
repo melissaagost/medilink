@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReporteGestor2));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.CBUsuario = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.CBEstado = new System.Windows.Forms.ComboBox();
@@ -40,17 +40,17 @@
             this.BExportar = new System.Windows.Forms.Button();
             this.BGenerar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chartUsuarios = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.labeLDNI = new System.Windows.Forms.Label();
             this.PBAyuda = new System.Windows.Forms.PictureBox();
             this.labelNuevoUsuario = new System.Windows.Forms.Label();
-            this.chartUsuarios = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip4 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PBAyuda)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartUsuarios)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBAyuda)).BeginInit();
             this.SuspendLayout();
             // 
             // CBUsuario
@@ -126,6 +126,22 @@
             this.panel1.Size = new System.Drawing.Size(553, 327);
             this.panel1.TabIndex = 37;
             // 
+            // chartUsuarios
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chartUsuarios.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartUsuarios.Legends.Add(legend1);
+            this.chartUsuarios.Location = new System.Drawing.Point(14, 14);
+            this.chartUsuarios.Name = "chartUsuarios";
+            this.chartUsuarios.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series";
+            this.chartUsuarios.Series.Add(series1);
+            this.chartUsuarios.Size = new System.Drawing.Size(525, 301);
+            this.chartUsuarios.TabIndex = 0;
+            // 
             // labeLDNI
             // 
             this.labeLDNI.AutoSize = true;
@@ -160,22 +176,6 @@
             this.labelNuevoUsuario.TabIndex = 32;
             this.labelNuevoUsuario.Text = "Estado de los Usuarios";
             // 
-            // chartUsuarios
-            // 
-            chartArea2.Name = "ChartArea1";
-            this.chartUsuarios.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartUsuarios.Legends.Add(legend2);
-            this.chartUsuarios.Location = new System.Drawing.Point(14, 14);
-            this.chartUsuarios.Name = "chartUsuarios";
-            this.chartUsuarios.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series";
-            this.chartUsuarios.Series.Add(series2);
-            this.chartUsuarios.Size = new System.Drawing.Size(525, 301);
-            this.chartUsuarios.TabIndex = 0;
-            // 
             // ReporteGestor2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -197,8 +197,8 @@
             this.Text = "ReporteGestor2";
             this.Load += new System.EventHandler(this.ReporteGestor2_Load);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PBAyuda)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartUsuarios)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PBAyuda)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

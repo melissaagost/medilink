@@ -54,7 +54,24 @@ namespace medilink.Views.reportes
             DateTime fechaInicio = DTPInicio.Value.Date;
             DateTime fechaFin = DTPFin.Value.Date;
 
+            if (DTPFin.Value.Date < DTPInicio.Value.Date)
+            {
+                MessageBox.Show("La fecha de fin no puede ser anterior a la fecha de inicio.", "Rango de Fechas Inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (DTPFin.Value.Date == DTPInicio.Value.Date)
+            {
+                MessageBox.Show("La fecha de inicio y fin no pueden ser iguales.", "Rango de Fechas Inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             List<CitaM> citas = usuarioVM.ListarCitasRecep(estadoSeleccionado, fechaInicio, fechaFin);
+
+            if (citas == null || citas.Count == 0)
+            {
+                MessageBox.Show("No se encontraron citas en el rango de fechas seleccionado.", "Sin Resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
             chartCitas.Series.Clear();
 

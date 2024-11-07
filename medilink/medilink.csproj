@@ -103,7 +103,6 @@
     <Compile Include="BD\ConexionBD.cs" />
     <Compile Include="BD\Crud.cs" />
     <Compile Include="Models\CitaM.cs" />
-    <Compile Include="Models\CitaRG.cs" />
     <Compile Include="Models\CiudadM.cs" />
     <Compile Include="Models\EspecialidadM.cs" />
     <Compile Include="Models\MedicoM.cs" />

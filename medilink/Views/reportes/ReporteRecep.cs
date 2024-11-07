@@ -15,7 +15,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Windows.Forms.DataVisualization.Charting;
 
 namespace medilink.Views.reportes
-{
+{ 
     public partial class ReporteRecep : Form
     {
 
@@ -81,14 +81,30 @@ namespace medilink.Views.reportes
                 IsValueShownAsLabel = true
             };
 
-            foreach (var cita in citas)
+            var citasPorEstado = citas.GroupBy(c => c.status)
+                                      .Select(g => new { Estado = g.Key, Cantidad = g.Count() });
+
+            foreach (var grupo in citasPorEstado)
             {
-                serie.Points.AddXY(cita.fecha.ToShortDateString(), 1);
+                serie.Points.AddXY(grupo.Estado, grupo.Cantidad);
             }
 
+
             chartCitas.Series.Add(serie);
+
+            if (estadoSeleccionado == "Todas")
+            {
+                lblResumen.Text = ObtenerResumenCitasPorMes(citas);
+            }
         }
 
+
+        private string ObtenerResumenCitasPorMes(List<CitaM> citas)
+        {
+            var citasPorMes = citas.GroupBy(c => c.fecha.Month)
+                                   .Select(g => $"Mes {g.Key}: {g.Count()} citas").ToList();
+            return string.Join("\n", citasPorMes);
+        }
         private void BExportar_Click_1(object sender, EventArgs e)
         {
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())

@@ -50,6 +50,7 @@
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip4 = new System.Windows.Forms.ToolTip(this.components);
+            this.lblResumen = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chartCitas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBAyuda)).BeginInit();
@@ -91,7 +92,7 @@
             this.labelNuevoUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(166)))), ((int)(((byte)(124)))));
             this.labelNuevoUsuario.Location = new System.Drawing.Point(317, 23);
             this.labelNuevoUsuario.Name = "labelNuevoUsuario";
-            this.labelNuevoUsuario.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.labelNuevoUsuario.Padding = new System.Windows.Forms.Padding(5);
             this.labelNuevoUsuario.Size = new System.Drawing.Size(252, 41);
             this.labelNuevoUsuario.TabIndex = 2;
             this.labelNuevoUsuario.Text = "Analice sus citas";
@@ -202,6 +203,15 @@
             // 
             this.toolTip4.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip4_Popup);
             // 
+            // lblResumen
+            // 
+            this.lblResumen.AutoSize = true;
+            this.lblResumen.Location = new System.Drawing.Point(149, 570);
+            this.lblResumen.Name = "lblResumen";
+            this.lblResumen.Size = new System.Drawing.Size(10, 13);
+            this.lblResumen.TabIndex = 13;
+            this.lblResumen.Text = " ";
+            // 
             // ReporteMedico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -209,6 +219,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
             this.ClientSize = new System.Drawing.Size(930, 611);
             this.ControlBox = false;
+            this.Controls.Add(this.lblResumen);
             this.Controls.Add(this.BExportar);
             this.Controls.Add(this.BGenerar);
             this.Controls.Add(this.BLimpiar);
@@ -252,5 +263,6 @@
         private System.Windows.Forms.ToolTip toolTip2;
         private System.Windows.Forms.ToolTip toolTip3;
         private System.Windows.Forms.ToolTip toolTip4;
+        private System.Windows.Forms.Label lblResumen;
     }
 }

@@ -157,15 +157,25 @@ namespace medilink.Views.reportes
             
             foreach (var cita in citas)
             {
-                // usar la fecha como X y algún valor o categoría como Y (ejemplo: 1 para citas canceladas, 2 para reprogramadas, etc.)
                 serie.Points.AddXY(cita.fecha.ToShortDateString(), 1); 
             }
 
-            
+            if (estadoSeleccionado == "Todas")
+            {
+                lblResumen.Text = ObtenerResumenCitasPorMes(citas);
+            }
+
+
             chartCitas.Series.Add(serie);
         }
 
 
+        private string ObtenerResumenCitasPorMes(List<CitaM> citas)
+        {
+            var citasPorMes = citas.GroupBy(c => c.fecha.Month)
+                                   .Select(g => $"Mes {g.Key}: {g.Count()} citas").ToList();
+            return string.Join("\n", citasPorMes);
+        }
 
 
 

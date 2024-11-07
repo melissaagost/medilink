@@ -50,6 +50,7 @@
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip4 = new System.Windows.Forms.ToolTip(this.components);
+            this.lblResumen = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCitas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBAyuda)).BeginInit();
@@ -198,12 +199,22 @@
             this.PBAyuda.TabIndex = 15;
             this.PBAyuda.TabStop = false;
             // 
+            // lblResumen
+            // 
+            this.lblResumen.AutoSize = true;
+            this.lblResumen.Location = new System.Drawing.Point(149, 563);
+            this.lblResumen.Name = "lblResumen";
+            this.lblResumen.Size = new System.Drawing.Size(10, 13);
+            this.lblResumen.TabIndex = 16;
+            this.lblResumen.Text = " ";
+            // 
             // ReporteRecep
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
-            this.ClientSize = new System.Drawing.Size(916, 573);
+            this.ClientSize = new System.Drawing.Size(916, 598);
+            this.Controls.Add(this.lblResumen);
             this.Controls.Add(this.PBAyuda);
             this.Controls.Add(this.BLimpiar);
             this.Controls.Add(this.BExportar);
@@ -248,5 +259,6 @@
         private System.Windows.Forms.ToolTip toolTip3;
         private System.Windows.Forms.ToolTip toolTip4;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label lblResumen;
     }
 }

@@ -75,11 +75,14 @@ namespace medilink.Views.reportes
 
             chartCitas.Series.Clear();
 
+
             var serie = new Series("Citas")
             {
                 ChartType = SeriesChartType.Doughnut,
                 IsValueShownAsLabel = true
             };
+
+            //por estado
 
             var citasPorEstado = citas.GroupBy(c => c.status)
                                       .Select(g => new { Estado = g.Key, Cantidad = g.Count() });
@@ -91,6 +94,18 @@ namespace medilink.Views.reportes
                 serie.Points.AddXY(grupo.Estado, grupo.Cantidad);
             }
 
+            //citas por medico
+
+            var citasPorMedico = citas.GroupBy(c => c.Medico.id_medico).Select(g => new { apellido = g.Key, Cantidad = g.Count() });
+
+            lblResumen2.Text = "";
+
+            foreach (var grupo in citasPorMedico)
+            {
+              
+               lblResumen2.Text += $"{grupo.apellido} : {grupo.Cantidad} \n";
+                
+            }
 
             chartCitas.Series.Add(serie);
 
@@ -127,7 +142,10 @@ namespace medilink.Views.reportes
             CBEstado.SelectedIndex = -1;
             DTPInicio.Value = DateTime.Now;
             DTPFin.Value = DateTime.Now;
-            chartCitas.Series.Clear();
+            lblResumen2.Text = "";
+            lblResumen.Text = "";
+
+           chartCitas.Series.Clear();
         }
 
 

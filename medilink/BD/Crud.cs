@@ -1346,6 +1346,8 @@ namespace medilink.BD
 
             return citas;
         }
+
+        //recepcionista
         public static List<CitaM> ObtenerCitasRecep(string estado, DateTime fechaInicio, DateTime fechaFin)
         {
             List<CitaM> citas = new List<CitaM>();
@@ -1353,8 +1355,13 @@ namespace medilink.BD
             using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
             {
 
-                string query = "SELECT * FROM Cita WHERE " +
-                               " fecha BETWEEN @fechaInicio AND @fechaFin"; //agregar tabla medico
+                string query = "SELECT c.id_cita, c.fecha, c.motivo, c.status, m.id_medico, m.id_especialidad, m.id_usuario, e.nombre AS nombre " +
+                               "FROM Cita c " +
+                               "LEFT JOIN Medico m ON c.id_medico = m.id_medico " +
+                               "LEFT JOIN Especialidad e ON m.id_especialidad = e.id_especialidad " +
+                               "WHERE c.fecha BETWEEN @fechaInicio AND @fechaFin";
+
+
 
                 if (!string.IsNullOrEmpty(estado) && estado != "Todas")
                 {
@@ -1382,6 +1389,15 @@ namespace medilink.BD
                                 fecha = Convert.ToDateTime(reader["fecha"]),
                                 motivo = reader["motivo"].ToString(),
                                 status = reader["status"].ToString(),
+                                Medico = new MedicoM
+                                {
+                                    id_medico = reader["id_medico"] != DBNull.Value ? Convert.ToInt32(reader["id_medico"]) : 0,
+                                    id_especialidad = Convert.ToInt32(reader["id_especialidad"]),
+                                    id_usuario = Convert.ToInt32(reader["id_usuario"]),
+                                },
+                                Especialidad = new EspecialidadM{
+                                   nombre = reader["nombre"].ToString() 
+                                }
 
                             });
                         }
@@ -1392,6 +1408,7 @@ namespace medilink.BD
             return citas;
         }
 
+        //gestor
         public static List<CitaM> ObtenerCitasGestor(string estado, DateTime fechaInicio, DateTime fechaFin, int? idMedico = null)
         {
             List<CitaM> citas = new List<CitaM>();

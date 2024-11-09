@@ -21,6 +21,9 @@ namespace medilink.Models
 
         public PacienteM Paciente { get; set; }
 
+        public MedicoM Medico { get; set; }
+
+        public EspecialidadM Especialidad { get; set; }
 
     }
 }

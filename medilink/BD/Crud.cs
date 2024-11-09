@@ -1306,9 +1306,13 @@ namespace medilink.BD
 
             using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
             {
-                
-                string query = "SELECT * FROM Cita WHERE id_medico = @idMedico " +
-                               "AND fecha BETWEEN @fechaInicio AND @fechaFin";
+
+                string query = "SELECT c.id_cita, c.fecha, c.motivo, c.status, c.id_medico, p.id_paciente, p.nombre, p.apellido, p.genero " +
+                               "FROM Cita c " +
+                               "LEFT JOIN Paciente p ON c.id_paciente = p.id_paciente " +
+                               "WHERE c.id_medico = @idMedico " +
+                               "AND c.fecha BETWEEN @fechaInicio AND @fechaFin";
+
 
                 if (!string.IsNullOrEmpty(estado) && estado != "Todas")
                 {
@@ -1337,7 +1341,15 @@ namespace medilink.BD
                                 fecha = Convert.ToDateTime(reader["fecha"]),
                                 motivo = reader["motivo"].ToString(),
                                 status = reader["status"].ToString(),
-                                
+                                Paciente = new PacienteM
+                                {
+                                    id_paciente = reader["id_paciente"] != DBNull.Value ? Convert.ToInt32(reader["id_paciente"]) : 0,
+                                    nombre = reader["nombre"].ToString(),
+                                    apellido = reader["apellido"].ToString(),
+                                    genero = reader["genero"].ToString()
+                                }
+
+
                             });
                         }
                     }

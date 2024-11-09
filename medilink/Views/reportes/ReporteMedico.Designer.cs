@@ -51,6 +51,7 @@
             this.toolTip3 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip4 = new System.Windows.Forms.ToolTip(this.components);
             this.lblResumen = new System.Windows.Forms.Label();
+            this.lblResumen2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chartCitas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBAyuda)).BeginInit();
@@ -212,6 +213,14 @@
             this.lblResumen.TabIndex = 13;
             this.lblResumen.Text = " ";
             // 
+            // lblResumen2
+            // 
+            this.lblResumen2.AutoSize = true;
+            this.lblResumen2.Location = new System.Drawing.Point(149, 589);
+            this.lblResumen2.Name = "lblResumen2";
+            this.lblResumen2.Size = new System.Drawing.Size(0, 13);
+            this.lblResumen2.TabIndex = 14;
+            // 
             // ReporteMedico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -219,6 +228,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
             this.ClientSize = new System.Drawing.Size(930, 611);
             this.ControlBox = false;
+            this.Controls.Add(this.lblResumen2);
             this.Controls.Add(this.lblResumen);
             this.Controls.Add(this.BExportar);
             this.Controls.Add(this.BGenerar);
@@ -264,5 +274,6 @@
         private System.Windows.Forms.ToolTip toolTip3;
         private System.Windows.Forms.ToolTip toolTip4;
         private System.Windows.Forms.Label lblResumen;
+        private System.Windows.Forms.Label lblResumen2;
     }
 }

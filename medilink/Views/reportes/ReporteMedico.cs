@@ -58,6 +58,8 @@ namespace medilink.Views.reportes
             CBEstado.SelectedIndex = -1;
             DTPInicio.Value = DateTime.Now;
             DTPFin.Value = DateTime.Now;
+            lblResumen.Text = "";
+            lblResumen2.Text = "";
             chartCitas.Series.Clear();
         }
 
@@ -81,7 +83,7 @@ namespace medilink.Views.reportes
         private int BuscarMedico(int idUsuario) //obtiene medico logueado para mostrar citas
         {
 
-            using (var conexionBD = new ConexionBD()) 
+            using (var conexionBD = new ConexionBD())  
             {
                 using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
                 {
@@ -154,10 +156,43 @@ namespace medilink.Views.reportes
                 IsValueShownAsLabel = true
             };
 
-            
-            foreach (var cita in citas)
+            //citas por estado
+
+            var citasPorEstado = citas.GroupBy(c => c.status)
+                                       .Select(g => new { Estado = g.Key, Cantidad = g.Count() });
+
+
+            foreach (var grupo in citasPorEstado)
             {
-                serie.Points.AddXY(cita.fecha.ToShortDateString(), 1); 
+                serie.Points.AddXY(grupo.Estado, grupo.Cantidad);
+            }
+
+            chartCitas.Series.Add(serie);
+
+            //citas por genro
+
+            var citasPorGenero = citas.GroupBy(c => c.Paciente.genero).Select(g => new { Genero = g.Key, Cantidad = g.Count() });
+
+            lblResumen2.Text = "";
+
+            foreach (var grupo in citasPorGenero)
+            {
+                string leyenda;
+
+                if (grupo.Genero == "M")
+                {
+                    leyenda = "Hombres atendidos";
+                }
+                else if (grupo.Genero == "F")
+                {
+                    leyenda = "Mujeres atendidas";
+                }
+                else
+                {
+                    leyenda = "Otros atendidos"; // valores no esperados
+                }
+
+                lblResumen2.Text += $"{leyenda} : {grupo.Cantidad} \n";
             }
 
             if (estadoSeleccionado == "Todas")
@@ -166,7 +201,6 @@ namespace medilink.Views.reportes
             }
 
 
-            chartCitas.Series.Add(serie);
         }
 
 

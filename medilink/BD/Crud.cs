@@ -237,16 +237,9 @@ namespace medilink.BD
                         oconexion.Open();
                     }
 
-                    using (MySqlCommand comando = new MySqlCommand("UPDATE Usuario SET  usuario = @usuario, foto = @foto, direccion = @direccion, correo = @correo, telefono = @telefono, contraseña = @contraseña WHERE id_usuario = @id_usuario", oconexion))
+                    using (MySqlCommand comando = new MySqlCommand("UPDATE Usuario SET  usuario = @usuario, direccion = @direccion, correo = @correo, telefono = @telefono, contraseña = @contraseña WHERE id_usuario = @id_usuario", oconexion))
                     {
-                        if (usuario.foto != null)
-                        {
-                            comando.Parameters.Add("@foto", MySqlDbType.Blob).Value = usuario.foto;
-                        }
-                        else
-                        {
-                            comando.Parameters.Add("@foto", MySqlDbType.Blob).Value = DBNull.Value;
-                        }
+                        
 
                         comando.Parameters.AddWithValue("@usuario", usuario.usuario);
                         comando.Parameters.AddWithValue("@direccion", usuario.direccion);
@@ -281,7 +274,7 @@ namespace medilink.BD
                         conexion.Open();
                     }
 
-                    string query = "SELECT id_usuario, usuario, correo, direccion, telefono, contraseña, foto FROM Usuario WHERE id_usuario = @id_usuario";
+                    string query = "SELECT id_usuario, usuario, correo, direccion, telefono, contraseña FROM Usuario WHERE id_usuario = @id_usuario";
                     using (MySqlCommand comando = new MySqlCommand(query, conexion))
                     {
                         comando.Parameters.AddWithValue("@id_usuario", idUsuario);
@@ -297,8 +290,7 @@ namespace medilink.BD
                                     correo = reader.GetString("correo"),
                                     direccion = reader.GetString("direccion"),
                                     telefono = reader.GetString("telefono"),
-                                    contraseña = reader.GetString("contraseña"),
-                                    foto = reader.IsDBNull(reader.GetOrdinal("foto")) ? null : (byte[])reader["foto"]
+                                    contraseña = reader.GetString("contraseña")
                                 };
                             }
                         }
@@ -1316,7 +1308,7 @@ namespace medilink.BD
 
                 if (!string.IsNullOrEmpty(estado) && estado != "Todas")
                 {
-                    query += " AND status = @estado";
+                    query += " AND c.status = @estado";
                 }
 
                 using (MySqlCommand comando = new MySqlCommand(query, conexion))
@@ -1366,12 +1358,13 @@ namespace medilink.BD
 
             using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
             {
-
-                string query = "SELECT c.id_cita, c.fecha, c.motivo, c.status, m.id_medico, m.id_especialidad, m.id_usuario, e.nombre AS nombre " +
+                string query = "SELECT c.id_cita, c.fecha, c.motivo, c.status, m.id_medico, m.id_especialidad, m.id_usuario, e.nombre AS nombre_especialidad " +
                                "FROM Cita c " +
                                "LEFT JOIN Medico m ON c.id_medico = m.id_medico " +
                                "LEFT JOIN Especialidad e ON m.id_especialidad = e.id_especialidad " +
                                "WHERE c.fecha BETWEEN @fechaInicio AND @fechaFin";
+
+
 
 
 
@@ -1408,7 +1401,8 @@ namespace medilink.BD
                                     id_usuario = Convert.ToInt32(reader["id_usuario"]),
                                 },
                                 Especialidad = new EspecialidadM{
-                                   nombre = reader["nombre"].ToString() 
+                                   id_especialidad= Convert.ToInt32(reader["id_especialidad"]),
+                                   nombre = reader["nombre_especialidad"].ToString() 
                                 }
 
                             });
@@ -1428,7 +1422,13 @@ namespace medilink.BD
             using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
             {
                 // Se construye la consulta con filtros opcionales
-                string query = "SELECT c.id_cita, c.fecha, c.motivo, c.status, p.id_paciente, p.nombre, p.apellido, p.genero FROM Cita c LEFT JOIN Paciente p ON c.id_paciente = p.id_paciente WHERE c.fecha BETWEEN @fechaInicio AND @fechaFin";
+                string query = "SELECT c.id_cita, c.fecha, c.motivo, c.status, m.id_medico, m.id_especialidad, m.id_usuario, " +
+                               "p.id_paciente, p.nombre AS nombre_paciente, p.apellido, p.genero, e.nombre AS nombre_especialidad " +
+                               "FROM Cita c " +
+                               "LEFT JOIN Medico m ON c.id_medico = m.id_medico " +
+                               "LEFT JOIN Paciente p ON c.id_paciente = p.id_paciente " +
+                               "LEFT JOIN Especialidad e ON m.id_especialidad = e.id_especialidad " +
+                               "WHERE c.fecha BETWEEN @fechaInicio AND @fechaFin";
 
                 if (!string.IsNullOrEmpty(estado) && estado != "Todas")
                 {
@@ -1474,10 +1474,15 @@ namespace medilink.BD
                                 Paciente = new PacienteM
                                 {
                                     id_paciente = reader["id_paciente"] != DBNull.Value ? Convert.ToInt32(reader["id_paciente"]) : 0,
-                                    nombre = reader["nombre"].ToString(),
+                                    nombre = reader["nombre_paciente"].ToString(),
                                     apellido = reader["apellido"].ToString(),
                                     genero = reader["genero"].ToString()
-                                }
+                                },
+                                 Especialidad = new EspecialidadM
+                                 {
+                                     id_especialidad = Convert.ToInt32(reader["id_especialidad"]),
+                                     nombre = reader["nombre_especialidad"].ToString()
+                                 }
                             });
                         }
                     }

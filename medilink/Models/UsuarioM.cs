@@ -20,7 +20,6 @@ namespace medilink.Models
                 usuario = reader["usuario"].ToString(),
                 nombre = reader["nombre"].ToString(),
                 apellido = reader["apellido"].ToString(),
-                foto = reader["foto"] != DBNull.Value ? (byte[])reader["foto"] : null,
                 correo = reader["correo"].ToString(),
                 status = reader["status"].ToString(),
                 id_provincia = Convert.ToInt32(reader["id_provincia"]),
@@ -38,7 +37,6 @@ namespace medilink.Models
         public string apellido { get; set; }
         public string usuario { get; set; }
 
-        public byte[] foto { get; set; }
         public string contraseña { get; set; }
         public DateTime fecha_nacimiento { get; set; }
         public string telefono { get; set; }

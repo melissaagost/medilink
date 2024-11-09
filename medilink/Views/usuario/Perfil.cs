@@ -15,10 +15,10 @@ namespace medilink.Views.usuario
 {
     public partial class Perfil : Form
     {
-        private Panel panelVistas; // Define una variable para almacenar la referencia al panel
+        private Panel panelVistas; 
         private UsuarioM usuarioLogueado; 
         private CrudVM usuarioVM;
-        private EditarPerfil editarPerfilForm; // Agregar una referencia a la vista de edición
+        private EditarPerfil editarPerfilForm; 
 
         public Perfil(Panel panelVistasDelMenu, UsuarioM usuario)
         {
@@ -26,7 +26,7 @@ namespace medilink.Views.usuario
             this.panelVistas = panelVistasDelMenu;
             this.usuarioLogueado = usuario;
             usuarioVM = new CrudVM(usuarioLogueado.id_perfil);
-            CargarDatosUsuario();  // Cargar los datos del usuario al inicializar la vista
+            CargarDatosUsuario(); 
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -57,7 +57,7 @@ namespace medilink.Views.usuario
         // Método para cargar los datos del usuario en los Labels y PictureBox
         private void CargarDatosUsuario()
         {
-            // Asignar los valores a los Labels
+            
             LabelNombre.Text = $"{usuarioLogueado.nombre} {usuarioLogueado.apellido}";
             LabelCorreo.Text = usuarioLogueado.correo;
             LabelDireccion.Text = usuarioLogueado.direccion;
@@ -65,41 +65,26 @@ namespace medilink.Views.usuario
             LabelUsuario.Text = usuarioLogueado.usuario;
             LabelPerfil.Text = usuarioLogueado.id_perfil.ToString();
 
-            // Mostrar la foto de perfil, si existe
-            if (usuarioLogueado.foto != null && usuarioLogueado.foto.Length > 0)
-            {
-                using (var ms = new MemoryStream(usuarioLogueado.foto))
-                {
-                    pictureBoxPFP.Image = Image.FromStream(ms);
-                }
-            }
-            else
-            {
-                pictureBoxPFP.Image = null; // O asignar una imagen por defecto si no hay foto
-            }
         }
 
         // Método que se ejecuta cuando se dispara el evento PerfilActualizado
         private void OnPerfilActualizado(object sender, EventArgs e)
         {
-            // Recargar los datos del usuario desde la base de datos después de la edición
-            usuarioLogueado = usuarioVM.ObtenerUsuarioPorId(usuarioLogueado.id_usuario);  // Asegúrate de que esta consulta esté funcionando correctamente
-            CargarDatosUsuario(); // Recargar los datos del usuario en la vista
+            usuarioLogueado = usuarioVM.ObtenerUsuarioPorId(usuarioLogueado.id_usuario); 
+            CargarDatosUsuario(); 
         }
 
         // Nueva función para recargar los datos del perfil al volver a la vista perfil
         private void RecargarDatosUsuario()
         {
-            // Recargar los datos del usuario desde la base de datos cada vez que se abre la vista de perfil
             usuarioLogueado = usuarioVM.ObtenerUsuarioPorId(usuarioLogueado.id_usuario);
             CargarDatosUsuario();
         }
 
-        // Cuando el formulario de perfil gana el foco (es activado), recargamos los datos
         protected override void OnActivated(EventArgs e)
         {
             base.OnActivated(e);
-            RecargarDatosUsuario();  // Recargar los datos cuando el formulario de perfil se activa
+            RecargarDatosUsuario(); 
         }
     }
 

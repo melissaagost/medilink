@@ -140,6 +140,18 @@ namespace medilink.Views.reportes
                 lblResumen2.Text += $"{leyenda} : {grupo.Cantidad} \n";
             }
 
+            //por especialidad
+            var citasPorEspecialidad = citas.GroupBy(c => c.Especialidad.nombre)
+                                .Select(g => new { nombre = g.Key, Cantidad = g.Count() });
+
+            lblResumen3.Text = "";
+
+            foreach (var grupo in citasPorEspecialidad)
+            {
+                lblResumen3.Text += $"{grupo.nombre} con un total de: {grupo.Cantidad} citas\n";
+            }
+
+
             if (estadoSeleccionado == "Todas")
             {
                 lblResumen.Text = ObtenerResumenCitasPorMes(citas);
@@ -182,6 +194,7 @@ namespace medilink.Views.reportes
             DTPFin.Value = DateTime.Now;
             lblResumen2.Text = "";
             lblResumen.Text = "";
+            lblResumen3.Text = "";
             chartCitas.Series.Clear();
         }
 

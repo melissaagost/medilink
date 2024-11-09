@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReporteGestor));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.labelNuevoUsuario = new System.Windows.Forms.Label();
             this.PBAyuda = new System.Windows.Forms.PictureBox();
             this.labeLDNI = new System.Windows.Forms.Label();
@@ -54,6 +54,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lblResumen = new System.Windows.Forms.Label();
             this.lblResumen2 = new System.Windows.Forms.Label();
+            this.lblResumen3 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PBAyuda)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCitas)).BeginInit();
@@ -67,7 +71,7 @@
             this.labelNuevoUsuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(166)))), ((int)(((byte)(124)))));
             this.labelNuevoUsuario.Location = new System.Drawing.Point(186, 33);
             this.labelNuevoUsuario.Name = "labelNuevoUsuario";
-            this.labelNuevoUsuario.Padding = new System.Windows.Forms.Padding(5);
+            this.labelNuevoUsuario.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.labelNuevoUsuario.Size = new System.Drawing.Size(505, 41);
             this.labelNuevoUsuario.TabIndex = 4;
             this.labelNuevoUsuario.Text = "Analice las citas del Centro Médico";
@@ -126,17 +130,17 @@
             // 
             // chartCitas
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartCitas.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartCitas.Legends.Add(legend1);
+            chartArea3.Name = "ChartArea1";
+            this.chartCitas.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chartCitas.Legends.Add(legend3);
             this.chartCitas.Location = new System.Drawing.Point(14, 14);
             this.chartCitas.Name = "chartCitas";
             this.chartCitas.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SemiTransparent;
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series";
-            this.chartCitas.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series";
+            this.chartCitas.Series.Add(series3);
             this.chartCitas.Size = new System.Drawing.Size(525, 301);
             this.chartCitas.TabIndex = 0;
             // 
@@ -221,26 +225,70 @@
             // lblResumen
             // 
             this.lblResumen.AutoSize = true;
-            this.lblResumen.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResumen.Location = new System.Drawing.Point(149, 560);
+            this.lblResumen.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Italic);
+            this.lblResumen.Location = new System.Drawing.Point(148, 589);
             this.lblResumen.Name = "lblResumen";
-            this.lblResumen.Size = new System.Drawing.Size(0, 13);
+            this.lblResumen.Size = new System.Drawing.Size(0, 17);
             this.lblResumen.TabIndex = 30;
             // 
             // lblResumen2
             // 
             this.lblResumen2.AutoSize = true;
-            this.lblResumen2.Location = new System.Drawing.Point(149, 590);
+            this.lblResumen2.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResumen2.Location = new System.Drawing.Point(288, 589);
             this.lblResumen2.Name = "lblResumen2";
-            this.lblResumen2.Size = new System.Drawing.Size(0, 13);
+            this.lblResumen2.Size = new System.Drawing.Size(0, 18);
             this.lblResumen2.TabIndex = 31;
+            // 
+            // lblResumen3
+            // 
+            this.lblResumen3.AutoSize = true;
+            this.lblResumen3.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Italic);
+            this.lblResumen3.Location = new System.Drawing.Point(543, 589);
+            this.lblResumen3.Name = "lblResumen3";
+            this.lblResumen3.Size = new System.Drawing.Size(0, 17);
+            this.lblResumen3.TabIndex = 32;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Verdana", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.label3.Location = new System.Drawing.Point(288, 560);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(224, 16);
+            this.label3.TabIndex = 34;
+            this.label3.Text = "Mujeres y Hombres Atendidos";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Verdana", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(148, 560);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(107, 16);
+            this.label5.TabIndex = 33;
+            this.label5.Text = "Citas por mes";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Verdana", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.label6.Location = new System.Drawing.Point(543, 560);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(185, 16);
+            this.label6.TabIndex = 35;
+            this.label6.Text = "Total de citas del médico";
             // 
             // ReporteGestor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
-            this.ClientSize = new System.Drawing.Size(916, 612);
+            this.ClientSize = new System.Drawing.Size(916, 646);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.lblResumen3);
             this.Controls.Add(this.lblResumen2);
             this.Controls.Add(this.lblResumen);
             this.Controls.Add(this.CBMedico);
@@ -258,7 +306,7 @@
             this.Controls.Add(this.PBAyuda);
             this.Controls.Add(this.labelNuevoUsuario);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "ReporteGestor";
             this.Text = "ReporteGestor";
             this.Load += new System.EventHandler(this.ReporteGestor_Load_1);
@@ -293,5 +341,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblResumen;
         private System.Windows.Forms.Label lblResumen2;
+        private System.Windows.Forms.Label lblResumen3;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }

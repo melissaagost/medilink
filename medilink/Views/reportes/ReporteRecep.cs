@@ -94,18 +94,17 @@ namespace medilink.Views.reportes
                 serie.Points.AddXY(grupo.Estado, grupo.Cantidad);
             }
 
-            //citas por medico
-
-            var citasPorMedico = citas.GroupBy(c => c.Medico.id_medico).Select(g => new { apellido = g.Key, Cantidad = g.Count() });
+            //por especialidad
+            var citasPorEspecialidad = citas.GroupBy(c => c.Especialidad.nombre)
+                                .Select(g => new { nombre = g.Key, Cantidad = g.Count() });
 
             lblResumen2.Text = "";
 
-            foreach (var grupo in citasPorMedico)
+            foreach (var grupo in citasPorEspecialidad)
             {
-              
-               lblResumen2.Text += $"{grupo.apellido} : {grupo.Cantidad} \n";
-                
+                lblResumen2.Text += $"{grupo.nombre} : {grupo.Cantidad} \n";
             }
+
 
             chartCitas.Series.Add(serie);
 

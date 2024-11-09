@@ -52,6 +52,8 @@
             this.toolTip4 = new System.Windows.Forms.ToolTip(this.components);
             this.lblResumen = new System.Windows.Forms.Label();
             this.lblResumen2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCitas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBAyuda)).BeginInit();
@@ -203,26 +205,50 @@
             // lblResumen
             // 
             this.lblResumen.AutoSize = true;
-            this.lblResumen.Location = new System.Drawing.Point(149, 563);
+            this.lblResumen.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Italic);
+            this.lblResumen.Location = new System.Drawing.Point(151, 591);
             this.lblResumen.Name = "lblResumen";
-            this.lblResumen.Size = new System.Drawing.Size(10, 13);
+            this.lblResumen.Size = new System.Drawing.Size(13, 17);
             this.lblResumen.TabIndex = 16;
             this.lblResumen.Text = " ";
             // 
             // lblResumen2
             // 
             this.lblResumen2.AutoSize = true;
-            this.lblResumen2.Location = new System.Drawing.Point(149, 592);
+            this.lblResumen2.Font = new System.Drawing.Font("Verdana", 10F, System.Drawing.FontStyle.Italic);
+            this.lblResumen2.Location = new System.Drawing.Point(318, 591);
             this.lblResumen2.Name = "lblResumen2";
-            this.lblResumen2.Size = new System.Drawing.Size(0, 13);
+            this.lblResumen2.Size = new System.Drawing.Size(0, 17);
             this.lblResumen2.TabIndex = 17;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Verdana", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.label3.Location = new System.Drawing.Point(151, 562);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(107, 16);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Citas por mes";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Verdana", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.label4.Location = new System.Drawing.Point(318, 562);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(166, 16);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "Citas por especialidad";
             // 
             // ReporteRecep
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(253)))), ((int)(((byte)(240)))));
-            this.ClientSize = new System.Drawing.Size(916, 630);
+            this.ClientSize = new System.Drawing.Size(916, 675);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.lblResumen2);
             this.Controls.Add(this.lblResumen);
             this.Controls.Add(this.PBAyuda);
@@ -271,5 +297,7 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label lblResumen;
         private System.Windows.Forms.Label lblResumen2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }

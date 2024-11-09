@@ -28,7 +28,7 @@ namespace medilink.Views.reportes
             this.Load += new EventHandler(ReporteRecep_Load);
 
             toolTip1.SetToolTip(BGenerar, "Generar Reporte");
-            toolTip2.SetToolTip(BExportar, "Exportar Reporte");
+            toolTip2.SetToolTip(BExportar, "Exportar Reporte"); 
             toolTip3.SetToolTip(BLimpiar, "Limpiar Filtros");
             toolTip4.SetToolTip(PBAyuda, "Seleccione el estado de las citas que desea ver, luego indique el rango de fechas.");
         }
@@ -83,6 +83,8 @@ namespace medilink.Views.reportes
 
             var citasPorEstado = citas.GroupBy(c => c.status)
                                       .Select(g => new { Estado = g.Key, Cantidad = g.Count() });
+
+            
 
             foreach (var grupo in citasPorEstado)
             {

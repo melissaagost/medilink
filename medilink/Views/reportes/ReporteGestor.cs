@@ -91,10 +91,7 @@ namespace medilink.Views.reportes
                 return;
             }
 
-            foreach (var cita in citas)
-            {
-                cita.Paciente = usuarioVM.ObtenerPacientePorId(cita.id_paciente);
-            }
+         
 
 
             chartCitas.Series.Clear();
@@ -104,6 +101,8 @@ namespace medilink.Views.reportes
                 ChartType = SeriesChartType.Doughnut,
                 IsValueShownAsLabel = true
             };
+
+            //citas por estado
 
             var citasPorEstado = citas.GroupBy(c => c.status)
                                        .Select(g => new { Estado = g.Key, Cantidad = g.Count() });
@@ -115,9 +114,36 @@ namespace medilink.Views.reportes
 
             chartCitas.Series.Add(serie);
 
+            //citas por genro
+
+            var citasPorGenero = citas.GroupBy(c => c.Paciente.genero).Select(g => new { Genero = g.Key, Cantidad = g.Count() });
+
+            lblResumen2.Text = "";
+
+            foreach (var grupo in citasPorGenero)
+            {
+                string leyenda;
+
+                if (grupo.Genero == "M")
+                {
+                    leyenda = "Hombres atendidos";
+                }
+                else if (grupo.Genero == "F")
+                {
+                    leyenda = "Mujeres atendidas";
+                }
+                else
+                {
+                    leyenda = "Otros atendidos"; // valores no esperados
+                }
+
+                lblResumen2.Text += $"{leyenda} : {grupo.Cantidad} \n";
+            }
+
             if (estadoSeleccionado == "Todas")
             {
                 lblResumen.Text = ObtenerResumenCitasPorMes(citas);
+                
             }
 
 
@@ -129,6 +155,7 @@ namespace medilink.Views.reportes
                                    .Select(g => $"Mes {g.Key}: {g.Count()} citas").ToList();
             return string.Join("\n", citasPorMes);
         }
+
 
         private void BExportar_Click_1(object sender, EventArgs e)
         {
@@ -153,6 +180,7 @@ namespace medilink.Views.reportes
             CBMedico.SelectedIndex = -1;
             DTPInicio.Value = DateTime.Now;
             DTPFin.Value = DateTime.Now;
+            lblResumen2.Text = "";
             lblResumen.Text = "";
             chartCitas.Series.Clear();
         }

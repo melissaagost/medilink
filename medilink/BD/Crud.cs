@@ -1299,7 +1299,7 @@ namespace medilink.BD
 
         //reportes
     
-
+        //medicos
         public static List<CitaM> ObtenerCitasFiltradas(int idMedico, string estado, DateTime fechaInicio, DateTime fechaFin)
         {
             List<CitaM> citas = new List<CitaM>();
@@ -1354,7 +1354,7 @@ namespace medilink.BD
             {
 
                 string query = "SELECT * FROM Cita WHERE " +
-                               " fecha BETWEEN @fechaInicio AND @fechaFin";
+                               " fecha BETWEEN @fechaInicio AND @fechaFin"; //agregar tabla medico
 
                 if (!string.IsNullOrEmpty(estado) && estado != "Todas")
                 {

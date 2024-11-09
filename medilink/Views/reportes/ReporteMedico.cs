@@ -78,10 +78,10 @@ namespace medilink.Views.reportes
             }
         }
 
-        private int BuscarMedico(int idUsuario)
+        private int BuscarMedico(int idUsuario) //obtiene medico logueado para mostrar citas
         {
 
-            using (var conexionBD = new ConexionBD()) // Asegúrate de que `conexionBD` es una instancia válida.
+            using (var conexionBD = new ConexionBD()) 
             {
                 using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
                 {
@@ -98,7 +98,7 @@ namespace medilink.Views.reportes
                                 {
                                     reader.Read();
 
-                                    return Convert.ToInt32(reader["id_usuario"]);
+                                    return Convert.ToInt32(reader["id_medico"]);
                                 }
                             }
 

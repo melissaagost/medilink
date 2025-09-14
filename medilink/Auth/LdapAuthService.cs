@@ -23,41 +23,83 @@ namespace medilink.Auth
 
             // fallback: usar IP + BaseDN
             return new PrincipalContext(ContextType.Domain, _adServer, _baseDn);
+
+
         }
 
         // Validar credenciales contra Active Directory
+        //public bool ValidateUser(string username, string password)
+        //{
+        //    using (var ctx = GetContext())
+        //    {
+        //        return ctx.ValidateCredentials(username, password, ContextOptions.Negotiate);
+        //    }
+        //}
+
         public bool ValidateUser(string username, string password)
         {
             using (var ctx = GetContext())
             {
-                return ctx.ValidateCredentials(username, password, ContextOptions.Negotiate);
+                // intentos con distintos formatos + 2 modos de bind
+                string[] users = {
+            username,                            // "user-s"
+            $"LU60591\\{username}",              // "LU60591\user-s"
+            $"{username}@LU60591.LOCAL"          // "user-s@LU60591.LOCAL"
+        };
+
+                foreach (var u in users)
+                {
+                    if (ctx.ValidateCredentials(u, password, ContextOptions.Negotiate)) return true;
+                    if (ctx.ValidateCredentials(u, password, ContextOptions.SimpleBind)) return true;
+                }
+                return false;
             }
         }
 
+
         // Obtener el rol del usuario según los grupos de AD
+        //public string GetUserRole(string username)
+        //{
+        //    using (var ctx = GetContext())
+        //    using (var user = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, username))
+        //    {
+        //        if (user == null) return null;
+
+        //        var groups = user.GetAuthorizationGroups().Select(g => g.SamAccountName).ToList();
+
+        //        if (groups.Contains(_grpSis, StringComparer.OrdinalIgnoreCase))
+        //            return "Sistemas";
+
+        //        if (groups.Contains(_grpGes, StringComparer.OrdinalIgnoreCase))
+        //            return "Gestor";
+
+        //        if (groups.Contains(_grpMed, StringComparer.OrdinalIgnoreCase))
+        //            return "Medico";
+
+        //        if (groups.Contains(_grpRec, StringComparer.OrdinalIgnoreCase))
+        //            return "Recepcionista";
+
+        //        return null; // No tiene grupo válido de la app
+        //    }
+        //}
+
         public string GetUserRole(string username)
         {
             using (var ctx = GetContext())
-            using (var user = UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, username))
             {
-                if (user == null) return null;
+                var up =
+                    UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, username)
+                 ?? UserPrincipal.FindByIdentity(ctx, IdentityType.UserPrincipalName, $"{username}@LU60591.LOCAL");
+                if (up == null) return null;
 
-                var groups = user.GetAuthorizationGroups().Select(g => g.SamAccountName).ToList();
-
-                if (groups.Contains(_grpSis, StringComparer.OrdinalIgnoreCase))
-                    return "Sistemas";
-
-                if (groups.Contains(_grpGes, StringComparer.OrdinalIgnoreCase))
-                    return "Gestor";
-
-                if (groups.Contains(_grpMed, StringComparer.OrdinalIgnoreCase))
-                    return "Medico";
-
-                if (groups.Contains(_grpRec, StringComparer.OrdinalIgnoreCase))
-                    return "Recepcionista";
-
-                return null; // No tiene grupo válido de la app
+                var groups = up.GetAuthorizationGroups().Select(g => g.SamAccountName).ToList();
+                if (groups.Any(n => n.Equals(_grpSis, StringComparison.OrdinalIgnoreCase))) return "Sistemas";
+                if (groups.Any(n => n.Equals(_grpGes, StringComparison.OrdinalIgnoreCase))) return "Gestor";
+                if (groups.Any(n => n.Equals(_grpMed, StringComparison.OrdinalIgnoreCase))) return "Medico";
+                if (groups.Any(n => n.Equals(_grpRec, StringComparison.OrdinalIgnoreCase))) return "Recepcionista";
+                return null;
             }
         }
+
     }
 }

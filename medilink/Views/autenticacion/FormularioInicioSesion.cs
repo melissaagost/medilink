@@ -193,8 +193,8 @@ namespace medilink.Views.autenticacion
             // ====== MODO LDAP (requerido por el TP) ======
             if (mode.Equals("LDAP", StringComparison.OrdinalIgnoreCase))
             {
-                try
-                {
+                //try
+                //{
                     var ldap = new medilink.Auth.LdapAuthService();
 
                     // 1) Autenticar contra AD
@@ -205,7 +205,7 @@ namespace medilink.Views.autenticacion
                     }
 
                     // 2) Resolver rol por pertenencia a grupos AD
-                    var rol = ldap.GetUserRole(usuario);
+                    var rol = ldap.GetUserRole(usuario, contraseña);
                     if (rol == null)
                     {
                         MessageBox.Show("El usuario no tiene un grupo de la app en AD.");
@@ -238,12 +238,12 @@ namespace medilink.Views.autenticacion
 
                     this.Close();
                     return;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error de autenticación LDAP: " + ex.Message);
-                    return;
-                }
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show("Error de autenticación LDAP: " + ex.Message);
+                //    return;
+                //}
             }
 
             // ====== MODO LOCAL (fallback: tu lógica actual con MySQL) ======

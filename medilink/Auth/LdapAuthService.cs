@@ -14,16 +14,29 @@ namespace medilink.Auth
         private readonly string _grpGes = ConfigurationManager.AppSettings["GrpGestor"];
         private readonly string _grpMed = ConfigurationManager.AppSettings["GrpMedico"];
         private readonly string _grpRec = ConfigurationManager.AppSettings["GrpRecepcionista"];
+        private PrincipalContext _principalContext;
 
         // Crear el contexto de conexión al dominio
         private PrincipalContext GetContext()
         {
-            if (!string.IsNullOrWhiteSpace(_domainName))
-                return new PrincipalContext(ContextType.Domain, _domainName);
+            //if (!string.IsNullOrWhiteSpace(_domainName))
+            //{
+            //    //_principalContext = new PrincipalContext(ContextType.Domain, _domainName);
+            //    //return _principalContext;
+            //}
+            //return new PrincipalContext(ContextType.Domain, _domainName);
+
 
             // fallback: usar IP + BaseDN
-            return new PrincipalContext(ContextType.Domain, _adServer, _baseDn);
 
+            //return new PrincipalContext(ContextType.Domain, _adServer, _baseDn);
+
+            if (_principalContext == null)
+            {
+                _principalContext = new PrincipalContext(ContextType.Domain, _adServer, _baseDn);
+            }
+            
+            return _principalContext;
 
         }
 
@@ -38,14 +51,14 @@ namespace medilink.Auth
 
         public bool ValidateUser(string username, string password)
         {
-            using (var ctx = GetContext())
-            {
+            var ctx = GetContext();
+            //{
                 // intentos con distintos formatos + 2 modos de bind
                 string[] users = {
-            username,                            // "user-s"
-            $"LU60591\\{username}",              // "LU60591\user-s"
-            $"{username}@LU60591.LOCAL"          // "user-s@LU60591.LOCAL"
-        };
+                    username,                            // "user-s"
+                    $"LU60591\\{username}",              // "LU60591\user-s"
+                    $"{username}@LU60591.LOCAL"          // "user-s@LU60591.LOCAL"
+                };
 
                 foreach (var u in users)
                 {
@@ -53,7 +66,7 @@ namespace medilink.Auth
                     if (ctx.ValidateCredentials(u, password, ContextOptions.SimpleBind)) return true;
                 }
                 return false;
-            }
+            //}
         }
 
 
@@ -83,22 +96,41 @@ namespace medilink.Auth
         //    }
         //}
 
-        public string GetUserRole(string username)
+        public string GetUserRole(string username, string password)
         {
-            using (var ctx = GetContext())
-            {
-                var up =
-                    UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, username)
-                 ?? UserPrincipal.FindByIdentity(ctx, IdentityType.UserPrincipalName, $"{username}@LU60591.LOCAL");
-                if (up == null) return null;
+            using (var ctx = new PrincipalContext(
+            ContextType.Domain,
+            "192.168.0.50",
+            "DC=lu60591,DC=local",
+            username,
+            password))
+                {
+                    var up = UserPrincipal.FindByIdentity(ctx, username);
+                    var groups = up.GetAuthorizationGroups().Select(g => g.SamAccountName).ToList();
+                    if (groups.Any(n => n.Equals(_grpSis, StringComparison.OrdinalIgnoreCase))) return "Sistemas";
+                    if (groups.Any(n => n.Equals(_grpGes, StringComparison.OrdinalIgnoreCase))) return "Gestor";
+                    if (groups.Any(n => n.Equals(_grpMed, StringComparison.OrdinalIgnoreCase))) return "Medico";
+                    if (groups.Any(n => n.Equals(_grpRec, StringComparison.OrdinalIgnoreCase))) return "Recepcionista";
+                    return null; // only works if username/password were valid
+                }
+            
+            //var ctx = GetContext();
 
-                var groups = up.GetAuthorizationGroups().Select(g => g.SamAccountName).ToList();
-                if (groups.Any(n => n.Equals(_grpSis, StringComparison.OrdinalIgnoreCase))) return "Sistemas";
-                if (groups.Any(n => n.Equals(_grpGes, StringComparison.OrdinalIgnoreCase))) return "Gestor";
-                if (groups.Any(n => n.Equals(_grpMed, StringComparison.OrdinalIgnoreCase))) return "Medico";
-                if (groups.Any(n => n.Equals(_grpRec, StringComparison.OrdinalIgnoreCase))) return "Recepcionista";
-                return null;
-            }
+            ////{
+            //    //var up =
+            //    //    UserPrincipal.FindByIdentity(ctx, IdentityType.SamAccountName, username)
+            //    // ?? UserPrincipal.FindByIdentity(ctx, IdentityType.UserPrincipalName, $"{username}@LU60591");
+
+            //    var up = UserPrincipal.FindByIdentity(ctx, username);
+            //    if (up == null) return null;
+
+                //var groups = up.GetAuthorizationGroups().Select(g => g.SamAccountName).ToList();
+                //if (groups.Any(n => n.Equals(_grpSis, StringComparison.OrdinalIgnoreCase))) return "Sistemas";
+                //if (groups.Any(n => n.Equals(_grpGes, StringComparison.OrdinalIgnoreCase))) return "Gestor";
+                //if (groups.Any(n => n.Equals(_grpMed, StringComparison.OrdinalIgnoreCase))) return "Medico";
+                //if (groups.Any(n => n.Equals(_grpRec, StringComparison.OrdinalIgnoreCase))) return "Recepcionista";
+                //return null;
+            //}
         }
 
     }

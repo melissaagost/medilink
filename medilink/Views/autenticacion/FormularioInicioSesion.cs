@@ -13,6 +13,9 @@ using medilink.Views.assets;
 using medilink.BD;
 using MySql.Data.MySqlClient;
 using medilink.Models;
+using medilink.Auth;
+using System.Configuration;
+
 
 
 namespace medilink.Views.autenticacion
@@ -179,86 +182,145 @@ namespace medilink.Views.autenticacion
         }
         private void Ingresar(string usuario, string contraseña)
         {
-            // Validar que no haya espacios en blanco ni campos vacíos
             if (string.IsNullOrWhiteSpace(usuario) || string.IsNullOrWhiteSpace(contraseña))
             {
                 MessageBox.Show("Los campos de usuario y contraseña no pueden estar vacíos ni contener espacios.");
                 return;
             }
 
-            // Conectar a la base de datos y verificar el usuario
+            var mode = ConfigurationManager.AppSettings["AuthMode"] ?? "LDAP";
+
+            // ====== MODO LDAP (requerido por el TP) ======
+            if (mode.Equals("LDAP", StringComparison.OrdinalIgnoreCase))
+            {
+                try
+                {
+                    var ldap = new medilink.Auth.LdapAuthService();
+
+                    // 1) Autenticar contra AD
+                    if (!ldap.ValidateUser(usuario, contraseña))
+                    {
+                        MessageBox.Show("Usuario o contraseña inválidos (AD).");
+                        return;
+                    }
+
+                    // 2) Resolver rol por pertenencia a grupos AD
+                    var rol = ldap.GetUserRole(usuario);
+                    if (rol == null)
+                    {
+                        MessageBox.Show("El usuario no tiene un grupo de la app en AD.");
+                        return;
+                    }
+
+                    // 3) Sombra (opcional) para tu UI actual: crear UsuarioM mínimo
+                    //    Mapea rol → id_perfil (1: Sistemas, 2: Gestor, 3: Médico, 4: Recepcionista)
+                    int idPerfil = MapRolToPerfilId(rol);
+                    if (idPerfil == 0)
+                    {
+                        MessageBox.Show("Rol no reconocido.");
+                        return;
+                    }
+
+                    var usuarioEncontrado = new UsuarioM
+                    {
+                        usuario = usuario,
+                        id_perfil = idPerfil,
+                        status = "si" // activo
+                                      // (deja null/valores por defecto el resto)
+                    };
+
+                    FormularioInicioSesion.UsuarioActual = usuarioEncontrado;
+
+                    // 4) Abrir menú según perfil (tu Menu ya acepta UsuarioM)
+                    var menuForm = new Menu(usuarioEncontrado);
+                    menuForm.ConfigurarMenuPorPerfil(usuarioEncontrado.id_perfil);
+                    menuForm.Show();
+
+                    this.Close();
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error de autenticación LDAP: " + ex.Message);
+                    return;
+                }
+            }
+
+            // ====== MODO LOCAL (fallback: tu lógica actual con MySQL) ======
             try
             {
-                // Crear una nueva conexión a la base de datos
-                using (var conexionBD = new ConexionBD()) // Asegúrate de que `conexionBD` es una instancia válida.
+                using (var conexionBD = new ConexionBD())
+                using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
                 {
-                    using (MySqlConnection conexion = ConexionBD.ObtenerConexion())
+                    if (conexion.State == System.Data.ConnectionState.Open)
                     {
-                        if (conexion.State == System.Data.ConnectionState.Open)
+                        string query = "SELECT * FROM usuario WHERE usuario = @usuario LIMIT 1";
+                        using (MySqlCommand comando = new MySqlCommand(query, conexion))
                         {
-                            string query = "SELECT * FROM usuario WHERE usuario = @usuario LIMIT 1";
-                            using (MySqlCommand comando = new MySqlCommand(query, conexion))
+                            comando.Parameters.AddWithValue("@usuario", usuario);
+
+                            using (MySqlDataReader reader = comando.ExecuteReader())
                             {
-                                comando.Parameters.AddWithValue("@usuario", usuario);
-
-                                using (MySqlDataReader reader = comando.ExecuteReader())
+                                if (reader.HasRows)
                                 {
-                                    if (reader.HasRows)
+                                    reader.Read();
+                                    var usuarioEncontrado = UsuarioM.UserFromTableRow(reader);
+
+                                    if (usuarioEncontrado.status.ToLower() == "no")
                                     {
-                                        reader.Read();
+                                        MessageBox.Show("Tu cuenta se encuentra dada de baja. Por favor, comunicate con Atención al Cliente.");
+                                        return;
+                                    }
 
-                                        var usuarioEncontrado = UsuarioM.UserFromTableRow(reader);
+                                    if (usuarioEncontrado.contraseña == contraseña)
+                                    {
+                                        FormularioInicioSesion.UsuarioActual = usuarioEncontrado;
 
-                                        
-                                        if (usuarioEncontrado.status.ToLower() == "no")
-                                        {
-                                            MessageBox.Show("Tu cuenta se encuentra dada de baja. Por favor, comunicate con Atención al Cliente.");
-                                            return; 
-                                        }
-
-                                        if (usuarioEncontrado.contraseña == contraseña)
-                                        {
-                                           
-                                            FormularioInicioSesion.UsuarioActual = usuarioEncontrado;
-                                            int perfilUsuario = UsuarioActual.id_perfil; 
-
-                                            Menu menuForm = new Menu(usuarioEncontrado);
-
-                                            // Llamar al método para configurar el menú según el perfil
-                                            menuForm.ConfigurarMenuPorPerfil(UsuarioActual.id_perfil);
-
-                                            menuForm.Show();
-
-                                            this.Close();
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Contraseña incorrecta.");
-                                        }
+                                        var menuForm = new Menu(usuarioEncontrado);
+                                        menuForm.ConfigurarMenuPorPerfil(usuarioEncontrado.id_perfil);
+                                        menuForm.Show();
+                                        this.Close();
                                     }
                                     else
                                     {
-                                        MessageBox.Show("Usuario incorrecto.");
+                                        MessageBox.Show("Contraseña incorrecta.");
                                     }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Usuario incorrecto.");
                                 }
                             }
                         }
-                        else
-                        {
-                            MessageBox.Show("Error: No se pudo establecer conexión con la base de datos.");
-                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error: No se pudo establecer conexión con la base de datos.");
                     }
                 }
             }
             catch (MySqlException ex)
             {
-                MessageBox.Show("Error al intentar iniciar sesión: " + ex.Message);
+                MessageBox.Show("Error al intentar iniciar sesión (local): " + ex.Message);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Se produjo un error inesperado: " + ex.Message);
+                MessageBox.Show("Se produjo un error inesperado (local): " + ex.Message);
             }
         }
+
+        private int MapRolToPerfilId(string rol)
+        {
+            switch (rol)
+            {
+                case "Sistemas": return 1;
+                case "Gestor": return 2;
+                case "Medico": return 3;
+                case "Recepcionista": return 4;
+                default: return 0;
+            }
+        }
+
 
     }
 }

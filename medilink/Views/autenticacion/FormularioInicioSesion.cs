@@ -225,8 +225,7 @@ namespace medilink.Views.autenticacion
                     {
                         usuario = usuario,
                         id_perfil = idPerfil,
-                        status = "si" // activo
-                                      // (deja null/valores por defecto el resto)
+                        status = "si"
                     };
 
                     FormularioInicioSesion.UsuarioActual = usuarioEncontrado;
@@ -238,12 +237,6 @@ namespace medilink.Views.autenticacion
 
                     this.Close();
                     return;
-                //}
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show("Error de autenticación LDAP: " + ex.Message);
-                //    return;
-                //}
             }
 
             // ====== MODO LOCAL (fallback: tu lógica actual con MySQL) ======
